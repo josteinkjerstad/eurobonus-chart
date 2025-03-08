@@ -1,0 +1,219 @@
+---
+const { title, isLoggedIn } = Astro.props;
+import { Image } from 'astro:assets';
+import planeLogo from '../images/airplane.png';
+
+const navLinks = [
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/about", label: "About" },
+  { href: "/upload", label: "Upload" },
+];
+---
+
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <a href="/">
+        <Image src={planeLogo} alt="Plane logo" width="50" height="50" />
+      </a>
+    </div>
+
+    <button id="mobile-nav-toggle" aria-label="Toggle navigation menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <nav class="nav">
+      <ul class="nav-list">
+        {
+          navLinks.map((link) => (
+            <li class="nav-item">
+              <a href={link.href} class="nav-link">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+        {isLoggedIn ? (
+          <li class="nav-item nav-item-cta">
+            <form action="/api/auth/signout" method="get">
+              <button type="submit" class="nav-link-cta">Sign out</button>
+            </form>
+          </li>
+        ) : (
+          <li class="nav-item nav-item-cta">
+            <a href="/signin" class="nav-link-cta">Sign in</a>
+          </li>
+        )}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function setupNavigation() {
+    const mobileNavToggle = document.getElementById("mobile-nav-toggle");
+    const nav = document.querySelector(".nav");
+
+    if (mobileNavToggle && nav) {
+      mobileNavToggle.addEventListener("click", function () {
+        nav.classList.toggle("nav-open");
+        mobileNavToggle.classList.toggle("open");
+      });
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", setupNavigation);
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+  }
+
+  .logo a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .nav-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: #0066cc;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #0066cc;
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-link-cta {
+    background-color: #0066cc;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+
+  .nav-link-cta:hover {
+    background-color: #0052a3;
+  }
+
+  #mobile-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #333;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .nav {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background-color: white;
+      overflow: hidden;
+      transition: height 0.3s ease;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-open {
+      height: calc(100vh - 80px);
+    }
+
+    .nav-list {
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      gap: 1.5rem;
+    }
+
+    .nav-item {
+      width: 100%;
+      text-align: center;
+    }
+
+    .nav-item-cta {
+      margin-top: 1rem;
+    }
+
+    #mobile-nav-toggle {
+      display: block;
+    }
+
+    #mobile-nav-toggle.open .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    #mobile-nav-toggle.open .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    #mobile-nav-toggle.open .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+</style>
