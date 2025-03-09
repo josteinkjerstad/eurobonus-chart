@@ -6,7 +6,7 @@ import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
   const provider = formData.get("provider")?.toString();
-  const validProviders = ["github", "google"];
+  const validProviders = ["github", "google", "facebook"];
 
   const supabase = createServerClient(
     import.meta.env.SUPABASE_URL,

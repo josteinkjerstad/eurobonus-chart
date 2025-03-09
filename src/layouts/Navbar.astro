@@ -22,8 +22,8 @@ const supabase = createServerClient(
 const isLoggedIn = !!(await supabase.auth.getUser()).data.user;
 
 const navLinks = [
-  { href: "/", label: "Dashboard", display: isLoggedIn },
-  { href: "/upload", label: "Upload", display: isLoggedIn },
+  { href: "/", label: "Dashboard", hidden: !isLoggedIn },
+  { href: "/upload", label: "Upload", hidden: !isLoggedIn },
   { href: "/about", label: "About" },
 ];
 
@@ -47,7 +47,7 @@ const navLinks = [
       <ul class="nav-list">
         {
           navLinks.map((link) => (
-            <li class="nav-item">
+            <li class="nav-item" hidden={link.hidden}>
               <a href={link.href} class="nav-link">
                 {link.label}
               </a>
