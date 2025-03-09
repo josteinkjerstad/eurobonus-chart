@@ -20,6 +20,7 @@ export const DeleteTransactionsButton = () => {
       onClick={handleDelete}
       className={styles.deleteButton}
     >
+      <span className={styles.trashIcon}></span>
       Delete All Transactions
     </button>
   );

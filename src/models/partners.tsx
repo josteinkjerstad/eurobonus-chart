@@ -7,7 +7,7 @@ export enum Partner {
 };
 
 export enum HotelPartner {
-    Radisson = "Radisson Hotels | Points Earned",
+    Radisson = "Radisson Hotels",
     Scandic = "Scandic Hotels | Points Earned",
 }
 
@@ -37,6 +37,11 @@ export enum EurobonusShopPartner {
     OneCall = "OneCall",
     Interflora = "Interflora",
     Wolt = "Wolt",
+    Sumo = "Sumo",
+    CafeMunk = "Cafe Munk",
+    TrattoriaSud = "Trattoria Sud",
+    ECDahls = "E.C. Dahls"
+
 }
 
 export enum NewspaperPartner {

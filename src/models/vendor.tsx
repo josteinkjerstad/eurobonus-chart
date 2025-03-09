@@ -50,6 +50,8 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
             return "Radisson Hotels";
         case HotelPartner.Scandic:
             return "Scandic Hotels";
+        case EurobonusShopPartner.EuroBonusShop:
+            return "EuroBonus Shop";
         default:
             return vendor;
     }

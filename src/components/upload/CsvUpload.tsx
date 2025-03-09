@@ -4,6 +4,7 @@ import styles from "./CsvUpload.module.scss";
 
 export const CsvUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -14,6 +15,8 @@ export const CsvUpload = () => {
   const handleUpload = async () => {
     if (!selectedFile) return;
 
+    setIsLoading(true);
+
     const formData = new FormData();
     formData.append("file", selectedFile);
 
@@ -22,8 +25,10 @@ export const CsvUpload = () => {
       body: formData,
     });
 
+    setIsLoading(false);
+
     if (response.ok) {
-      alert("Transactions uploaded successfully!");
+      window.location.href = "/dashboard";
     } else {
       const errorText = await response.text();
       alert(`Error uploading transactions: ${errorText}`);
@@ -32,9 +37,14 @@ export const CsvUpload = () => {
 
   return (
     <div className={styles.container}>
-      <label htmlFor="file-input" className={styles.fileInputLabel}>
-        Select File
-      </label>
+      <div className={styles.fileInputContainer}>
+        <label htmlFor="file-input" className={styles.fileInputLabel}>
+          Select File
+        </label>
+        <div className={styles.fileName}>
+          {selectedFile?.name ?? "No file selected"}
+        </div>
+      </div>
       <input
         type="file"
         accept=".xlsx,.xls"
@@ -45,14 +55,12 @@ export const CsvUpload = () => {
       <button
         type="button"
         onClick={handleUpload}
-        disabled={!selectedFile}
+        disabled={!selectedFile || isLoading}
         className={styles.uploadButton}
       >
         Upload
       </button>
-      <div className={styles.fileName}>
-        {selectedFile?.name ?? "No file selected"}
-      </div>
+      {isLoading && <div className={styles.loading}>Uploading...</div>}
     </div>
   );
 };

@@ -46,9 +46,8 @@ const startDate = transactions.length > 0 ? new Date(transactions[0].date).toLoc
 const sum = calculateTotalBonusPoints(transactions);
 const vendorPoints = calculateVendorTransactions(transactions);
 
-const isLoggedIn = !!userId;
 ---
-<Layout title="Dashboard" isLoggedIn={isLoggedIn}>
+<Layout title="Dashboard">
   <h1>Welcome </h1>
   <p>You've earned a total of {sum.toLocaleString()} eurobonus points{startDate ? " since " + startDate : ''}.</p>
 

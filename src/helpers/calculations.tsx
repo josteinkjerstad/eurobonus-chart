@@ -35,6 +35,17 @@ const isSasOrConsciousTraveler = (transaction: Transaction): boolean => {
   }
 };
 
+const isRadisson = (transaction: Transaction): boolean => {
+  const activity = transaction.activity!;
+  switch (true) {
+    case activity.includes("Radisson Hotels | Points Earned"):
+    case activity.includes("Rezidor SAS"):
+      return true;
+    default:
+      return false;
+  }
+};
+
 const isPartnerFlight = (activity: string): boolean => {
   return Object.keys(AirlinePartner).some(key => activity.includes(`| ${key}`));
 };
@@ -75,7 +86,10 @@ export const calculateVendorTransactions = (
       } else if (isPartnerFlight(activity)) {
         const key = getPartnerFlightKey(activity);
         vendorTransactions[key!].push(transaction);
-      } else if (activity.startsWith("ra ")) {
+      } else if (isRadisson(transaction)) {
+        vendorTransactions[HotelPartner.Radisson].push(transaction);
+      }
+      else if (activity.startsWith("ra ")) {
         vendorTransactions[RentalCarPartner.Avis].push(transaction);
       } else {
         console.error(`Unknown transaction: ${transaction.activity} ${transaction.bonus_points} ${transaction.date}`);

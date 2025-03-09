@@ -1,7 +1,29 @@
 ---
+export const prerender = false
+
+import { createServerClient, parseCookieHeader } from '@supabase/ssr';
 import Layout from '../layouts/Layout.astro';
+const { request, redirect } = Astro;
+
+const supabase = createServerClient(
+    import.meta.env.SUPABASE_URL,
+    import.meta.env.SUPABASE_KEY,
+    {
+      cookies: {
+        getAll() {
+          return parseCookieHeader(request.headers.get("Cookie") ?? "");
+        },
+      },
+    }
+);
+const isLoggedIn = !!(await supabase.auth.getUser()).data.user;
+
+if (!isLoggedIn) {
+  return redirect("/signin");
+}
+
+return redirect("/dashboard");
 ---
 
-<Layout title="Eurobonus Charts">
-	Welcome
+<Layout>
 </Layout>

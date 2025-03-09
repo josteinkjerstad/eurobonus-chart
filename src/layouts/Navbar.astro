@@ -1,13 +1,32 @@
 ---
-const { title, isLoggedIn } = Astro.props;
+export const prerender = false;
 import { Image } from 'astro:assets';
 import planeLogo from '../images/airplane.png';
+import { createServerClient } from '@supabase/ssr/dist/main/createServerClient';
+import { parseCookieHeader } from '@supabase/ssr';
+
+
+const {request } = Astro;
+const supabase = createServerClient(
+    import.meta.env.SUPABASE_URL,
+    import.meta.env.SUPABASE_KEY,
+    {
+      cookies: {
+        getAll() {
+          return parseCookieHeader(request.headers.get("Cookie") ?? "");
+        },
+      },
+    }
+);
+
+const isLoggedIn = !!(await supabase.auth.getUser()).data.user;
 
 const navLinks = [
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/upload", label: "Upload" },
+  { href: "/", label: "Dashboard", display: isLoggedIn },
+  { href: "/upload", label: "Upload", display: isLoggedIn },
   { href: "/about", label: "About" },
 ];
+
 ---
 
 <header class="header">

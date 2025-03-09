@@ -3,7 +3,7 @@ import type { APIRoute } from "astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import * as XLSX from "xlsx";
 
-export const POST: APIRoute = async ({ request, cookies }) => {
+export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
   const file = formData.get("file") as File;
 
@@ -48,11 +48,13 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     level_points: parseInt(row[3], 10) || 0,
   }));
 
+  await supabase.from("transactions").delete().eq("user_id", data.user.id);
+
   const { error } = await supabase.from("transactions").insert(transactions);
 
   if (error) {
     return new Response(`Error uploading transactions: ${error.message}`, { status: 500 });
   }
 
-  return new Response("Transactions uploaded successfully!", { status: 200 });
+  return redirect("/dashboard");
 };

@@ -3,8 +3,8 @@ import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { getDisplayName, type Vendor, GroupVendor, groupedVendors } from "../models/vendor";
 import type { VendorTransaction } from "../models/transaction";
-import { OptionsDropdown } from "./OptionsDropdown";
 import styles from "./VendorChart.module.scss";
+import { OptionsDropdown } from "./OptionsDropdown";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 

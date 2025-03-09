@@ -21,9 +21,9 @@ const supabase = createServerClient(
     }
   );
 
-const {data} = await supabase.auth.getUser();
+const isLoggedIn = !!(await supabase.auth.getUser())?.data?.user;
 
-if (data.user) {
+if (isLoggedIn) {
   return redirect("/dashboard");
 }
 ---

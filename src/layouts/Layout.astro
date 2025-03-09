@@ -1,10 +1,9 @@
 ---
-import Footer from "../components/Footer.astro";
-import Navbar from "../components/Navbar.astro";
+import Footer from "../layouts/Footer.astro";
+import Navbar from "../layouts/Navbar.astro";
 import "@fontsource-variable/inter";
 
 const title = Astro.props.title || 'Eurobonus Charts';
-const isLoggedIn = Astro.props.isLoggedIn;
 ---
 <!doctype html>
 <html lang="en">
@@ -17,7 +16,7 @@ const isLoggedIn = Astro.props.isLoggedIn;
 	<body>
 		<div class="page-container">
 			<div class="content-wrapper">
-				<Navbar title={title} isLoggedIn={isLoggedIn} />
+				<Navbar title={title} />
 				<main>
 					<slot />
 				</main>

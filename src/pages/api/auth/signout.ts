@@ -22,5 +22,5 @@ export const GET: APIRoute = async ({ cookies, request, redirect }) => {
   );
 
   supabase.auth.signOut();
-  return redirect("/");
+  return redirect("/signin");
 };
