@@ -1,6 +1,7 @@
 export const prerender = false;
 import type { APIRoute } from "astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
+import { getLocalUserId } from "../../utils/localUser";
 
 export const POST: APIRoute = async ({ request, cookies }) => {
   const supabase = createServerClient(
@@ -20,13 +21,16 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }
   );
 
-  const { data } = await supabase.auth.getUser();
 
-  if (!data.user) {
+  const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
+  console.log("deleting");
+
+
+  if (!userId) {
     return new Response("User not authenticated", { status: 401 });
   }
 
-  const { error } = await supabase.from("transactions").delete().eq("user_id", data.user.id);
+  const { error } = await supabase.from("transactions").delete().eq("user_id", userId);
 
   if (error) {
     return new Response(`Error deleting transactions: ${error.message}`, { status: 500 });

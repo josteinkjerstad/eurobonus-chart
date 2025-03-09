@@ -2,6 +2,7 @@ export const prerender = false;
 import type { APIRoute } from "astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import * as XLSX from "xlsx";
+import { getLocalUserId } from "../../utils/localUser";
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
@@ -34,21 +35,21 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const worksheet = workbook.Sheets[sheetName];
   const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-  const {data} = await supabase.auth.getUser();
+  const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
 
-  if (!data.user) {
+  if (!userId) {
     return new Response("User not authenticated", { status: 401 });
   }
 
   const transactions = jsonData.slice(1).map((row: any) => ({
-    user_id: data.user.id,
+    user_id: userId,
     date: new Date(row[0]),
     activity: row[1] || null,
     bonus_points: parseInt(row[2], 10) || 0,
     level_points: parseInt(row[3], 10) || 0,
   }));
 
-  await supabase.from("transactions").delete().eq("user_id", data.user.id);
+  await supabase.from("transactions").delete().eq("user_id", userId);
 
   const { error } = await supabase.from("transactions").insert(transactions);
 

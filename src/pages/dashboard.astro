@@ -2,8 +2,8 @@
 export const prerender = false
 import Layout from "../layouts/Layout.astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
-import { calculateTotalBonusPoints, calculateVendorTransactions } from "../helpers/calculations";
-import { VendorChart } from "../components/VendorChart";
+import { calculateTotalBonusPoints } from "../helpers/calculations";
+import { Charts } from "../components/Charts";
 import { getLocalUserId } from "../utils/localUser";
 import type { Transaction } from "../models/transaction";
 
@@ -25,7 +25,6 @@ const supabase = createServerClient(
     }
 );
 
-
 const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
 
 if (!userId) {
@@ -39,17 +38,15 @@ const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long' };
 const startDate = transactions.length > 0 ? new Date(transactions[0].date).toLocaleDateString('en-US', options) : '';
 
 const sum = calculateTotalBonusPoints(transactions);
-const vendorPoints = calculateVendorTransactions(transactions);
 
 ---
 <Layout title="Dashboard">
   <h1>Welcome </h1>
   {transactions.length > 0 ? (
-    <>
+    <div>
       <p>You've earned a total of {sum.toLocaleString()} eurobonus points{startDate ? " since " + startDate : ''}.</p>
-      <h2>Vendors</h2>
-      <VendorChart transactions={vendorPoints} client:load/>
-    </>
+      <Charts transactions={transactions} client:load />
+    </div>
   ) : (
     <p>Oops, no data found - <a href="/upload">upload your data here</a>.</p>
   )}

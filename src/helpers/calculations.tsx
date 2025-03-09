@@ -1,4 +1,4 @@
-import type { Transaction, VendorTransaction } from "../models/transaction";
+import type { Transaction, VendorTransaction, YearlyTransaction } from "../models/transaction";
 import { Partner, CreditCardPartner, RentalCarPartner, EurobonusShopPartner, AirlinePartner, NewspaperPartner, HotelPartner } from "../models/partners";
 import { type Vendor, type GroupVendor, groupedVendors } from "../models/vendor";
 import { act } from "react";
@@ -111,3 +111,28 @@ export const calculateVendorTransactions = (
 
   return vendorTransactionList;
 };
+
+export const calculateYearlyPoints = (
+  transactions: Transaction[]) : YearlyTransaction[] => {
+    const yearlyPoints: Record<number, { earned: number; spent: number }> = {};
+
+    transactions.filter(x => !!x.bonus_points).forEach(transaction => {
+      const year = new Date(transaction.date).getFullYear();
+      if (!yearlyPoints[year]) {
+        yearlyPoints[year] = { earned: 0, spent: 0 };
+      }
+      if (transaction.bonus_points) {
+        if (transaction.bonus_points > 0 && !transaction.activity?.includes("Refund")) {
+          yearlyPoints[year].earned += transaction.bonus_points;
+        } else {
+          yearlyPoints[year].spent += transaction.bonus_points;
+        }
+      }
+    });
+
+    return Object.entries(yearlyPoints).map(([year, { earned, spent }]) => ({
+      year: Number(year),
+      earned,
+      spent: Math.abs(spent),
+    }));
+  }

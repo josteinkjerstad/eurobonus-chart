@@ -15,3 +15,9 @@ export interface VendorTransaction {
   value: number;
   group: GroupVendor;
 }
+
+export interface YearlyTransaction {
+  year: number;
+  spent: number;
+  earned: number;
+}
