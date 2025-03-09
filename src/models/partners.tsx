@@ -4,6 +4,7 @@ export enum Partner {
     Fjordkraft = "Fjordkraft | Points Earned",
     Other = "Unknown",
     Flytoget = "Flytoget | Points Earned",
+    Verisure = "Verisure Norge | Points Earned",
 };
 
 export enum HotelPartner {

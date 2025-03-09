@@ -29,6 +29,7 @@ const supabase = createServerClient(
 );
 
 const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
+const familyMembers = (await supabase.from("profiles").select().eq("parent_id", userId)).data as Profile[];
 
 if (!userId) {
   return redirect("/signin");
@@ -42,7 +43,7 @@ if (userId && !profile) {
 ---
 
 <Layout title="Profile">
-    <ProfileSection profile={profile} client:load/>
+    <ProfileSection profile={profile}, familyMembers={familyMembers} client:load/>
   <Card elevation={Elevation.TWO} style={{ marginTop: '20px' }}>
     <UploadContent/>
     <CsvUpload client:load/>

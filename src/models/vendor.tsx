@@ -30,6 +30,8 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
             return "Fjordkraft";
         case Partner.Flytoget:
             return "Flytoget";
+        case Partner.Verisure:
+            return "Verisure";
         case Partner.Other:
             return "Unknown";
         case CreditCardPartner.Amex:

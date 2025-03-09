@@ -6,6 +6,7 @@ import { calculateTotalBonusPoints } from "../helpers/calculations";
 import { Charts } from "../components/Charts";
 import { getLocalUserId } from "../utils/localUser";
 import type { Transaction } from "../models/transaction";
+import type { Profile } from "../models/profile";
 
 const { cookies, request } = Astro;
 const supabase = createServerClient(
@@ -26,6 +27,7 @@ const supabase = createServerClient(
 );
 
 const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
+const profile = (await supabase.from("profiles").select().eq("user_id", userId).single()).data as Profile | undefined;
 
 if (!userId) {
   return redirect("/signin");
@@ -41,7 +43,7 @@ const sum = calculateTotalBonusPoints(transactions);
 
 ---
 <Layout title="Dashboard">
-  <h1>Welcome </h1>
+  <h1>Welcome {profile?.display_name && profile.display_name }</h1>
   {transactions.length > 0 ? (
     <div>
       <p>You've earned a total of {sum.toLocaleString()} eurobonus points{startDate ? " since " + startDate : ''}.</p>
