@@ -44,8 +44,13 @@ const vendorPoints = calculateVendorTransactions(transactions);
 ---
 <Layout title="Dashboard">
   <h1>Welcome </h1>
-  <p>You've earned a total of {sum.toLocaleString()} eurobonus points{startDate ? " since " + startDate : ''}.</p>
-
-  <h2>Vendors</h2>
-  <VendorChart transactions={vendorPoints} client:load/>
+  {transactions.length > 0 ? (
+    <>
+      <p>You've earned a total of {sum.toLocaleString()} eurobonus points{startDate ? " since " + startDate : ''}.</p>
+      <h2>Vendors</h2>
+      <VendorChart transactions={vendorPoints} client:load/>
+    </>
+  ) : (
+    <p>Oops, no data found - <a href="/upload">upload your data here</a>.</p>
+  )}
 </Layout>
