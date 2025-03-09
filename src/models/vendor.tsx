@@ -18,7 +18,7 @@ export const groupedVendors : Record<GroupVendor, Vendor[]> = {
     [GroupVendor.NewspaperPartner]: Object.values(NewspaperPartner),
 }
 
-export const getDisplayName = (vendor: Vendor): string => {
+export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
     switch (vendor) {
         case Partner.SasFlights:
             return "SAS";
@@ -41,7 +41,7 @@ export const getDisplayName = (vendor: Vendor): string => {
         case CreditCardPartner.TravelWallet:
             return "Travel Wallet";
         case CreditCardPartner.WideroeKortet:
-            return "Widerøe-Kortet";
+            return "WiderøeKortet";
         case NewspaperPartner.DagensNæringsliv:
             return "Dagens Næringsliv";
         default:

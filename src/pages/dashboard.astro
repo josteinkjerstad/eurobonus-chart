@@ -2,7 +2,7 @@
 export const prerender = false
 import Layout from "../layouts/Layout.astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
-import { calculateTotalBonusPoints, calculateVendorPoints } from "../helpers/calculations";
+import { calculateTotalBonusPoints, calculateVendorTransactions } from "../helpers/calculations";
 import { VendorChart } from "../components/VendorChart";
 import type { Transaction } from "../models/transaction";
 
@@ -32,22 +32,20 @@ if (!userId) {
 }
 
 const { data: transactionsData} = await supabase.from("transactions").select("*").eq("user_id", userId).order("date", { ascending: true });
-const { data: airlinesData} = await supabase.from("airlines").select("*");
 
 const transactions : Transaction[] = transactionsData ?? [];
 const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long' };
 const startDate = transactions.length > 0 ? new Date(transactions[0].date).toLocaleDateString('en-US', options) : '';
 
 const sum = calculateTotalBonusPoints(transactions);
-
-const vendorPoints = calculateVendorPoints(transactions);
+const vendorPoints = calculateVendorTransactions(transactions);
 
 const isLoggedIn = !!userId;
 ---
 <Layout title="Dashboard" isLoggedIn={isLoggedIn}>
   <h1>Welcome </h1>
-  <p>Your have earned a total of {sum.toLocaleString()} eurobonus points{startDate ? " since " + startDate : ''}.</p>
+  <p>You've earned a total of {sum.toLocaleString()} eurobonus points{startDate ? " since " + startDate : ''}.</p>
 
   <h2>Vendors</h2>
-  <VendorChart vendorPoints={vendorPoints} client:load/>
+  <VendorChart transactions={vendorPoints} client:load/>
 </Layout>

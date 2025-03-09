@@ -1,6 +1,6 @@
-import type { Transaction } from "../models/transaction";
+import type { Transaction, VendorTransaction } from "../models/transaction";
 import { Partner, CreditCardPartner, RentalCarPartner, EurobonusShopPartner, AirlinePartner, NewspaperPartner } from "../models/Partners";
-import type { Vendor } from "../models/vendor";
+import { type Vendor, type GroupVendor, groupedVendors } from "../models/vendor";
 
 export const calculateTotalBonusPoints = (
   transactions: Transaction[]
@@ -41,10 +41,10 @@ const getPartnerFlightKey = (activity: string): string | undefined => {
   return key ? AirlinePartner[key as keyof typeof AirlinePartner] : undefined;
 };
 
-export const calculateVendorPoints = (
+export const calculateVendorTransactions = (
   transactions: Transaction[]
-): Record<string, number> => {
-  const vendorPoints: Record<string, number> = {};
+): VendorTransaction[] => {
+  const vendorTransactions: Record<string, Transaction[]> = {};
 
   const allVendors = [
     ...Object.values(Partner),
@@ -56,34 +56,39 @@ export const calculateVendorPoints = (
   ];
 
   allVendors.forEach(vendor => {
-    vendorPoints[vendor] = 0;
+    vendorTransactions[vendor] = [];
   });
-
-  console.log(allVendors);
 
   transactions
     .filter(x => x.bonus_points && x.bonus_points > 0 && !x.activity?.includes("Refund"))
     .forEach(transaction => {
       const activity = transaction.activity!;
-      const bonusPoints = transaction.bonus_points!;
-
       const vendor = allVendors.find(vendor => activity.includes(vendor));
       if (vendor) {
-        vendorPoints[vendor] += bonusPoints;
+        vendorTransactions[vendor].push(transaction);
       } else if (isSasOrConsciousTraveler(transaction)) {
-        vendorPoints[Partner.SasFlights] += bonusPoints;
+        vendorTransactions[Partner.SasFlights].push(transaction);
       } else if (isPartnerFlight(activity)) {
         const key = getPartnerFlightKey(activity);
-        console.log(key);
-        vendorPoints[key!] += bonusPoints;
+        vendorTransactions[key!].push(transaction);
       } else if (activity.startsWith("ra ")) {
-        vendorPoints[RentalCarPartner.Avis] += bonusPoints;
-      }
-      else {
-        console.log(`Unknown vendor: ${activity}`);
-        vendorPoints[Partner.Other] += bonusPoints;
+        vendorTransactions[RentalCarPartner.Avis].push(transaction);
+      } else {
+        vendorTransactions[Partner.Other].push(transaction);
       }
     });
 
-  return vendorPoints;
+  const vendorTransactionList: VendorTransaction[] = Object.entries(vendorTransactions).flatMap(
+    ([vendor, transactions]) => {
+      const group = Object.entries(groupedVendors).find(([, vendors]) => vendors.includes(vendor as Vendor))?.[0] as GroupVendor;
+      return transactions.map(transaction => ({
+        year: new Date(transaction.date).getFullYear(),
+        vendor: vendor as Vendor,
+        value: transaction.bonus_points!,
+        group: group
+      }));
+    }
+  );
+
+  return vendorTransactionList;
 };
