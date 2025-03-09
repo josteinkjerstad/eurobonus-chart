@@ -25,13 +25,8 @@ const supabase = createServerClient(
     }
 );
 
-let userId = '';
-if (import.meta.env.MODE === 'development') {
-  userId = getLocalUserId();
-} else {
-  const { data: userData } = await supabase.auth.getUser();
-  userId = userData?.user?.id ?? '';
-}
+
+const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
 
 if (!userId) {
   return redirect("/signin");

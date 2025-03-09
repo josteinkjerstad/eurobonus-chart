@@ -5,6 +5,7 @@ import { DeleteTransactionsButton } from "../components/upload/DeleteTransaction
 import Layout from "../layouts/Layout.astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import {Content as UploadContent} from "../content/upload.md";
+import { getLocalUserId } from "../utils/localUser";
 
 const { cookies, request } = Astro;
 const supabase = createServerClient(
@@ -24,9 +25,9 @@ const supabase = createServerClient(
     }
 );
 
-const { data } = await supabase.auth.getUser();
+const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
 
-if (!data.user) {
+if (!userId) {
   return redirect("/signin");
 }
 ---

@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import planeLogo from '../images/airplane.png';
 import { createServerClient } from '@supabase/ssr/dist/main/createServerClient';
 import { parseCookieHeader } from '@supabase/ssr';
+import { getLocalUserId } from '../utils/localUser';
 
 
 const {request } = Astro;
@@ -19,11 +20,11 @@ const supabase = createServerClient(
     }
 );
 
-const isLoggedIn = !!(await supabase.auth.getUser()).data.user;
+const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
 
 const navLinks = [
-  { href: "/", label: "Dashboard", hidden: !isLoggedIn },
-  { href: "/upload", label: "Upload", hidden: !isLoggedIn },
+  { href: "/", label: "Dashboard", hidden: !userId },
+  { href: "/upload", label: "Upload", hidden: !userId },
   { href: "/about", label: "About" },
 ];
 
@@ -54,7 +55,7 @@ const navLinks = [
             </li>
           ))
         }
-        {isLoggedIn ? (
+        {userId ? (
           <li class="nav-item nav-item-cta">
             <form action="/api/auth/signout" method="get">
               <button type="submit" class="nav-link-cta">Sign out</button>

@@ -3,6 +3,7 @@ export const prerender = false
 
 import { createServerClient, parseCookieHeader } from '@supabase/ssr';
 import Layout from '../layouts/Layout.astro';
+import { getLocalUserId } from '../utils/localUser';
 const { request, redirect } = Astro;
 
 const supabase = createServerClient(
@@ -16,9 +17,10 @@ const supabase = createServerClient(
       },
     }
 );
-const isLoggedIn = !!(await supabase.auth.getUser()).data.user;
 
-if (!isLoggedIn) {
+const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
+
+if (!userId) {
   return redirect("/signin");
 }
 

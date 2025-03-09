@@ -2,6 +2,7 @@
 export const prerender = false;
 import Layout from "../layouts/Layout.astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
+import { getLocalUserId } from "../utils/localUser";
 
 const { cookies, redirect, request } = Astro;
 const supabase = createServerClient(
@@ -21,9 +22,9 @@ const supabase = createServerClient(
     }
   );
 
-const isLoggedIn = !!(await supabase.auth.getUser())?.data?.user;
+const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
 
-if (isLoggedIn) {
+if (userId) {
   return redirect("/dashboard");
 }
 ---
