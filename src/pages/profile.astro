@@ -8,6 +8,7 @@ import {Content as UploadContent} from "../content/upload.md";
 import { getLocalUserId } from "../utils/localUser";
 import type { Profile } from "../models/profile";
 import { ProfileSection } from "../components/profile/ProfileSection";
+import { Card, Elevation } from "@blueprintjs/core";
 
 const { cookies, request } = Astro;
 const supabase = createServerClient(
@@ -41,8 +42,10 @@ if (userId && !profile) {
 ---
 
 <Layout title="Profile">
-  <ProfileSection profile={profile} client:load/>
-  <UploadContent/>
-  <CsvUpload client:load/>
-  <DeleteTransactionsButton client:load/>
+    <ProfileSection profile={profile} client:load/>
+  <Card elevation={Elevation.TWO} style={{ marginTop: '20px' }}>
+    <UploadContent/>
+    <CsvUpload client:load/>
+    <DeleteTransactionsButton client:load/>
+  </Card>
 </Layout>

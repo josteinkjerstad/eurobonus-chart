@@ -16,15 +16,15 @@
     "@fontsource-variable/inter": "^5.2.5",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.49.1",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "astro": "^5.4.1",
     "canvas-confetti": "^1.9.3",
     "chart.js": "^4.4.8",
     "chartjs-plugin-datalabels": "^2.2.0",
-    "react": "^19.0.0",
+    "react": "^18.2.0",
     "react-chartjs-2": "^5.3.0",
-    "react-dom": "^19.0.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.54.2",
     "solid-js": "^1.9.5",
     "svelte": "^5.22.5",
@@ -32,7 +32,6 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@types/canvas-confetti": "^1.9.0",
     "sass-embedded": "^1.85.1"
   }
 }

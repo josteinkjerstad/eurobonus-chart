@@ -1,59 +1,84 @@
-import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import type { Profile } from '../../models/profile';
-import { supabase } from '../../lib/supabase';
-import './ProfileSection.scss';
+import { useState, useEffect } from "react";
+import {
+  Button,
+  Switch,
+  Card,
+  Elevation,
+  UL,
+  H3,
+  Label,
+} from "@blueprintjs/core";
+import type { Profile } from "../../models/profile";
+import { supabase } from "../../lib/supabase";
+import { AddFamilyMemberDialog } from "./AddFamilyMemberDialog";
 
 type ProfileSectionProps = {
   profile: Profile;
 };
 
 export const ProfileSection = ({ profile }: ProfileSectionProps) => {
-  const { control, handleSubmit, reset } = useForm({
-    defaultValues: {
-      display_name: profile?.display_name ?? '',
-      public: profile?.public ?? false,
-    },
-  });
-  const [isEditing, setIsEditing] = useState(false);
+  const [familyMembers, setFamilyMembers] = useState<Profile[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const updateProfile = async (data: { display_name: string; public: boolean }) => {
-    await supabase.from('profiles').update(data).eq('user_id', profile.user_id);
-    setIsEditing(false);
-    reset(data);
+  useEffect(() => {
+    const fetchFamilyMembers = async () => {
+      const { data } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("parent_id", profile.id);
+      setFamilyMembers(data || []);
+    };
+    fetchFamilyMembers();
+  }, [profile.id]);
+
+  const changeIsPublic = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    await supabase
+      .from("profiles")
+      .update({ public: event.target.checked })
+      .eq("user_id", profile.user_id);
+  };
+
+  const addFamilyMember = async (data: {
+    display_name: string;
+    public: boolean;
+  }) => {
+    await supabase.from("profiles").insert({ ...data, parent_id: profile.id });
+    const { data: updatedFamilyMembers } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("parent_id", profile.id);
+    setFamilyMembers(updatedFamilyMembers || []);
   };
 
   return (
-    <section className="profile-section">
-      <h2>Profile</h2>
-      {isEditing ? (
-        <form onSubmit={handleSubmit(updateProfile)}>
-          <label>
-            Display Name:
-            <Controller
-              name="display_name"
-              control={control}
-              render={({ field }) => <input type="text" {...field} />}
-            />
-          </label>
-          <label>
-            Public:
-            <Controller
-              name="public"
-              control={control}
-              render={({ field }) => <input type="checkbox" {...field} checked={field.value} value={undefined} />}
-            />
-          </label>
-          <button type="submit">Save</button>
-          <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
-        </form>
-      ) : (
-        <div>
-          <p><strong>Display Name:</strong> {profile.display_name || 'Anonymous'}</p>
-          <p><strong>Public:</strong> {profile.public ? 'Yes' : 'No'}</p>
-          <button onClick={() => setIsEditing(true)}>Edit</button>
-        </div>
-      )}
-    </section>
+    <>
+      <Card elevation={Elevation.TWO} style={{ marginBottom: "16px" }}>
+        <H3>Profile</H3>
+        <Label>
+          Display Name: {profile.display_name || "Anonymous"}
+        </Label>
+          <Switch
+            label="Public"
+            checked={profile.public}
+            onChange={changeIsPublic}
+          />
+      </Card>
+      <Card elevation={Elevation.TWO}>
+        <H3>Family Members</H3>
+        <UL>
+          {familyMembers.map((member) => (
+            <li key={member.id}>{member.display_name}</li>
+          ))}
+        </UL>
+        <Button onClick={() => setIsOpen(true)}>Add Family Member</Button>
+        {isOpen && (
+          <AddFamilyMemberDialog
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+            onSubmit={addFamilyMember}
+          />
+        )}
+      </Card>
+    </>
   );
 };
