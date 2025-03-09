@@ -21,7 +21,7 @@ export const groupedVendors : Record<GroupVendor, Vendor[]> = {
 export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
     switch (vendor) {
         case Partner.SasFlights:
-            return "SAS";
+            return "Scandinavian Airlines";
         case Partner.Trumf:
             return "Norgesgruppen";
         case Partner.Fjordkraft:

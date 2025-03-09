@@ -53,6 +53,7 @@ export const OptionsDropdown = <T extends unknown>({ options, selectedOptions, o
           ref={dropdownRef}
         >
           {placeholder}
+          <span className={styles.dropdownArrow}></span>
         </div>
         {isDropdownOpen && (
           <div 

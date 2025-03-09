@@ -4,7 +4,7 @@
 
 .dropdown {
   position: relative;
-  width: 50%;
+  width: 100%;
 }
 
 .dropdownButton {
@@ -12,6 +12,18 @@
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdownArrow {
+  margin-left: 10px;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
 }
 
 .dropdownContent {
@@ -32,7 +44,7 @@
 }
 
 .optionsList {
-  max-height: 200px;
+  max-height: 400px;
   overflow-y: auto;
 }
 

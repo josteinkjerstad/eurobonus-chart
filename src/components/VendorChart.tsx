@@ -4,7 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import { getDisplayName, type Vendor, GroupVendor, groupedVendors } from "../models/vendor";
 import type { VendorTransaction } from "../models/transaction";
 import { OptionsDropdown } from "./OptionsDropdown";
-import { ToggleGroup } from "./ToggleGroup";
+import styles from "./VendorChart.module.scss";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -17,19 +17,36 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
   const years = useMemo(() => Array.from(new Set(transactions.map(x => x.year))), [transactions]);
   const [selectedYears, setSelectedYears] = useState<Set<number>>(new Set(years));
   const [groupedVendorsState, setGroupedVendorsState] = useState<Record<GroupVendor, boolean>>({
-    [GroupVendor.CarRental]: false,
-    [GroupVendor.EuroBonusEarnShop]: false,
-    [GroupVendor.AirlinePartner]: false,
+    [GroupVendor.EuroBonusEarnShop]: true,
+    [GroupVendor.CarRental]: true,
+    [GroupVendor.AirlinePartner]: true,
+    [GroupVendor.NewspaperPartner]: true,
     [GroupVendor.CreditCardPartner]: false,
-    [GroupVendor.NewspaperPartner]: false,
   });
+  
+  const vendorOptions = useMemo(() => 
+    Array.from(new Set(transactions.map(transaction => transaction.vendor)))
+      .sort((a, b) => getDisplayName(a).localeCompare(getDisplayName(b))), 
+    [transactions]
+  );
+
+  const groupOptions = (Object.keys(groupedVendors) as GroupVendor[])
+    .sort((a, b) => a.localeCompare(b));
+
+  const handleToggleGroupChange = (selectedOptions: Set<GroupVendor>) => {
+    const newGroupedVendors = Object.keys(groupedVendorsState).reduce((acc, group) => {
+      acc[group as GroupVendor] = selectedOptions.has(group as GroupVendor);
+      return acc;
+    }, {} as Record<GroupVendor, boolean>);
+    setGroupedVendorsState(newGroupedVendors);
+  };
 
   const filteredVendorPoints = useMemo(() => {
     const filteredTransactions = transactions
       .filter(transaction => selectedVendors.has(transaction.vendor) && selectedYears.has(transaction.year));
 
     const groupedTransactions = Object.entries(groupedVendorsState)
-      .filter(([group, isGrouped]) => isGrouped)
+      .filter(([isGrouped]) => isGrouped)
       .map(([group]) => {
         const vendors = groupedVendors[group as GroupVendor];
         const points = filteredTransactions
@@ -38,14 +55,13 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
         return { vendor: group as GroupVendor, points };
       });
 
-
     const individualTransactions = Array.from(
       filteredTransactions
       .filter(transaction => !Object.entries(groupedVendorsState).some(([group, isGrouped]) => isGrouped && groupedVendors[group as GroupVendor].includes(transaction.vendor)))
       .reduce((map, transaction) => {
         const vendor = transaction.vendor;
         if (!map.has(vendor)) {
-        map.set(vendor, { vendor, points: 0 });
+          map.set(vendor, { vendor, points: 0 });
         }
         map.get(vendor)!.points += transaction.value!;
         return map;
@@ -61,7 +77,6 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
     labels: filteredVendorPoints.map(v => getDisplayName(v.vendor)),
     datasets: [
       {
-        label: "Points",
         data: filteredVendorPoints.map(v => v.points),
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgba(75, 192, 192, 1)",
@@ -71,6 +86,11 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
   };
 
   const options = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
     scales: {
       y: {
         beginAtZero: true,
@@ -78,7 +98,7 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
       x: {
         ticks: {
           autoSkip: false,
-          maxRotation: 90,
+          maxRotation: 0,
           minRotation: 45
         }
       }
@@ -86,39 +106,32 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
   };
 
   return (
-    <div>
-      <div style={{ display: 'flex', marginBottom: '20px' }}>
-        <div style={{ flex: 1, marginRight: '10px' }}>
-          <OptionsDropdown 
-            options={Array.from(new Set(transactions.map(transaction => transaction.vendor)))} 
-            selectedOptions={selectedVendors} 
-            onChange={setSelectedVendors} 
-            optionLabel={getDisplayName} 
-            placeholder="Select vendors..."
-          />
-        </div>
-        <div style={{ flex: 1, marginLeft: '10px' }}>
-          <OptionsDropdown 
-            options={years} 
-            selectedOptions={selectedYears} 
-            onChange={setSelectedYears} 
-            optionLabel={(year: number) => year.toString()} 
-            placeholder="Select years..."
-          />
-        </div>
+    <div className={styles.chartContainer}>
+      <div className={styles.controls}>
+        <OptionsDropdown 
+          options={vendorOptions} 
+          selectedOptions={selectedVendors} 
+          onChange={setSelectedVendors} 
+          optionLabel={getDisplayName} 
+          placeholder="Select vendors..."
+        />
+        <OptionsDropdown 
+          options={years} 
+          selectedOptions={selectedYears} 
+          onChange={setSelectedYears} 
+          optionLabel={(year: number) => year.toString()} 
+          placeholder="Select years..."
+        />
+        <OptionsDropdown 
+          options={groupOptions} 
+          selectedOptions={new Set(Object.keys(groupedVendorsState).filter(group => groupedVendorsState[group as GroupVendor]) as GroupVendor[])} 
+          onChange={handleToggleGroupChange} 
+          optionLabel={(group: GroupVendor) => group} 
+          placeholder="Toggle grouping"
+        />
       </div>
-      <div style={{ display: 'flex' }}>
-        <div style={{ flex: 1 }}>
-          <div style={{ width: '100%', height: '400px' }}>
-            <Bar data={data} options={options} />
-          </div>
-        </div>
-        <div style={{ marginLeft: '20px', display: 'flex', alignItems: 'center' }}>
-          <ToggleGroup 
-            groupedVendors={groupedVendorsState} 
-            setGroupedVendors={setGroupedVendorsState} 
-          />
-        </div>
+      <div className={styles.chart}>
+        <Bar data={data} options={options} />
       </div>
     </div>
   );
