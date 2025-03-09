@@ -4,6 +4,7 @@ import { CsvUpload } from "../components/upload/CsvUpload";
 import { DeleteTransactionsButton } from "../components/upload/DeleteTransactionsButton";
 import Layout from "../layouts/Layout.astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
+import {Content as UploadContent} from "../content/upload.md";
 
 const { cookies, request } = Astro;
 const supabase = createServerClient(
@@ -31,7 +32,7 @@ if (!data.user) {
 ---
 
 <Layout title="Upload Transactions">
-  <h2>Upload Transactions</h2>
+  <UploadContent/>
   <CsvUpload client:load/>
   <DeleteTransactionsButton/>
 </Layout>
