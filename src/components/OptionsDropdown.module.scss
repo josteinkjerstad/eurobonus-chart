@@ -37,12 +37,6 @@
   z-index: 1;
 }
 
-.searchInput {
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
 .optionsList {
   max-height: 400px;
   overflow-y: auto;
@@ -60,6 +54,35 @@
 }
 
 .optionLabel {
-  display: block;
+  display: flex;
+  align-items: center;
   padding: 10px;
+}
+
+.optionLabel input[type="checkbox"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.optionLabel input[type="checkbox"]:checked {
+  background-color: #0066cc;
+  border-color: #0066cc;
+}
+
+.optionLabel input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
