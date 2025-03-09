@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styles from "./OptionsDropdown.module.scss";
 
-interface OptionsDropdownProps<T> {
+type  OptionsDropdownProps<T> = {
   options: T[];
   selectedOptions: Set<T>;
   onChange: (selectedOptions: Set<T>) => void;
@@ -36,12 +36,6 @@ export const OptionsDropdown = <T extends unknown>({ options, selectedOptions, o
     optionLabel(option).toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.relatedTarget as Node)) {
-      setIsDropdownOpen(false);
-    }
-  };
-
   return (
     <div className={styles.dropdownContainer}>
       <div className={styles.dropdown}>
@@ -49,7 +43,6 @@ export const OptionsDropdown = <T extends unknown>({ options, selectedOptions, o
           className={styles.dropdownButton}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           tabIndex={0}
-          onBlur={handleBlur}
           ref={dropdownRef}
         >
           {placeholder}

@@ -1,6 +1,7 @@
 import type { Transaction, VendorTransaction } from "../models/transaction";
-import { Partner, CreditCardPartner, RentalCarPartner, EurobonusShopPartner, AirlinePartner, NewspaperPartner } from "../models/partners";
+import { Partner, CreditCardPartner, RentalCarPartner, EurobonusShopPartner, AirlinePartner, NewspaperPartner, HotelPartner } from "../models/partners";
 import { type Vendor, type GroupVendor, groupedVendors } from "../models/vendor";
+import { act } from "react";
 
 export const calculateTotalBonusPoints = (
   transactions: Transaction[]
@@ -26,6 +27,8 @@ const isSasOrConsciousTraveler = (transaction: Transaction): boolean => {
     case activity.includes("Biofuel"):
     case activity.includes("BEP old"):
     case activity.includes("SAS Special Accrual"):
+    case activity.includes("Buy Extra Points"):
+    case activity.includes("Claim | Points Earned"):
       return true;
     default:
       return false;
@@ -53,6 +56,7 @@ export const calculateVendorTransactions = (
     ...Object.values(EurobonusShopPartner),
     ...Object.values(NewspaperPartner),
     ...Object.values(AirlinePartner),
+    ...Object.values(HotelPartner),
   ];
 
   allVendors.forEach(vendor => {
@@ -74,6 +78,7 @@ export const calculateVendorTransactions = (
       } else if (activity.startsWith("ra ")) {
         vendorTransactions[RentalCarPartner.Avis].push(transaction);
       } else {
+        console.error(`Unknown transaction: ${transaction.activity} ${transaction.bonus_points} ${transaction.date}`);
         vendorTransactions[Partner.Other].push(transaction);
       }
     });

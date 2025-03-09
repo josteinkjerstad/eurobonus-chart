@@ -1,13 +1,14 @@
-import { AirlinePartner, CreditCardPartner, EurobonusShopPartner, NewspaperPartner, Partner, RentalCarPartner } from "./partners";
+import { AirlinePartner, CreditCardPartner, EurobonusShopPartner, HotelPartner, NewspaperPartner, Partner, RentalCarPartner } from "./partners";
 
-export type Vendor = Partner | EurobonusShopPartner | AirlinePartner | RentalCarPartner | CreditCardPartner | NewspaperPartner;
+export type Vendor = Partner | EurobonusShopPartner | AirlinePartner | RentalCarPartner | CreditCardPartner | NewspaperPartner | HotelPartner;
 
 export enum GroupVendor {
     CarRental = "Rental cars",
-    EuroBonusEarnShop = "EuroBonus Earn Shop",
+    EuroBonusEarnShop = "EuroBonus Shopping",
     AirlinePartner = "Partner Airlines",
     CreditCardPartner = "Credit Cards",
     NewspaperPartner = "Newspapers",
+    HotelPartner = "Hotels",
 }
 
 export const groupedVendors : Record<GroupVendor, Vendor[]> = {
@@ -16,6 +17,7 @@ export const groupedVendors : Record<GroupVendor, Vendor[]> = {
     [GroupVendor.AirlinePartner]: Object.values(AirlinePartner),
     [GroupVendor.CreditCardPartner]: Object.values(CreditCardPartner),
     [GroupVendor.NewspaperPartner]: Object.values(NewspaperPartner),
+    [GroupVendor.HotelPartner]: Object.values(HotelPartner),
 }
 
 export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
@@ -44,6 +46,10 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
             return "Widerøe-kortet";
         case NewspaperPartner.DagensNæringsliv:
             return "Dagens Næringsliv";
+        case HotelPartner.Radisson:
+            return "Radisson Hotels";
+        case HotelPartner.Scandic:
+            return "Scandic Hotels";
         default:
             return vendor;
     }

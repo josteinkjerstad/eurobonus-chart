@@ -21,6 +21,7 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
     [GroupVendor.CarRental]: true,
     [GroupVendor.AirlinePartner]: true,
     [GroupVendor.NewspaperPartner]: true,
+    [GroupVendor.HotelPartner]: true,
     [GroupVendor.CreditCardPartner]: false,
   });
 

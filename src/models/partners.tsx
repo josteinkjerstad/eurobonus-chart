@@ -6,6 +6,11 @@ export enum Partner {
     Flytoget = "Flytoget | Points Earned",
 };
 
+export enum HotelPartner {
+    Radisson = "Radisson Hotels | Points Earned",
+    Scandic = "Scandic Hotels | Points Earned",
+}
+
 export enum CreditCardPartner {
     Amex = "Amex Norway Reward | Points Earned",
     Dnb = "DNB Rewards | Points Earned",
@@ -22,12 +27,16 @@ export enum RentalCarPartner {
 };
 
 export enum EurobonusShopPartner {
-    EuroBonusEarnShop = "EuroBonus Earn Shop",
+    EuroBonusShop = "Shop",
     Nikita = "Nikita",
     DognVill = "Døgnvill",
     Egon = "Egon",
     Rituals = "Rituals",
     Morris = "Morris",
+    Samsung = "Samsung",
+    OneCall = "OneCall",
+    Interflora = "Interflora",
+    Wolt = "Wolt",
 }
 
 export enum NewspaperPartner {
@@ -56,7 +65,7 @@ export enum AirlinePartner {
     SQ = "Singapore Airlines",
     SA = "South African Airways",
     OZ = "Asiana Airlines",
-    LX = "Swiss International Air Lines",
+    LX = "Swiss",
     BR = "EVA Air",
     TG = "Thai Airways International",
     TK = "Turkish Airlines",
@@ -64,6 +73,21 @@ export enum AirlinePartner {
     WF = "Widerøe",
     KL = "KLM",
     AF = "Air France",
-    VN = "Vietnam Airlines"
+    VN = "Vietnam Airlines",
+    AZ = "Alitalia",
+    AM = "Aeromexico",
+    AR = "Aerolineas Argentinas",
+    CI = "China Airlines",
+    MU = "China Eastern Airlines",
+    CZ = "China Southern Airlines",
+    DL = "Delta Air Lines",
+    GA = "Garuda Indonesia",
+    KE = "Korean Air",
+    ME = "Middle East Airlines",
+    RO = "TAROM",
+    SU = "Aeroflot",
+    SV = "Saudia",
+    UX = "Air Europa",
+    MF = "XiamenAir"
 }
 
