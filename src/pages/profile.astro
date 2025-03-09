@@ -7,6 +7,7 @@ import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import {Content as UploadContent} from "../content/upload.md";
 import { getLocalUserId } from "../utils/localUser";
 import type { Profile } from "../models/profile";
+import { ProfileSection } from "../components/profile/ProfileSection";
 
 const { cookies, request } = Astro;
 const supabase = createServerClient(
@@ -39,7 +40,8 @@ if (userId && !profile) {
 }
 ---
 
-<Layout title="Upload Transactions">
+<Layout title="Profile">
+  <ProfileSection profile={profile} client:load/>
   <UploadContent/>
   <CsvUpload client:load/>
   <DeleteTransactionsButton client:load/>

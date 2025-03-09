@@ -23,6 +23,11 @@ const supabase = createServerClient(
   );
 
 const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
+const profile = await supabase.from("profiles").select().eq("user_id", userId).single();
+
+if (userId && !profile.data) {
+  supabase.from("profiles").insert({ user_id: userId });
+}
 
 if (userId) {
   return redirect("/dashboard");

@@ -7,7 +7,7 @@ import { parseCookieHeader } from '@supabase/ssr';
 import { getLocalUserId } from '../utils/localUser';
 
 
-const {request } = Astro;
+const {request, cookies } = Astro;
 const supabase = createServerClient(
     import.meta.env.SUPABASE_URL,
     import.meta.env.SUPABASE_KEY,
@@ -15,6 +15,11 @@ const supabase = createServerClient(
       cookies: {
         getAll() {
           return parseCookieHeader(request.headers.get("Cookie") ?? "");
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            cookies.set(name, value, options)
+          );
         },
       },
     }
@@ -24,7 +29,7 @@ const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (aw
 
 const navLinks = [
   { href: "/", label: "Dashboard", hidden: !userId },
-  { href: "/upload", label: "Upload", hidden: !userId },
+  { href: "/profile", label: "Profile", hidden: !userId },
   { href: "/about", label: "About" },
 ];
 

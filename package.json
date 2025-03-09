@@ -24,6 +24,7 @@
     "react": "^19.0.0",
     "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
     "solid-js": "^1.9.5",
     "svelte": "^5.22.5",
     "typescript": "^5.8.2",

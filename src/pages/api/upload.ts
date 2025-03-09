@@ -3,6 +3,7 @@ import type { APIRoute } from "astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import * as XLSX from "xlsx";
 import { getLocalUserId } from "../../utils/localUser";
+import type { Profile } from "../../models/profile";
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
@@ -40,6 +41,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   if (!userId) {
     return new Response("User not authenticated", { status: 401 });
   }
+
 
   const transactions = jsonData.slice(1).map((row: any) => ({
     user_id: userId,
