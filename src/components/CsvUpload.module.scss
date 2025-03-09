@@ -1,5 +1,7 @@
 .container {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   margin-top: 20px;
 }
 
@@ -9,9 +11,10 @@
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
   margin-bottom: 10px;
+  font-size: 16px;
 }
 
 .fileInput {
@@ -20,19 +23,23 @@
 
 .uploadButton {
   padding: 10px 20px;
-  background-color: #4caf50;
+  background-color: #28a745;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .uploadButton:disabled {
-  background-color: #ccc;
+  background-color: #6c757d;
   cursor: not-allowed;
 }
 
 .fileName {
-  margin-top: 10px;
+  margin-top: 1px;
   font-style: italic;
+  font-size: 14px;
+  color: #333;
 }

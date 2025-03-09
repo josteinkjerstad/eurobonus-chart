@@ -23,7 +23,7 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
     [GroupVendor.NewspaperPartner]: true,
     [GroupVendor.CreditCardPartner]: false,
   });
-  
+
   const vendorOptions = useMemo(() => 
     Array.from(new Set(transactions.map(transaction => transaction.vendor)))
       .sort((a, b) => getDisplayName(a).localeCompare(getDisplayName(b))), 
@@ -46,7 +46,7 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
       .filter(transaction => selectedVendors.has(transaction.vendor) && selectedYears.has(transaction.year));
 
     const groupedTransactions = Object.entries(groupedVendorsState)
-      .filter(([isGrouped]) => isGrouped)
+      .filter(([_, isGrouped]) => isGrouped)
       .map(([group]) => {
         const vendors = groupedVendors[group as GroupVendor];
         const points = filteredTransactions
@@ -70,6 +70,7 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
     );
 
     return [...groupedTransactions, ...individualTransactions]
+      .filter(v => v.points > 0)
       .sort((a, b) => b.points - a.points);
   }, [transactions, selectedVendors, selectedYears, groupedVendorsState]);
 
@@ -98,8 +99,8 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
       x: {
         ticks: {
           autoSkip: false,
-          maxRotation: 0,
-          minRotation: 45
+          minRotation: 45,
+          maxRotation: 45,
         }
       }
     },

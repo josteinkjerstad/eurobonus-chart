@@ -1,4 +1,4 @@
-import { AirlinePartner, CreditCardPartner, EurobonusShopPartner, NewspaperPartner, Partner, RentalCarPartner } from "./Partners";
+import { AirlinePartner, CreditCardPartner, EurobonusShopPartner, NewspaperPartner, Partner, RentalCarPartner } from "./partners";
 
 export type Vendor = Partner | EurobonusShopPartner | AirlinePartner | RentalCarPartner | CreditCardPartner | NewspaperPartner;
 
@@ -41,7 +41,7 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
         case CreditCardPartner.TravelWallet:
             return "Travel Wallet";
         case CreditCardPartner.WideroeKortet:
-            return "WiderøeKortet";
+            return "Widerøe-kortet";
         case NewspaperPartner.DagensNæringsliv:
             return "Dagens Næringsliv";
         default:

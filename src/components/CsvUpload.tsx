@@ -42,7 +42,6 @@ export const CsvUpload = () => {
         id="file-input"
         className={styles.fileInput}
       />
-      <br />
       <button
         type="button"
         onClick={handleUpload}

@@ -1,8 +1,10 @@
 ---
 export const prerender = false
 import { CsvUpload } from "../components/CsvUpload";
+import { DeleteTransactionsButton } from "../components/DeleteTransactionsButton";
 import Layout from "../layouts/Layout.astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
+import { getLocalUserId } from "../utils/localUser";
 
 const { cookies, request } = Astro;
 const supabase = createServerClient(
@@ -22,9 +24,15 @@ const supabase = createServerClient(
     }
 );
 
-const { data } = await supabase.auth.getUser();
+let userId = '';
+if (import.meta.env.MODE === 'development') {
+  userId = getLocalUserId();
+} else {
+  const { data } = await supabase.auth.getUser();
+  userId = data?.user?.id ?? '';
+}
 
-if (!data.user) {
+if (!userId) {
   return redirect("/signin");
 }
 ---
@@ -32,4 +40,5 @@ if (!data.user) {
 <Layout title="Upload Transactions">
   <h2>Upload Transactions</h2>
   <CsvUpload client:load/>
+  <DeleteTransactionsButton client:load/>
 </Layout>

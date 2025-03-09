@@ -1,5 +1,5 @@
 import type { Transaction, VendorTransaction } from "../models/transaction";
-import { Partner, CreditCardPartner, RentalCarPartner, EurobonusShopPartner, AirlinePartner, NewspaperPartner } from "../models/Partners";
+import { Partner, CreditCardPartner, RentalCarPartner, EurobonusShopPartner, AirlinePartner, NewspaperPartner } from "../models/partners";
 import { type Vendor, type GroupVendor, groupedVendors } from "../models/vendor";
 
 export const calculateTotalBonusPoints = (
