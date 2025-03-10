@@ -1,5 +1,5 @@
-import { Dialog, FormGroup, InputGroup, Button } from '@blueprintjs/core';
-import { useForm, Controller } from 'react-hook-form';
+import { Dialog, FormGroup, InputGroup, Button } from "@blueprintjs/core";
+import { useForm, Controller } from "react-hook-form";
 
 type AddFamilyMemberDialogProps = {
   isOpen: boolean;
@@ -7,20 +7,28 @@ type AddFamilyMemberDialogProps = {
   onSubmit: (name: string) => void;
 };
 
-export const AddFamilyMemberDialog = ({ isOpen, onClose, onSubmit }: AddFamilyMemberDialogProps) => {
+export const AddFamilyMemberDialog = ({
+  isOpen,
+  onClose,
+  onSubmit,
+}: AddFamilyMemberDialogProps) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      display_name: '',
+      display_name: "",
     },
   });
 
-  const handleFormSubmit = async (data: { display_name: string; }) => {
+  const handleFormSubmit = async (data: { display_name: string }) => {
     onSubmit(data.display_name);
     onClose();
   };
 
   return (
-    <Dialog isOpen={isOpen} onClose={onClose} style={{padding: '20px', width: '400px', height: '200px' }}>
+    <Dialog
+      isOpen={isOpen}
+      onClose={onClose}
+      style={{ padding: "20px", width: "400px", height: "200px" }}
+    >
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <FormGroup label="Display Name">
           <Controller
@@ -29,8 +37,12 @@ export const AddFamilyMemberDialog = ({ isOpen, onClose, onSubmit }: AddFamilyMe
             render={({ field }) => <InputGroup {...field} />}
           />
         </FormGroup>
-        <Button type="submit" intent="primary">Add</Button>
-        <Button type="button" onClick={onClose}>Cancel</Button>
+        <Button type="submit" intent="primary">
+          Add
+        </Button>
+        <Button type="button" onClick={onClose}>
+          Cancel
+        </Button>
       </form>
     </Dialog>
   );

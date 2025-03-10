@@ -6,17 +6,14 @@ type GroupMemberProps = {
   onDelete: (id: string) => void;
 };
 
-export const GroupMember = ({
-  member,
-  onDelete,
-}: GroupMemberProps) => {
+export const GroupMember = ({ member, onDelete }: GroupMemberProps) => {
   const deleteMember = async () => {
     const response = await fetch("/api/profile/delete-member", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: member.id}),
+      body: JSON.stringify({ id: member.id }),
     });
 
     if (!response.ok) {
@@ -35,17 +32,17 @@ export const GroupMember = ({
         marginBottom: "10px",
       }}
     >
-    <div style={{ flex: 1 }}>
-      <span>{member.display_name}</span>
-    </div>
-    <div style={{ gap: 5, display: "flex", alignItems: "center" }}>
-      <Button
-        icon="trash"
-        intent="danger"
-        onClick={deleteMember}
-        style={{ marginRight: "5px" }}
-      />
-    </div>
+      <div style={{ flex: 1 }}>
+        <span>{member.display_name}</span>
+      </div>
+      <div style={{ gap: 5, display: "flex", alignItems: "center" }}>
+        <Button
+          icon="trash"
+          intent="danger"
+          onClick={deleteMember}
+          style={{ marginRight: "5px" }}
+        />
+      </div>
     </div>
   );
 };

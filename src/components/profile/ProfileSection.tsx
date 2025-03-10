@@ -26,7 +26,7 @@ export const ProfileSection = ({
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, parentId: profile.id }),
+      body: JSON.stringify({ name }),
     });
 
     if (!response.ok) {

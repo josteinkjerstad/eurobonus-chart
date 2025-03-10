@@ -21,20 +21,25 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }
   );
 
-  const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
+  const userId =
+    import.meta.env.MODE === "development"
+      ? getLocalUserId()
+      : (await supabase.auth.getUser()).data.user?.id;
 
   if (!userId) {
     return new Response("User not authenticated", { status: 401 });
   }
 
-  const { name, parentId } = await request.json();
+  const { name } = await request.json();
   const { data, error } = await supabase
     .from("profiles")
-    .insert({ display_name: name, parent_id: parentId })
+    .insert({ display_name: name, parent_id: userId })
     .select();
 
   if (error) {
-    return new Response(`Error adding family member: ${error.message}`, { status: 500 });
+    return new Response(`Error adding family member: ${error.message}`, {
+      status: 500,
+    });
   }
 
   return new Response(JSON.stringify(data.at(0)), { status: 200 });

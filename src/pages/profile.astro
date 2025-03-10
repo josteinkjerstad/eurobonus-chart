@@ -34,16 +34,21 @@ if (!userId) {
   return redirect("/signin");
 }
 
-const profile = (
+let profile = (
   await supabase.from("profiles").select().eq("user_id", userId).single()
-)?.data as Profile;
+)?.data as Profile | undefined;
 
-if (userId && !profile) {
-  await supabase.from("profiles").insert({ user_id: userId });
+if (!profile) {
+  const { data: newProfile } = await supabase
+    .from("profiles")
+    .insert({ user_id: userId })
+    .select()
+    .single();
+  profile = newProfile as Profile;
 }
 
 const familyMembers = (
-  await supabase.from("profiles").select().eq("parent_id", profile.id)
+  await supabase.from("profiles").select().eq("parent_id", userId)
 ).data as Profile[];
 ---
 
