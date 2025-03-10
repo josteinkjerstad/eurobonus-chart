@@ -3,7 +3,7 @@ export const prerender = false;
 import { ProfileSection } from "../components/profile/ProfileSection";
 import Layout from "../layouts/Layout.astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
-const { cookies, redirect, request } = Astro;
+const { cookies, request } = Astro;
 
 const supabase = createServerClient(
   import.meta.env.SUPABASE_URL,
