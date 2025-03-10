@@ -1,14 +1,16 @@
 export const prerender = false;
 import React, { useState } from "react";
-import { VendorChart } from "./VendorChart";
-import { YearlySpentChart } from "./YearlySpentChart";
 import {
+  calculateTotalBonusPointsByProfile,
   calculateVendorTransactions,
   calculateYearlyPoints,
-} from "../helpers/calculations";
-import type { Transaction } from "../models/transaction";
+} from "../../helpers/calculations";
+import type { Transaction } from "../../models/transaction";
 import { Tabs, Tab, TabsExpander } from "@blueprintjs/core";
-import type { Profile } from "../models/profile";
+import type { Profile } from "../../models/profile";
+import { VendorChart } from "./VendorChart";
+import { YearlySpentChart } from "./YearlySpentChart";
+import { PeopleChart } from "./PeopleChart";
 
 type ChartsProps = {
   transactions: Transaction[];
@@ -18,6 +20,7 @@ type ChartsProps = {
 export const Charts = ({ transactions, profiles}: ChartsProps) => {
   const vendorPoints = calculateVendorTransactions(transactions);
   const yearlyPoints = calculateYearlyPoints(transactions);
+  const peoplePoints = calculateTotalBonusPointsByProfile(transactions);
 
   return (
     <Tabs>
@@ -31,6 +34,11 @@ export const Charts = ({ transactions, profiles}: ChartsProps) => {
         title="Years"
         panel={<YearlySpentChart yearlyPoints={yearlyPoints} />}
       />
+      {profiles.length > 1 && <Tab
+        id="people"
+        title="People"
+        panel={<PeopleChart transactions={peoplePoints} profiles={profiles} />}
+      />}
     </Tabs>
   );
 };

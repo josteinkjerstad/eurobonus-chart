@@ -29,3 +29,8 @@ export interface QualifyingTransaction {
   value: number;
   profile_id: string;
 }
+
+export interface PeopleTransaction {
+  profile_id: string;
+  value: number;
+}

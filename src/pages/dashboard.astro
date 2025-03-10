@@ -3,7 +3,7 @@ export const prerender = false
 import Layout from "../layouts/Layout.astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import { calculateTotalBonusPoints } from "../helpers/calculations";
-import { Charts } from "../components/Charts";
+import { Charts } from "../components/charts/Charts";
 import { getLocalUserId } from "../utils/localUser";
 import type { Transaction } from "../models/transaction";
 import type { Profile } from "../models/profile";

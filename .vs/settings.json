@@ -1,5 +1,0 @@
-{
-    "file-nesting.patterns": {
-      "*.tsx": "${basename}.module.scss"
-    }
-  }
