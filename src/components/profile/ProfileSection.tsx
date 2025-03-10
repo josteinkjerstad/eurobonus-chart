@@ -1,16 +1,12 @@
 import { useState } from "react";
-import {
-  Button,
-  Switch,
-  Card,
-  Elevation,
-  UL,
-  H3,
-  Label,
-  InputGroup,
-} from "@blueprintjs/core";
+import { Button, Card, Elevation, H2, H3, H4 } from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
 import { AddFamilyMemberDialog } from "./AddFamilyMemberDialog";
+import { GroupMember } from "./GroupMember";
+import { ProfileSettings } from "./ProfileSettings";
+import { CsvUpload } from "../upload/CsvUpload";
+import { Content as UploadContent } from "../../content/upload.md";
+import { DeleteTransactionsButton } from "../upload/DeleteTransactionsButton";
 
 type ProfileSectionProps = {
   profile: Profile;
@@ -22,84 +18,73 @@ export const ProfileSection = ({
   familyMembers,
 }: ProfileSectionProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isPublic, setIsPublic] = useState(profile.public);
-  const [displayName, setDisplayName] = useState(profile.display_name);
+  const [members, setMembers] = useState(familyMembers);
 
-  const changeIsPublic = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.checked;
-    setIsPublic(newValue);
-    const response = await fetch("/api/change-is-public", {
+  const addMember = async (name: string) => {
+    const response = await fetch("/api/profile/add-member", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ public: newValue }),
+      body: JSON.stringify({ name, parentId: profile.id }),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to update profile");
+      throw new Error("Failed to add member");
     }
-  };
 
-  const changeDisplayName = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newDisplayName = event.target.value;
-    setDisplayName(newDisplayName);
-    const response = await fetch("/api/change-display-name", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ display_name: newDisplayName }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to update display name");
-    }
+    const newMember = (await response.json()) as Profile;
+    setMembers([...members, newMember]);
   };
 
   return (
-    <div className="profile-section">
-      <Card elevation={Elevation.TWO} style={{ marginBottom: "16px" }}>
-        <H3>Profile</H3>
-        <Label style={{ width: "auto" }}>
-          Display Name
-          <InputGroup
-            value={displayName}
-            onChange={changeDisplayName}
-            style={{ width: "auto" }}
-          />
-        </Label>
-          <Switch
-            label="Public profile"
-            checked={isPublic}
-            onChange={changeIsPublic}
-          />
-          {isPublic && (
-            <Button
-              icon="clipboard"
-              onClick={() =>
-                navigator.clipboard.writeText(
-                  `${window.location.origin}/dashboard?id=${profile.id}`
-                )
-              }
-            />
-          )}
+    <div
+      className="profile-section"
+      style={{
+        display: "flex",
+        gap: 20,
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Card
+        elevation={Elevation.TWO}
+        style={{ width: "75%", alignSelf: "center" }}
+      >
+        <ProfileSettings profile={profile} />
       </Card>
-      <Card elevation={Elevation.TWO}>
-        <H3>Family Members</H3>
-        <UL>
-          {familyMembers.map((member) => (
-            <li key={member.id}>{member.display_name}</li>
-          ))}
-        </UL>
+      <Card elevation={Elevation.TWO} style={{ width: "75%" }}>
+        <H4>Point Sharing Members</H4>
+        {members.map((member) => (
+          <GroupMember
+            key={member.id}
+            member={member}
+            onDelete={(id) => setMembers(members.filter((m) => m.id !== id))}
+          />
+        ))}
         <Button onClick={() => setIsOpen(true)}>Add Family Member</Button>
         {isOpen && (
           <AddFamilyMemberDialog
             isOpen={isOpen}
             onClose={() => setIsOpen(false)}
-            onSubmit={() => console.log("wtf")}
+            onSubmit={(name) => addMember(name)}
           />
         )}
+      </Card>
+      <Card elevation={Elevation.TWO} style={{ width: "75%" }}>
+        <H4>Upload Transactions</H4>
+        <p>
+          To display your data, please download the transaction file from your
+          SAS profile and upload it here.
+        </p>
+        <CsvUpload profiles={[profile, ...members]} />
+      </Card>
+      <Card
+        elevation={Elevation.TWO}
+        style={{ width: "75%", marginTop: "20px" }}
+      >
+        <H4>Actions</H4>
+        <DeleteTransactionsButton />
       </Card>
     </div>
   );

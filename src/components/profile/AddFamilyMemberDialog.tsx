@@ -1,40 +1,32 @@
-import { Dialog, FormGroup, InputGroup, Button, Switch } from '@blueprintjs/core';
+import { Dialog, FormGroup, InputGroup, Button } from '@blueprintjs/core';
 import { useForm, Controller } from 'react-hook-form';
 
 type AddFamilyMemberDialogProps = {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: { display_name: string; public: boolean }) => void;
+  onSubmit: (name: string) => void;
 };
 
 export const AddFamilyMemberDialog = ({ isOpen, onClose, onSubmit }: AddFamilyMemberDialogProps) => {
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       display_name: '',
-      public: false,
     },
   });
 
-  const handleFormSubmit = async (data: { display_name: string; public: boolean }) => {
-    await onSubmit(data);
-    reset();
+  const handleFormSubmit = async (data: { display_name: string; }) => {
+    onSubmit(data.display_name);
+    onClose();
   };
 
   return (
-    <Dialog isOpen={isOpen} onClose={onClose}>
+    <Dialog isOpen={isOpen} onClose={onClose} style={{padding: '20px', width: '400px', height: '200px' }}>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <FormGroup label="Display Name">
           <Controller
             name="display_name"
             control={control}
             render={({ field }) => <InputGroup {...field} />}
-          />
-        </FormGroup>
-        <FormGroup label="Public">
-          <Controller
-            name="public"
-            control={control}
-            render={({ field }) => <Switch checked={field.value} onChange={field.onChange} onBlur={field.onBlur} name={field.name} inputRef={field.ref} />}
           />
         </FormGroup>
         <Button type="submit" intent="primary">Add</Button>

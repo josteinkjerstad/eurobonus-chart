@@ -1,21 +1,26 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
-import { getDisplayName, type Vendor, GroupVendor, groupedVendors } from "../models/vendor";
+import { getDisplayName, type Vendor, GroupVendor, groupedVendors, nonGroupedVendors } from "../models/vendor";
 import type { VendorTransaction } from "../models/transaction";
 import styles from "./VendorChart.module.scss";
 import { OptionsDropdown } from "./OptionsDropdown";
+import { Label } from "@blueprintjs/core";
+import type { Profile } from "../models/profile";
+import { Partner } from "../models/partners";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 type VendorChartProps = {
   transactions: VendorTransaction[];
-}
+  profiles: Profile[];
+};
 
-export const VendorChart = ({ transactions } : VendorChartProps) => {
+export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
   const [selectedVendors, setSelectedVendors] = useState<Set<Vendor>>(new Set(transactions.map(transaction => transaction.vendor)));
   const years = useMemo(() => Array.from(new Set(transactions.map(x => x.year))), [transactions]);
   const [selectedYears, setSelectedYears] = useState<Set<number>>(new Set(years));
+  const [selectedGroups, setSelectedGroups] = useState<Set<GroupVendor>>(new Set(Object.keys(groupedVendors) as GroupVendor[]));
   const [groupedVendorsState, setGroupedVendorsState] = useState<Record<GroupVendor, boolean>>({
     [GroupVendor.EuroBonusEarnShop]: true,
     [GroupVendor.CarRental]: true,
@@ -25,9 +30,11 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
     [GroupVendor.CreditCardPartner]: false,
   });
 
-  const vendorOptions = useMemo(() => 
+  const [selectedMembers, setSelectedMembers] = useState<Set<Profile>>(new Set(profiles));
+
+  const vendorOptions = useMemo(() =>
     Array.from(new Set(transactions.map(transaction => transaction.vendor)))
-      .sort((a, b) => getDisplayName(a).localeCompare(getDisplayName(b))), 
+      .sort((a, b) => getDisplayName(a).localeCompare(getDisplayName(b))),
     [transactions]
   );
 
@@ -42,9 +49,18 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
     setGroupedVendorsState(newGroupedVendors);
   };
 
+  const handleSelectedGroupsChange = (selectedOptions: Set<GroupVendor>) => {
+    const vendorsInGroup = Array.from(selectedOptions).reduce((acc, group) => {
+      return acc.concat(groupedVendors[group]);
+    }, [] as Vendor[]).concat(nonGroupedVendors).filter(vendor => vendorOptions.includes(vendor));
+    
+    setSelectedVendors(new Set(vendorsInGroup));
+    setSelectedGroups(selectedOptions);
+  }
+
   const filteredVendorPoints = useMemo(() => {
     const filteredTransactions = transactions
-      .filter(transaction => selectedVendors.has(transaction.vendor) && selectedYears.has(transaction.year));
+      .filter(transaction => selectedVendors.has(transaction.vendor) && selectedYears.has(transaction.year) && Array.from(selectedMembers).some(member => member.id === transaction.profile_id));
 
     const groupedTransactions = Object.entries(groupedVendorsState)
       .filter(([_, isGrouped]) => isGrouped)
@@ -73,7 +89,7 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
     return [...groupedTransactions, ...individualTransactions]
       .filter(v => v.points > 0)
       .sort((a, b) => b.points - a.points);
-  }, [transactions, selectedVendors, selectedYears, groupedVendorsState]);
+  }, [transactions, selectedVendors, selectedYears, groupedVendorsState, selectedMembers]);
 
   const data = {
     labels: filteredVendorPoints.map(v => getDisplayName(v.vendor)),
@@ -86,7 +102,6 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
       },
     ],
   };
-
   const options = {
     plugins: {
       legend: {
@@ -115,21 +130,35 @@ export const VendorChart = ({ transactions } : VendorChartProps) => {
           selectedOptions={selectedVendors} 
           onChange={setSelectedVendors} 
           optionLabel={getDisplayName} 
-          placeholder="Select vendors..."
+          placeholder={`${selectedVendors.size} / ${vendorOptions.length} Vendors`}
         />
         <OptionsDropdown 
           options={years} 
           selectedOptions={selectedYears} 
           onChange={setSelectedYears} 
           optionLabel={(year: number) => year.toString()} 
-          placeholder="Select years..."
+          placeholder={`${selectedYears.size} / ${years.length} Years`}
+        />
+        <OptionsDropdown 
+          options={profiles} 
+          selectedOptions={selectedMembers} 
+          onChange={setSelectedMembers} 
+          optionLabel={(member: Profile) => member.display_name ?? member.id} 
+          placeholder={`${selectedMembers.size} / ${profiles.length} Members`}
+        />
+          <OptionsDropdown 
+          options={groupOptions} 
+          selectedOptions={selectedGroups} 
+          onChange={handleSelectedGroupsChange} 
+          optionLabel={(member: GroupVendor) => member} 
+          placeholder={`${selectedGroups.size} / ${groupOptions.length} Groups`}
         />
         <OptionsDropdown 
           options={groupOptions} 
           selectedOptions={new Set(Object.keys(groupedVendorsState).filter(group => groupedVendorsState[group as GroupVendor]) as GroupVendor[])} 
           onChange={handleToggleGroupChange} 
           optionLabel={(group: GroupVendor) => group} 
-          placeholder="Toggle grouping"
+          placeholder="Toggle Grouping"
         />
       </div>
       <div className={styles.chart}>

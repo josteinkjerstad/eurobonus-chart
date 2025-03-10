@@ -27,7 +27,8 @@ const supabase = createServerClient(
 );
 
 const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
-const profile = (await supabase.from("profiles").select().eq("user_id", userId).single()).data as Profile | undefined;
+const profile = (await supabase.from("profiles").select().eq("user_id", userId).single()).data as Profile;
+const groupMembers = (await supabase.from("profiles").select().eq("parent_id", profile?.id)).data as Profile[];
 
 if (!userId) {
   return redirect("/signin");
@@ -47,9 +48,10 @@ const sum = calculateTotalBonusPoints(transactions);
   {transactions.length > 0 ? (
     <div>
       <p>You've earned a total of {sum.toLocaleString()} eurobonus points{startDate ? " since " + startDate : ''}.</p>
-      <Charts transactions={transactions} client:load />
+      <hr style="margin: 10px 0;" />
+      <Charts transactions={transactions} profiles={[profile, ...groupMembers]}  client:load />
     </div>
   ) : (
-    <p>Oops, no data found - <a href="/upload">upload your data here</a>.</p>
+    <p>Oops, no data found - <a href="/profile">upload your data here</a>.</p>
   )}
 </Layout>

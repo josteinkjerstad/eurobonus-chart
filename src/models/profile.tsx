@@ -1,7 +1,8 @@
 export interface Profile {
-    id?: string;
+    id: string;
     user_id?: string;
     display_name?: string;
-    public: boolean;
+    public?: boolean;
     parent_id?: string;
+    periode_start_month?: number;
 }

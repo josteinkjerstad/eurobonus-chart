@@ -281,6 +281,16 @@
     classnames "^2.3.1"
     tslib "~2.6.2"
 
+"@blueprintjs/select@^5.3.17":
+  version "5.3.17"
+  resolved "https://registry.npmjs.org/@blueprintjs/select/-/select-5.3.17.tgz"
+  integrity sha512-mP3NkjRv87T0ZNz2WxFsRPjUt4vnf/Rpz+k+CZgNWPk0fcXJzFK1r2VKRpheDo80UWKasIDxS3mu6mcvKniEpg==
+  dependencies:
+    "@blueprintjs/core" "^5.17.5"
+    "@blueprintjs/icons" "^5.19.1"
+    classnames "^2.3.1"
+    tslib "~2.6.2"
+
 "@bufbuild/protobuf@^2.0.0":
   version "2.2.3"
   resolved "https://registry.npmjs.org/@bufbuild/protobuf/-/protobuf-2.2.3.tgz"

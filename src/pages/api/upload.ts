@@ -8,9 +8,14 @@ import type { Profile } from "../../models/profile";
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
   const file = formData.get("file") as File;
+  const profileId = formData.get("profile_id") as string;
 
   if (!file) {
     return new Response("No file uploaded", { status: 400 });
+  }
+
+  if (!profileId) {
+    return new Response("No profile ID provided", { status: 400 });
   }
 
   const supabase = createServerClient(
@@ -42,16 +47,16 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     return new Response("User not authenticated", { status: 401 });
   }
 
-
   const transactions = jsonData.slice(1).map((row: any) => ({
     user_id: userId,
     date: new Date(row[0]),
     activity: row[1] || null,
     bonus_points: parseInt(row[2], 10) || 0,
     level_points: parseInt(row[3], 10) || 0,
+    profile_id: profileId
   }));
 
-  await supabase.from("transactions").delete().eq("user_id", userId);
+  await supabase.from("transactions").delete().eq("user_id", userId).eq("profile_id", profileId);
 
   const { error } = await supabase.from("transactions").insert(transactions);
 

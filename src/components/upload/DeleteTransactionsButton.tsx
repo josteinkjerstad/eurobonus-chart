@@ -1,4 +1,4 @@
-import styles from "./DeleteTransactionsButton.module.scss";
+import { Button, Intent, Icon } from "@blueprintjs/core";
 
 export const DeleteTransactionsButton = () => {
   const handleDelete = async () => {
@@ -15,13 +15,12 @@ export const DeleteTransactionsButton = () => {
   };
 
   return (
-    <button
-      type="button"
+    <Button
+      intent={Intent.DANGER}
+      icon={<Icon icon="trash" />}
       onClick={handleDelete}
-      className={styles.deleteButton}
     >
-      <span className={styles.trashIcon}></span>
       Delete All Transactions
-    </button>
+    </Button>
   );
 };

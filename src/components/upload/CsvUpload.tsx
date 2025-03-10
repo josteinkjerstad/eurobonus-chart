@@ -1,9 +1,21 @@
 import { useState } from "react";
 import type { ChangeEvent } from "react";
-import styles from "./CsvUpload.module.scss";
+import {
+  Button,
+  FileInput,
+  Spinner,
+  SpinnerSize,
+  HTMLSelect,
+} from "@blueprintjs/core";
+import type { Profile } from "../../models/profile";
 
-export const CsvUpload = () => {
+type CsvUploadProps = {
+  profiles: Profile[];
+};
+
+export const CsvUpload = ({ profiles }: CsvUploadProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedProfile, setSelectedProfile] = useState<Profile>(profiles[0]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
@@ -12,13 +24,19 @@ export const CsvUpload = () => {
     }
   };
 
+  const handleProfileSelect = (event: ChangeEvent<HTMLSelectElement>) => {
+    const profile = profiles.find((p) => p.id === event.target.value);
+    setSelectedProfile(profile!);
+  };
+
   const handleUpload = async () => {
-    if (!selectedFile) return;
+    if (!selectedFile || !selectedProfile) return;
 
     setIsLoading(true);
 
     const formData = new FormData();
     formData.append("file", selectedFile);
+    formData.append("profile_id", selectedProfile.id);
 
     const response = await fetch("/api/upload", {
       method: "POST",
@@ -36,31 +54,30 @@ export const CsvUpload = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.fileInputContainer}>
-        <label htmlFor="file-input" className={styles.fileInputLabel}>
-          Select File
-        </label>
-        <div className={styles.fileName}>
-          {selectedFile?.name ?? "No file selected"}
-        </div>
-      </div>
-      <input
-        type="file"
-        accept=".xlsx,.xls"
-        onChange={handleFileSelect}
-        id="file-input"
-        className={styles.fileInput}
+    <div >
+      <HTMLSelect
+        onChange={handleProfileSelect}
+        value={selectedProfile.id}
+        options={profiles.map((profile) => ({
+          value: profile.id,
+          label: profile.display_name,
+        }))}
+        style={{ marginBottom: "10px", minWidth: "200px" }}
       />
-      <button
-        type="button"
-        onClick={handleUpload}
-        disabled={!selectedFile || isLoading}
-        className={styles.uploadButton}
-      >
-        Upload
-      </button>
-      {isLoading && <div className={styles.loading}>Uploading...</div>}
+      <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+        <FileInput
+          text={selectedFile?.name ?? "No file selected"}
+          onInputChange={handleFileSelect}
+          inputProps={{ accept: ".xlsx,.xls" }}
+        />
+        <Button
+          text="Upload"
+          onClick={handleUpload}
+          disabled={!selectedFile || isLoading}
+          intent="primary"
+        />
+      </div>
+      {isLoading && <Spinner size={SpinnerSize.SMALL} />}
     </div>
   );
 };

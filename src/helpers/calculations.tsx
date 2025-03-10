@@ -104,7 +104,8 @@ export const calculateVendorTransactions = (
         year: new Date(transaction.date).getFullYear(),
         vendor: vendor as Vendor,
         value: transaction.bonus_points!,
-        group: group
+        group: group,
+        profile_id: transaction.profile_id,
       }));
     }
   );
@@ -113,26 +114,32 @@ export const calculateVendorTransactions = (
 };
 
 export const calculateYearlyPoints = (
-  transactions: Transaction[]) : YearlyTransaction[] => {
-    const yearlyPoints: Record<number, { earned: number; spent: number }> = {};
+  transactions: Transaction[]
+): YearlyTransaction[] => {
+  const yearlyPoints: Record<number, { earned: number; spent: number }> = {};
+  const uniqueNegativeTransactions = new Set<string>();
 
-    transactions.filter(x => !!x.bonus_points).forEach(transaction => {
-      const year = new Date(transaction.date).getFullYear();
-      if (!yearlyPoints[year]) {
-        yearlyPoints[year] = { earned: 0, spent: 0 };
-      }
-      if (transaction.bonus_points) {
-        if (transaction.bonus_points > 0 && !transaction.activity?.includes("Refund")) {
-          yearlyPoints[year].earned += transaction.bonus_points;
-        } else {
+  transactions.filter(x => !!x.bonus_points).forEach(transaction => {
+    const year = new Date(transaction.date).getFullYear();
+    if (!yearlyPoints[year]) {
+      yearlyPoints[year] = { earned: 0, spent: 0 };
+    }
+    if (transaction.bonus_points) {
+      if (transaction.bonus_points > 0 && !transaction.activity?.includes("Refund")) {
+        yearlyPoints[year].earned += transaction.bonus_points;
+      } else {
+        const transactionKey = `${transaction.activity}-${transaction.bonus_points}-${transaction.date}`;
+        if (!uniqueNegativeTransactions.has(transactionKey)) {
+          uniqueNegativeTransactions.add(transactionKey);
           yearlyPoints[year].spent += transaction.bonus_points;
         }
       }
-    });
+    }
+  });
 
-    return Object.entries(yearlyPoints).map(([year, { earned, spent }]) => ({
-      year: Number(year),
-      earned,
-      spent: Math.abs(spent),
-    }));
-  }
+  return Object.entries(yearlyPoints).map(([year, { earned, spent }]) => ({
+    year: Number(year),
+    earned,
+    spent: Math.abs(spent),
+  }));
+};

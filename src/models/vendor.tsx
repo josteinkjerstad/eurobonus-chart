@@ -3,13 +3,15 @@ import { AirlinePartner, CreditCardPartner, EurobonusShopPartner, HotelPartner, 
 export type Vendor = Partner | EurobonusShopPartner | AirlinePartner | RentalCarPartner | CreditCardPartner | NewspaperPartner | HotelPartner;
 
 export enum GroupVendor {
-    CarRental = "Rental cars",
+    CarRental = "Car Rentals",
     EuroBonusEarnShop = "EuroBonus Shopping",
     AirlinePartner = "Partner Airlines",
     CreditCardPartner = "Credit Cards",
     NewspaperPartner = "Newspapers",
     HotelPartner = "Hotels",
 }
+
+export const nonGroupedVendors: Vendor[] = Object.values(Partner);
 
 export const groupedVendors : Record<GroupVendor, Vendor[]> = {
     [GroupVendor.CarRental]: Object.values(RentalCarPartner),
