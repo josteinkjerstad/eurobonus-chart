@@ -20,20 +20,12 @@ export const GET: APIRoute = async ({ request, cookies }) => {
     }
   );
 
-  const userId = (await supabase.auth.getUser()).data.user?.id;
-
-  if (!userId) {
-    return new Response("User not authenticated", { status: 401 });
-  }
-
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("*")
-    .or(`user_id.eq.${userId},parent_id.eq.${userId}`);
+  const { data, error } = await supabase.from("profiles").select("*");
 
   let profiles = data;
 
   if (profiles?.length === 0) {
+    const userId = (await supabase.auth.getUser()).data?.user?.id;
     const { data: newProfile } = await supabase
       .from("profiles")
       .insert({ user_id: userId })
