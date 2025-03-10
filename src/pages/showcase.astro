@@ -6,6 +6,7 @@ import { groupedVendors } from "../models/vendor";
 import { AirlinePartner, EurobonusShopPartner } from "../models/partners";
 import type { Transaction } from "../models/transaction";
 import type { Profile } from "../models/profile";
+import { calculateTotalBonusPoints } from "../helpers/calculations";
 
 const profiles: Profile[] = [
   { id: "1", display_name: "James" },
@@ -72,10 +73,7 @@ profiles.forEach((profile) => {
   }
 });
 
-const sum = transactions.reduce(
-  (acc, transaction) => acc + (transaction.bonus_points || 0),
-  0
-);
+const sum = calculateTotalBonusPoints(transactions);
 ---
 
 <Layout title="Showcase">
