@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Content as AboutUs } from "../content/about.md";
+---
+
+<Layout title="About">
+  <div class="container">
+    <AboutUs />
+  </div>
+</Layout>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+</style>

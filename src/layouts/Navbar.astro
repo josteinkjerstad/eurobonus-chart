@@ -28,14 +28,18 @@ const navLinks = [
   { href: "/dashboard", label: "Dashboard", hidden: !data.session },
   { href: "/profile", label: "Profile", hidden: !data.session },
   { href: "/showcase", label: "Demo", hidden: !!data.session },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 ---
 
 <header class="header">
   <div class="container">
     <div class="logo">
-      <a href="/">
+      <a href={data.session ? "/dashboard" : "/showcase"}>
         <Image src={planeLogo} alt="Plane logo" width="50" height="50" />
+        <span class="logo-label">Eurobonus Charts</span>
+        <!-- Moved label inside the anchor tag -->
       </a>
     </div>
 
@@ -57,19 +61,20 @@ const navLinks = [
           ))
         }
         {
-          !!data.session ? (
+          (
             <li class="nav-item nav-item-cta">
-              <form action="/api/auth/signout" method="get">
-                <button type="submit" class="nav-link-cta">
-                  Sign out
+              <form
+                action={data.session ? "/api/auth/signout" : "/signin"}
+                method="get"
+              >
+                <button
+                  style={{ width: "100px" }}
+                  type="submit"
+                  class={`nav-link-cta ${data.session ? "signout" : "signin"}`}
+                >
+                  {data.session ? "Log out" : "Log in"}
                 </button>
               </form>
-            </li>
-          ) : (
-            <li class="nav-item nav-item-cta">
-              <a href="/signin" class="nav-link-cta">
-                Sign in
-              </a>
             </li>
           )
         }
@@ -121,9 +126,14 @@ const navLinks = [
   }
 
   .logo h1 {
-    font-size: 1.5rem;
+    display: none; /* Removed unnecessary CSS */
+  }
+
+  .logo-label {
+    color: #0066cc; /* Same color as the button and logo */
+    font-size: 1.25rem; /* Made it a bit smaller */
     font-weight: 700;
-    margin: 0;
+    margin-left: 1rem; /* Added spacing */
   }
 
   .nav-list {
