@@ -28,6 +28,10 @@ Yes, Eurobonus Charts is completely free to use.
 
 SAS currently only exports data from 2017.
 
+### Why are my total points spent so high?
+
+This is due to the fact that award bookings and refunds are shown as duplicates across all point sharing members in the pool. You can solve this by uploading transactions from all point sharing members under [profile settings](./profile).
+
 ### Why is there an Unknown bar in my plot?
 
 The Unknown bar represents transactions that could not be categorized. This can happen when the system fails to identify the transaction with a specific vendor or partner.
