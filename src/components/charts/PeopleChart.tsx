@@ -33,7 +33,6 @@ export const PeopleChart = ({ transactions, profiles }: PeopleChartProps) => {
     labels: profiles.map((profile) => profile.display_name),
     datasets: [
       {
-        label: "Points Earned",
         data: transactions.map((transaction) => transaction.value),
         backgroundColor: "rgba(54, 162, 235, 0.2)",
         borderColor: "rgba(54, 162, 235, 1)",
