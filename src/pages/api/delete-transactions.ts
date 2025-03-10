@@ -20,10 +20,15 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }
   );
 
-  const { error } = await supabase.from("transactions").delete();
+  const userId = (await supabase.auth.getSession()).data.session?.user.id;
+
+  const { error } = await supabase
+    .from("transactions")
+    .delete()
+    .eq("user_id", userId);
 
   if (error) {
-    return new Response(`Error deleting transactions: ${error.message}`, {
+    return new Response(`Error deleting transactions`, {
       status: 500,
     });
   }

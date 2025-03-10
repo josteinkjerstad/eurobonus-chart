@@ -20,11 +20,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }
   );
 
-  const userId = (await supabase.auth.getUser()).data.user?.id;
-
-  if (!userId) {
-    return new Response("User not authenticated", { status: 401 });
-  }
+  const userId = (await supabase.auth.getSession()).data.session?.user?.id;
 
   const { public: isPublic } = await request.json();
   const { error } = await supabase
