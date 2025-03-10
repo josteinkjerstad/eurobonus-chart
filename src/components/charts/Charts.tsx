@@ -1,5 +1,4 @@
 export const prerender = false;
-import React, { useState } from "react";
 import {
   calculateTotalBonusPointsByProfile,
   calculateVendorTransactions,
@@ -17,7 +16,7 @@ type ChartsProps = {
   profiles: Profile[];
 };
 
-export const Charts = ({ transactions, profiles}: ChartsProps) => {
+export const Charts = ({ transactions, profiles }: ChartsProps) => {
   const vendorPoints = calculateVendorTransactions(transactions);
   const yearlyPoints = calculateYearlyPoints(transactions);
   const peoplePoints = calculateTotalBonusPointsByProfile(transactions);
@@ -34,11 +33,15 @@ export const Charts = ({ transactions, profiles}: ChartsProps) => {
         title="Years"
         panel={<YearlySpentChart yearlyPoints={yearlyPoints} />}
       />
-      {profiles.length > 1 && <Tab
-        id="people"
-        title="People"
-        panel={<PeopleChart transactions={peoplePoints} profiles={profiles} />}
-      />}
+      {profiles.length > 1 && (
+        <Tab
+          id="people"
+          title="People"
+          panel={
+            <PeopleChart transactions={peoplePoints} profiles={profiles} />
+          }
+        />
+      )}
     </Tabs>
   );
 };

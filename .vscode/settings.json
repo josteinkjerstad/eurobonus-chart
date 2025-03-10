@@ -1,5 +1,7 @@
 {
   "editor.formatOnSave": true,
+  "editor.wordWrap": "on",
+  "editor.rulers": [200],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {

@@ -21,17 +21,25 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }
   );
 
-  const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
+  const userId =
+    import.meta.env.MODE === "development"
+      ? getLocalUserId()
+      : (await supabase.auth.getUser()).data.user?.id;
 
   if (!userId) {
     return new Response("User not authenticated", { status: 401 });
   }
 
   const { public: isPublic } = await request.json();
-  const { error } = await supabase.from("profiles").update({ public: isPublic }).eq("user_id", userId);
+  const { error } = await supabase
+    .from("profiles")
+    .update({ public: isPublic })
+    .eq("user_id", userId);
 
   if (error) {
-    return new Response(`Error updating profile: ${error.message}`, { status: 500 });
+    return new Response(`Error updating profile: ${error.message}`, {
+      status: 500,
+    });
   }
 
   return new Response("Profile updated successfully!", { status: 200 });

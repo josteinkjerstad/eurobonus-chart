@@ -1,38 +1,15 @@
 ---
 export const prerender = false;
-import { Image } from 'astro:assets';
-import planeLogo from '../images/airplane.png';
-import { createServerClient } from '@supabase/ssr/dist/main/createServerClient';
-import { parseCookieHeader } from '@supabase/ssr';
-import { getLocalUserId } from '../utils/localUser';
+import { Image } from "astro:assets";
+import planeLogo from "../images/airplane.png";
 
-
-const {request, cookies } = Astro;
-const supabase = createServerClient(
-    import.meta.env.SUPABASE_URL,
-    import.meta.env.SUPABASE_KEY,
-    {
-      cookies: {
-        getAll() {
-          return parseCookieHeader(request.headers.get("Cookie") ?? "");
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookies.set(name, value, options)
-          );
-        },
-      },
-    }
-);
-
-const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
+const signedIn = Astro.props.signedIn || false;
 
 const navLinks = [
-  { href: "/", label: "Dashboard", hidden: !userId },
-  { href: "/profile", label: "Profile", hidden: !userId },
+  { href: "/", label: "Dashboard", hidden: !signedIn },
+  { href: "/profile", label: "Profile", hidden: !signedIn },
   { href: "/about", label: "About" },
 ];
-
 ---
 
 <header class="header">
@@ -60,17 +37,23 @@ const navLinks = [
             </li>
           ))
         }
-        {userId ? (
-          <li class="nav-item nav-item-cta">
-            <form action="/api/auth/signout" method="get">
-              <button type="submit" class="nav-link-cta">Sign out</button>
-            </form>
-          </li>
-        ) : (
-          <li class="nav-item nav-item-cta">
-            <a href="/signin" class="nav-link-cta">Sign in</a>
-          </li>
-        )}
+        {
+          signedIn ? (
+            <li class="nav-item nav-item-cta">
+              <form action="/api/auth/signout" method="get">
+                <button type="submit" class="nav-link-cta">
+                  Sign out
+                </button>
+              </form>
+            </li>
+          ) : (
+            <li class="nav-item nav-item-cta">
+              <a href="/signin" class="nav-link-cta">
+                Sign in
+              </a>
+            </li>
+          )
+        }
       </ul>
     </nav>
   </div>

@@ -1,41 +1,40 @@
-import { useState } from "react";
-import { Button, Card, Elevation, H2, H3, H4 } from "@blueprintjs/core";
+import { useEffect, useMemo, useState } from "react";
+import {
+  Button,
+  Card,
+  Elevation,
+  H2,
+  H3,
+  H4,
+  Spinner,
+} from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
 import { AddFamilyMemberDialog } from "./AddFamilyMemberDialog";
 import { GroupMember } from "./GroupMember";
 import { ProfileSettings } from "./ProfileSettings";
 import { CsvUpload } from "../upload/CsvUpload";
-import { Content as UploadContent } from "../../content/upload.md";
 import { DeleteTransactionsButton } from "../upload/DeleteTransactionsButton";
+import useFetchProfiles from "../../hooks/useFetchProfiles";
 
-type ProfileSectionProps = {
-  profile: Profile;
-  familyMembers: Profile[];
-};
-
-export const ProfileSection = ({
-  profile,
-  familyMembers,
-}: ProfileSectionProps) => {
+export const ProfileSection = () => {
+  const { data, loading } = useFetchProfiles();
   const [isOpen, setIsOpen] = useState(false);
-  const [members, setMembers] = useState(familyMembers);
+  const [members, setMembers] = useState<Profile[]>([]);
 
-  const addMember = async (name: string) => {
-    const response = await fetch("/api/profile/add-member", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name }),
-    });
+  const profile = useMemo(() => data?.find((x) => !x.parent_id), [data]);
+  useEffect(() => setMembers(data?.filter((x) => x.parent_id) ?? []), [data]);
 
-    if (!response.ok) {
-      throw new Error("Failed to add member");
-    }
-
-    const newMember = (await response.json()) as Profile;
-    setMembers([...members, newMember]);
+  const onNewMember = (member: Profile) => {
+    setMembers([...members, member]);
   };
+
+  if (loading) {
+    return <Spinner />;
+  }
+
+  if (!profile) {
+    return "No profile found";
+  }
 
   return (
     <div
@@ -67,7 +66,7 @@ export const ProfileSection = ({
           <AddFamilyMemberDialog
             isOpen={isOpen}
             onClose={() => setIsOpen(false)}
-            onSubmit={(name) => addMember(name)}
+            onAdd={onNewMember}
           />
         )}
       </Card>

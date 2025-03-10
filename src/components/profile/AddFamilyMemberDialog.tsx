@@ -1,16 +1,17 @@
 import { Dialog, FormGroup, InputGroup, Button } from "@blueprintjs/core";
 import { useForm, Controller } from "react-hook-form";
+import type { Profile } from "../../models/profile";
 
 type AddFamilyMemberDialogProps = {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (name: string) => void;
+  onAdd: (member: Profile) => void;
 };
 
 export const AddFamilyMemberDialog = ({
   isOpen,
   onClose,
-  onSubmit,
+  onAdd,
 }: AddFamilyMemberDialogProps) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -18,8 +19,25 @@ export const AddFamilyMemberDialog = ({
     },
   });
 
+  const addMember = async (name: string) => {
+    const response = await fetch("/api/profile/add-member", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to add member");
+    }
+
+    const newMember = (await response.json()) as Profile;
+    onAdd(newMember);
+  };
+
   const handleFormSubmit = async (data: { display_name: string }) => {
-    onSubmit(data.display_name);
+    addMember(data.display_name);
     onClose();
   };
 

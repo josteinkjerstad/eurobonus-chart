@@ -8,6 +8,7 @@ import "@fontsource-variable/inter";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
 const title = Astro.props.title || "Eurobonus Charts";
+const signedIn = Astro.props.signedIn || false;
 ---
 
 <!doctype html>
@@ -22,7 +23,7 @@ const title = Astro.props.title || "Eurobonus Charts";
     <div class="page-container">
       <div class="content-wrapper">
         <SpeedInsights />
-        <Navbar title={title} />
+        <Navbar title={title} signedIn />
         <main>
           <slot />
         </main>
@@ -44,11 +45,11 @@ const title = Astro.props.title || "Eurobonus Charts";
   .page-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Full viewport height */
+    min-height: 100vh;
   }
 
   .content-wrapper {
-    flex: 1 0 auto; /* Grow to push footer down */
+    flex: 1 0 auto;
   }
 
   main {
@@ -56,7 +57,7 @@ const title = Astro.props.title || "Eurobonus Charts";
     padding: 1rem;
     width: 100%;
     max-width: 1200px;
-    padding-bottom: 3rem; /* Add padding to prevent content from being too close to footer */
+    padding-bottom: 3rem;
   }
 
   @media (max-width: 768px) {

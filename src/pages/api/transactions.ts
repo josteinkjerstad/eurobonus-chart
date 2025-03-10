@@ -1,9 +1,9 @@
 export const prerender = false;
 import type { APIRoute } from "astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
-import { getLocalUserId } from "../../../utils/localUser";
+import { getLocalUserId } from "../../utils/localUser";
 
-export const DELETE: APIRoute = async ({ request, cookies }) => {
+export const GET: APIRoute = async ({ request, cookies }) => {
   const supabase = createServerClient(
     import.meta.env.SUPABASE_URL,
     import.meta.env.SUPABASE_KEY,
@@ -21,7 +21,6 @@ export const DELETE: APIRoute = async ({ request, cookies }) => {
     }
   );
 
-  const { id } = await request.json();
   const userId =
     import.meta.env.MODE === "development"
       ? getLocalUserId()
@@ -31,20 +30,21 @@ export const DELETE: APIRoute = async ({ request, cookies }) => {
     return new Response("User not authenticated", { status: 401 });
   }
 
-  await supabase.from("transactions").delete().eq("profile_id", id);
-
-  const { error } = await supabase
-    .from("profiles")
-    .delete()
-    .eq("id", id)
-    .eq("parent_id", userId);
+  const { data: transactions, error } = await supabase
+    .from("transactions")
+    .select("*")
+    .eq("user_id", userId);
 
   if (error) {
-    console.log(error);
-    return new Response(`Error deleting family member: ${error.message}`, {
+    return new Response(`Error fetching transactions: ${error.message}`, {
       status: 500,
     });
   }
 
-  return new Response("Family member deleted successfully!", { status: 200 });
+  return new Response(JSON.stringify(transactions), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 };
