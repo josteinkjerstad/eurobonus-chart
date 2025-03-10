@@ -1,7 +1,6 @@
 export const prerender = false;
 import type { APIRoute } from "astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
-import { getLocalUserId } from "../../../utils/localUser";
 
 export const POST: APIRoute = async ({ request, cookies }) => {
   const supabase = createServerClient(
@@ -21,24 +20,23 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }
   );
 
-
-  const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
+  const userId = (await supabase.auth.getUser()).data.user?.id;
 
   if (!userId) {
     return new Response("User not authenticated", { status: 401 });
   }
 
-
-
   const { profile_id, month } = await request.json();
-  const { error } = await supabase.from("profiles").update({ periode_start_month: month }).eq("id", profile_id);
-
-  console.log("profile_id", profile_id);
-  console.log("month", month);
+  const { error } = await supabase
+    .from("profiles")
+    .update({ periode_start_month: month })
+    .eq("id", profile_id);
 
   if (error) {
     console.log(error);
-    return new Response(`Error updating profile: ${error.message}`, { status: 500 });
+    return new Response(`Error updating profile: ${error.message}`, {
+      status: 500,
+    });
   }
 
   return new Response("Profile updated successfully!", { status: 200 });

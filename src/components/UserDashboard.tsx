@@ -5,7 +5,6 @@ import { Charts } from "./charts/Charts";
 import type { Transaction } from "../models/transaction";
 import type { Profile } from "../models/profile";
 import { Spinner } from "@blueprintjs/core";
-import { calculateTotalBonusPoints } from "../helpers/calculations";
 
 export const UserDashboard = () => {
   const { data, loading } = useFetchTransactions();
@@ -16,22 +15,6 @@ export const UserDashboard = () => {
   const profiles: Profile[] = useMemo(
     () => (profilesData ? profilesData : []),
     [profilesData]
-  );
-
-  const sum = useMemo(
-    () => calculateTotalBonusPoints(transactions),
-    [transactions]
-  );
-
-  const earliestdate = useMemo(
-    () =>
-      transactions.length > 0
-        ? new Date(transactions[0].date).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-          })
-        : null,
-    []
   );
 
   if (loading || profileLoading) {
@@ -45,13 +28,5 @@ export const UserDashboard = () => {
     );
   }
 
-  return (
-    <>
-      <p>
-        You've earned a total of {sum.toLocaleString()} eurobonus points since{" "}
-        {earliestdate}
-      </p>
-      <Charts transactions={transactions} profiles={profiles} />;
-    </>
-  );
+  return <Charts transactions={transactions} profiles={profiles} />;
 };

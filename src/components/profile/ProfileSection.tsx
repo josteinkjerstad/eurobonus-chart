@@ -1,13 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  Button,
-  Card,
-  Elevation,
-  H2,
-  H3,
-  H4,
-  Spinner,
-} from "@blueprintjs/core";
+import { Button, Card, Elevation, H4, Spinner } from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
 import { AddFamilyMemberDialog } from "./AddFamilyMemberDialog";
 import { GroupMember } from "./GroupMember";

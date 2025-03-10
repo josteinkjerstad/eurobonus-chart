@@ -1,6 +1,6 @@
 export enum Partner {
   Trumf = "NorgesGruppen | Points Earned",
-  Other = "Unknown",
+  Unknown = "Unknown",
   Flytoget = "Flytoget | Points Earned",
 }
 
@@ -31,6 +31,7 @@ export enum HouseholdPartner {
   Verisure = "Verisure Norge | Points Earned",
   Aftenposten = "Aftenposten",
   DagensNæringsliv = "Dagens Näringsliv | Points Earned",
+  LiveNation = "LiveNation | Points Earned",
 }
 
 export enum RentalCarPartner {
@@ -101,5 +102,5 @@ export enum AirlinePartner {
   SV = "Saudia",
   UX = "Air Europa",
   MF = "XiamenAir",
-  UknownPartner = "Unknown",
+  SN = "Brussels Airlines",
 }

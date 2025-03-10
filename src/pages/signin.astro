@@ -2,9 +2,8 @@
 export const prerender = false;
 import Layout from "../layouts/Layout.astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
-import { getLocalUserId } from "../utils/localUser";
-
 const { cookies, redirect, request } = Astro;
+
 const supabase = createServerClient(
   import.meta.env.SUPABASE_URL,
   import.meta.env.SUPABASE_KEY,
@@ -22,27 +21,15 @@ const supabase = createServerClient(
   }
 );
 
-const userId =
-  import.meta.env.MODE === "development"
-    ? getLocalUserId()
-    : (await supabase.auth.getUser()).data.user?.id;
-const profile = await supabase
-  .from("profiles")
-  .select()
-  .eq("user_id", userId)
-  .single();
+const { data } = await supabase.auth.getUser();
 
-if (userId && !profile.data) {
-  supabase.from("profiles").insert({ user_id: userId });
-}
-
-if (userId) {
+if (data.user) {
   return redirect("/dashboard");
 }
 ---
 
 <Layout title="Sign in" signedIn={false}>
-  <h1>Sign in</h1>
+  <h1>Welcome</h1>
   <form action="/api/auth/signin" method="post">
     <button
       value="github"

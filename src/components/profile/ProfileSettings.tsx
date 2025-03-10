@@ -1,18 +1,7 @@
 import { useState } from "react";
-import {
-  Card,
-  Elevation,
-  H3,
-  Label,
-  InputGroup,
-  Switch,
-  Button,
-  HTMLSelect,
-  H4,
-} from "@blueprintjs/core";
+import { Label, InputGroup, Switch, HTMLSelect, H4 } from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
 import { getAllValidQualifyingPeriods } from "../../models/qualifying-periods";
-import { CsvUpload } from "../upload/CsvUpload";
 
 type ProfileSettingsProps = {
   profile: Profile;

@@ -2,13 +2,31 @@
 export const prerender = false;
 import { Image } from "astro:assets";
 import planeLogo from "../images/airplane.png";
+import { createServerClient, parseCookieHeader } from "@supabase/ssr";
+const { cookies, request } = Astro;
 
-const signedIn = Astro.props.signedIn || false;
+const supabase = createServerClient(
+  import.meta.env.SUPABASE_URL,
+  import.meta.env.SUPABASE_KEY,
+  {
+    cookies: {
+      getAll() {
+        return parseCookieHeader(request.headers.get("Cookie") ?? "");
+      },
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value, options }) =>
+          cookies.set(name, value, options)
+        );
+      },
+    },
+  }
+);
+
+const { data } = await supabase.auth.getSession();
 
 const navLinks = [
-  { href: "/", label: "Dashboard", hidden: !signedIn },
-  { href: "/profile", label: "Profile", hidden: !signedIn },
-  { href: "/about", label: "About" },
+  { href: "/dashboard", label: "Dashboard", hidden: !data.session },
+  { href: "/profile", label: "Profile", hidden: !data.session },
 ];
 ---
 
@@ -38,7 +56,7 @@ const navLinks = [
           ))
         }
         {
-          signedIn ? (
+          !!data.session ? (
             <li class="nav-item nav-item-cta">
               <form action="/api/auth/signout" method="get">
                 <button type="submit" class="nav-link-cta">

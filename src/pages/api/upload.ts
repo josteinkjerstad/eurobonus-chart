@@ -2,8 +2,6 @@ export const prerender = false;
 import type { APIRoute } from "astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import * as XLSX from "xlsx";
-import { getLocalUserId } from "../../utils/localUser";
-import type { Profile } from "../../models/profile";
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
@@ -41,7 +39,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const worksheet = workbook.Sheets[sheetName];
   const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-  const userId = (import.meta.env.MODE === 'development') ? getLocalUserId() : (await supabase.auth.getUser()).data.user?.id;
+  const userId = (await supabase.auth.getUser()).data.user?.id;
 
   if (!userId) {
     return new Response("User not authenticated", { status: 401 });
@@ -53,15 +51,21 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     activity: row[1] || null,
     bonus_points: parseInt(row[2], 10) || 0,
     level_points: parseInt(row[3], 10) || 0,
-    profile_id: profileId
+    profile_id: profileId,
   }));
 
-  await supabase.from("transactions").delete().eq("user_id", userId).eq("profile_id", profileId);
+  await supabase
+    .from("transactions")
+    .delete()
+    .eq("user_id", userId)
+    .eq("profile_id", profileId);
 
   const { error } = await supabase.from("transactions").insert(transactions);
 
   if (error) {
-    return new Response(`Error uploading transactions: ${error.message}`, { status: 500 });
+    return new Response(`Error uploading transactions: ${error.message}`, {
+      status: 500,
+    });
   }
 
   return redirect("/dashboard");

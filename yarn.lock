@@ -301,16 +301,6 @@
   resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.25.0.tgz"
   integrity sha512-ZENoHJBxA20C2zFzh6AI4fT6RraMzjYw4xKWemRTRmRVtN9c5DcH9r/f2ihEkMjOW5eGgrwCslG/+Y/3bL+DHQ==
 
-"@fontsource-variable/fira-code@^5.2.5":
-  version "5.2.5"
-  resolved "https://registry.npmjs.org/@fontsource-variable/fira-code/-/fira-code-5.2.5.tgz"
-  integrity sha512-rw0z/D9Tsp7asvwK/XFHz+xMkgR7MPRCa6U9e77alsmJQFqniEWt/c+1xKCZR2omEw1hVP7ej48Z1O8c/YiSVg==
-
-"@fontsource-variable/inter@^5.2.5":
-  version "5.2.5"
-  resolved "https://registry.npmjs.org/@fontsource-variable/inter/-/inter-5.2.5.tgz"
-  integrity sha512-TrWffUAFOnT8zroE9YmGybagoOgM/HjRqMQ8k9R0vVgXlnUh/vnpbGPAS/Caz1KIlOPnPGh6fvJbb7DHbFCncA==
-
 "@img/sharp-win32-x64@0.33.5":
   version "0.33.5"
   resolved "https://registry.npmjs.org/@img/sharp-win32-x64/-/sharp-win32-x64-0.33.5.tgz"
@@ -970,11 +960,6 @@ caniuse-lite@^1.0.30001688:
   version "1.0.30001702"
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001702.tgz"
   integrity sha512-LoPe/D7zioC0REI5W73PeR1e1MLCipRGq/VkovJnd6Df+QVqT+vT33OXCp8QUd7kA7RZrHWxb1B36OQKI/0gOA==
-
-canvas-confetti@^1.9.3:
-  version "1.9.3"
-  resolved "https://registry.npmjs.org/canvas-confetti/-/canvas-confetti-1.9.3.tgz"
-  integrity sha512-rFfTURMvmVEX1gyXFgn5QMn81bYk70qa0HLzcIOSVEyl57n6o9ItHeBtUSWdvKAPY0xlvBHno4/v3QPrT83q9g==
 
 capital-case@^1.0.4:
   version "1.0.4"
@@ -3161,7 +3146,7 @@ supports-color@^8.1.1:
   dependencies:
     has-flag "^4.0.0"
 
-svelte@^5.22.5, "svelte@>= 4":
+"svelte@>= 4":
   version "5.22.5"
   resolved "https://registry.npmjs.org/svelte/-/svelte-5.22.5.tgz"
   integrity sha512-+2BDWVa/rqr34oM+5HFUSmCCPdBBeNqFv2Xc/SSB8kV4iQhWWBNvU9/nd5Dz3PkAGl7Bm/AndS1vY4fe1MgTKA==

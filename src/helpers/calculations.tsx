@@ -6,13 +6,9 @@ import type {
 } from "../models/transaction";
 import {
   Partner,
-  CreditCardPartner,
   RentalCarPartner,
-  EurobonusShopPartner,
-  AirlinePartner,
   HotelPartner,
-  HouseholdPartner,
-  ScandinavianAirlinesPartner,
+  CreditCardPartner,
 } from "../models/partners";
 import {
   type Vendor,
@@ -71,7 +67,9 @@ export const calculateVendorTransactions = (
 ): VendorTransaction[] => {
   const vendorTransactions: Record<string, Transaction[]> = {};
 
-  const allVendors = Object.values(groupedVendors).flatMap((x) => x);
+  const allVendors = Object.values(groupedVendors)
+    .flatMap((x) => x)
+    .concat(Partner.Unknown);
 
   allVendors.forEach((vendor) => {
     vendorTransactions[vendor] = [];
@@ -102,11 +100,17 @@ export const calculateVendorTransactions = (
         case activity.startsWith("ra "):
           vendorTransactions[RentalCarPartner.Avis].push(transaction);
           break;
+        case activity.includes("Amex"):
+          vendorTransactions[CreditCardPartner.Amex].push(transaction);
+          break;
+        case activity.includes("Norgesgruppen"):
+          vendorTransactions[Partner.Trumf].push(transaction);
+          break;
         default:
-          console.error(
+          console.log(
             `Unknown transaction: ${transaction.activity} ${transaction.bonus_points} ${transaction.date}`
           );
-          vendorTransactions[Partner.Other].push(transaction);
+          vendorTransactions[Partner.Unknown].push(transaction);
           break;
       }
     });
@@ -127,6 +131,20 @@ export const calculateVendorTransactions = (
   });
 
   return vendorTransactionList;
+};
+
+export const getEarliestDate = (transactions: Transaction[]): string | null => {
+  if (transactions.length === 0) {
+    return null;
+  }
+  return new Date(
+    Math.min(
+      ...transactions.map((transaction) => new Date(transaction.date).getTime())
+    )
+  ).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+  });
 };
 
 export const calculateYearlyPoints = (

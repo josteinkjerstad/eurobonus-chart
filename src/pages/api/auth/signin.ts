@@ -24,19 +24,19 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
       },
     }
   );
-  
+
   if (provider && validProviders.includes(provider)) {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: provider as Provider,
       options: {
-        redirectTo: "https://eurobonus-chart.vercel.app/api/auth/callback"
+        redirectTo: import.meta.env.REDIRECT_URL,
       },
     });
 
     if (error) {
       return new Response(error.message, { status: 500 });
     }
-    
+
     return redirect(data.url);
   }
 

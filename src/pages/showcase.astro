@@ -1,11 +1,11 @@
 ---
+export const prerender = false;
 import Layout from "../layouts/Layout.astro";
 import { Charts } from "../components/charts/Charts";
 import { groupedVendors } from "../models/vendor";
 import { AirlinePartner, EurobonusShopPartner } from "../models/partners";
 import type { Transaction } from "../models/transaction";
 import type { Profile } from "../models/profile";
-import { calculateTotalBonusPoints } from "../helpers/calculations";
 
 const profiles: Profile[] = [
   { id: "1", display_name: "James" },
@@ -71,14 +71,9 @@ profiles.forEach((profile) => {
     });
   }
 });
-
-const sum = calculateTotalBonusPoints(transactions);
 ---
 
 <Layout title="Showcase">
   <h1>Showcase</h1>
-  <p>
-    You've earned a total of {sum.toLocaleString()} eurobonus points
-  </p>
-  <Charts transactions={transactions} profiles={profiles} client:load />
+  <Charts transactions={transactions} profiles={profiles} />
 </Layout>

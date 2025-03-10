@@ -1,17 +1,15 @@
 ---
+export const prerender = false;
 import Footer from "../layouts/Footer.astro";
 import Navbar from "../layouts/Navbar.astro";
 import "normalize.css";
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
-import "@fontsource-variable/inter";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
 const title = Astro.props.title || "Eurobonus Charts";
-const signedIn = Astro.props.signedIn || false;
 ---
 
-<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -23,7 +21,7 @@ const signedIn = Astro.props.signedIn || false;
     <div class="page-container">
       <div class="content-wrapper">
         <SpeedInsights />
-        <Navbar title={title} signedIn />
+        <Navbar title={title} />
         <main>
           <slot />
         </main>

@@ -10,6 +10,7 @@ export const getSasKey = (
   const activity = transaction.activity!;
   switch (true) {
     case activity.includes("Buy Extra Points"):
+    case activity.includes("Buy Basic Points"):
       return ScandinavianAirlinesPartner.PointPurchase;
     case activity.includes("Claim | Points Earned"):
       return ScandinavianAirlinesPartner.Claim;
@@ -33,8 +34,9 @@ export const isSasTransaction = (transaction: Transaction): boolean => {
     case activity.includes("SASBIOFUEL"):
     case activity.includes("Biofuel"):
     case activity.includes("BEP old"):
-    case activity.includes("SAS Special Accrual"):
+    case activity.includes("Special Accrual"):
     case activity.includes("Buy Extra Points"):
+    case activity.includes("Buy Basic Points"):
     case activity.includes("Claim | Points Earned"):
       return true;
     default:

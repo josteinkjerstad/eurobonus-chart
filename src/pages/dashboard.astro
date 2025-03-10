@@ -1,25 +1,35 @@
 ---
-import Layout from "../layouts/Layout.astro";
+export const prerender = false;
 import { UserDashboard } from "../components/UserDashboard";
+import Layout from "../layouts/Layout.astro";
+import { createServerClient, parseCookieHeader } from "@supabase/ssr";
+const { cookies, redirect, request } = Astro;
+
+const supabase = createServerClient(
+  import.meta.env.SUPABASE_URL,
+  import.meta.env.SUPABASE_KEY,
+  {
+    cookies: {
+      getAll() {
+        return parseCookieHeader(request.headers.get("Cookie") ?? "");
+      },
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value, options }) =>
+          cookies.set(name, value, options)
+        );
+      },
+    },
+  }
+);
+
+const { data } = await supabase.auth.getSession();
+
+if (!data.session) {
+  return redirect("/signin");
+}
 ---
 
-<script>
-  async function checkAuth() {
-    try {
-      const response = await fetch("/api/user");
-      if (!response.ok) {
-        window.location.href = "/signin";
-      }
-    } catch (error) {
-      console.error("Error checking authentication:", error);
-      window.location.href = "/signin";
-    }
-  }
-
-  checkAuth();
-</script>
-
-<Layout title="Dashboard" signedIn={true}>
+<Layout title="Dashboard" signedIn={!!data.session}>
   <h1>Welcome</h1>
   <div style={{ paddingTop: "20px" }}>
     <UserDashboard client:load />

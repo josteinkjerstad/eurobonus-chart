@@ -1,7 +1,6 @@
 export const prerender = false;
 import type { APIRoute } from "astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
-import { getLocalUserId } from "../../../utils/localUser";
 
 export const DELETE: APIRoute = async ({ request, cookies }) => {
   const supabase = createServerClient(
@@ -22,10 +21,7 @@ export const DELETE: APIRoute = async ({ request, cookies }) => {
   );
 
   const { id } = await request.json();
-  const userId =
-    import.meta.env.MODE === "development"
-      ? getLocalUserId()
-      : (await supabase.auth.getUser()).data.user?.id;
+  const userId = (await supabase.auth.getUser()).data.user?.id;
 
   if (!userId) {
     return new Response("User not authenticated", { status: 401 });

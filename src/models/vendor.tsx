@@ -52,7 +52,7 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
       return "Trumf";
     case Partner.Flytoget:
       return "Flytoget";
-    case Partner.Other:
+    case Partner.Unknown:
       return "Unknown";
     case HouseholdPartner.Fjordkraft:
       return "Fjordkraft";
@@ -78,6 +78,8 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
       return "Scandic Hotels";
     case EurobonusShopPartner.EuroBonusShop:
       return "EuroBonus Shop";
+    case HouseholdPartner.LiveNation:
+      return "Live Nation";
     default:
       return vendor;
   }

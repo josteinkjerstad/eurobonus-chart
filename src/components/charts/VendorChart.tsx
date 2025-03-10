@@ -19,6 +19,7 @@ import type { VendorTransaction } from "../../models/transaction";
 import styles from "./VendorChart.module.scss";
 import { OptionsDropdown } from "../common/OptionsDropdown";
 import type { Profile } from "../../models/profile";
+import { Partner } from "../../models/partners";
 
 ChartJS.register(
   CategoryScale,
@@ -39,15 +40,17 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
     new Set(transactions.map((transaction) => transaction.vendor))
   );
   const years = useMemo(
-    () => Array.from(new Set(transactions.map((x) => x.year))),
+    () =>
+      Array.from(new Set(transactions.map((x) => x.year))).sort(
+        (a, b) => a - b
+      ),
     [transactions]
   );
+
   const [selectedYears, setSelectedYears] = useState<Set<number>>(
     new Set(years)
   );
-  const [selectedGroups, setSelectedGroups] = useState<Set<GroupVendor>>(
-    new Set(Object.keys(groupedVendors) as GroupVendor[])
-  );
+
   const [groupedVendorsState, setGroupedVendorsState] = useState<
     Record<GroupVendor, boolean>
   >({
@@ -73,8 +76,14 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
     [transactions]
   );
 
-  const groupOptions = (Object.keys(groupedVendors) as GroupVendor[]).sort(
-    (a, b) => a.localeCompare(b)
+  const groupOptions = (Object.keys(groupedVendors) as GroupVendor[])
+    .filter((group) =>
+      groupedVendors[group].some((vendor) => vendorOptions.includes(vendor))
+    )
+    .sort((a, b) => a.localeCompare(b));
+
+  const [selectedGroups, setSelectedGroups] = useState<Set<GroupVendor>>(
+    new Set(groupOptions)
   );
 
   const handleToggleGroupChange = (selectedOptions: Set<GroupVendor>) => {
@@ -93,10 +102,16 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
       .reduce((acc, group) => {
         return acc.concat(groupedVendors[group]);
       }, [] as Vendor[])
+      .concat(Partner.Unknown)
       .filter((vendor) => vendorOptions.includes(vendor));
 
     setSelectedVendors(new Set(vendorsInGroup));
     setSelectedGroups(selectedOptions);
+  };
+
+  const handleAllVendorsSelected = () => {
+    setSelectedVendors(new Set(vendorOptions));
+    setSelectedGroups(new Set(groupOptions));
   };
 
   const filteredVendorPoints = useMemo(() => {
@@ -194,6 +209,7 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
           selectedOptions={selectedVendors}
           onChange={setSelectedVendors}
           optionLabel={getDisplayName}
+          onSelectAll={handleAllVendorsSelected}
           placeholder={`${selectedVendors.size} / ${vendorOptions.length} Vendors`}
         />
         <OptionsDropdown
@@ -214,6 +230,7 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
           options={groupOptions}
           selectedOptions={selectedGroups}
           onChange={handleSelectedGroupsChange}
+          onSelectAll={handleAllVendorsSelected}
           optionLabel={(member: GroupVendor) => member}
           placeholder={`${selectedGroups.size} / ${groupOptions.length} Groups`}
         />

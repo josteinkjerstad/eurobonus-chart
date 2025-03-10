@@ -6,6 +6,8 @@ type OptionsDropdownProps<T> = {
   selectedOptions: Set<T>;
   onChange: (selectedOptions: Set<T>) => void;
   optionLabel: (option: T) => string;
+  onClearAll?: () => void;
+  onSelectAll?: () => void;
   placeholder: string;
 };
 
@@ -15,6 +17,8 @@ export const OptionsDropdown = <T extends unknown>({
   onChange,
   optionLabel,
   placeholder,
+  onClearAll,
+  onSelectAll,
 }: OptionsDropdownProps<T>) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -32,14 +36,19 @@ export const OptionsDropdown = <T extends unknown>({
   const handleClearAll = () => {
     if (selectedOptions.size === options.length) {
       onChange(new Set());
+      onClearAll?.();
     } else {
       onChange(new Set(options));
+      onSelectAll?.();
     }
   };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsDropdownOpen(false);
       }
     };
@@ -62,7 +71,10 @@ export const OptionsDropdown = <T extends unknown>({
           <span className={styles.dropdownArrow}></span>
         </div>
         {isDropdownOpen && (
-          <div className={styles.dropdownContent} onMouseDown={(e) => e.preventDefault()}>
+          <div
+            className={styles.dropdownContent}
+            onMouseDown={(e) => e.preventDefault()}
+          >
             <div className={styles.optionsList}>
               <button onClick={handleClearAll} className={styles.clearButton}>
                 Clear/Select All

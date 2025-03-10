@@ -1,11 +1,8 @@
 ---
 export const prerender = false;
-
-import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import Layout from "../layouts/Layout.astro";
-import { getLocalUserId } from "../utils/localUser";
-const { request, cookies, redirect } = Astro;
-
+import { createServerClient, parseCookieHeader } from "@supabase/ssr";
+const { cookies, redirect, request } = Astro;
 const supabase = createServerClient(
   import.meta.env.SUPABASE_URL,
   import.meta.env.SUPABASE_KEY,
@@ -23,15 +20,11 @@ const supabase = createServerClient(
   }
 );
 
-const userId =
-  import.meta.env.MODE === "development"
-    ? getLocalUserId()
-    : (await supabase.auth.getUser()).data.user?.id;
+const { data } = await supabase.auth.getSession();
 
-if (!userId) {
+if (!data.session) {
   return redirect("/signin");
 }
-
 return redirect("/dashboard");
 ---
 
