@@ -21,19 +21,8 @@ export const DELETE: APIRoute = async ({ request, cookies }) => {
   );
 
   const { id } = await request.json();
-  const userId = (await supabase.auth.getUser()).data.user?.id;
 
-  if (!userId) {
-    return new Response("User not authenticated", { status: 401 });
-  }
-
-  await supabase.from("transactions").delete().eq("profile_id", id);
-
-  const { error } = await supabase
-    .from("profiles")
-    .delete()
-    .eq("id", id)
-    .eq("parent_id", userId);
+  const { error } = await supabase.from("profiles").delete().eq("id", id);
 
   if (error) {
     console.log(error);
