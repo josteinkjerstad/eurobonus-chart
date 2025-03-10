@@ -11,7 +11,6 @@ import {
 } from "chart.js";
 import type { PeopleTransaction, Transaction } from "../../models/transaction";
 import type { Profile } from "../../models/profile";
-import { calculateTotalBonusPointsByProfile } from "../../helpers/calculations";
 import styles from "./PeopleChart.module.scss";
 
 ChartJS.register(
@@ -45,7 +44,7 @@ export const PeopleChart = ({ transactions, profiles }: PeopleChartProps) => {
   const options = {
     plugins: {
       legend: {
-        display: true,
+        display: false,
       },
     },
     scales: {
