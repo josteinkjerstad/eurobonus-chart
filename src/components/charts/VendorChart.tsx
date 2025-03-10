@@ -179,7 +179,7 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
       x: {
         ticks: {
           autoSkip: false,
-          minRotation: 0,
+          minRotation: 45,
           maxRotation: 45,
         },
       },

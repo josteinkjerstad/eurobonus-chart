@@ -54,7 +54,7 @@ export const CsvUpload = ({ profiles }: CsvUploadProps) => {
   };
 
   return (
-    <div >
+    <div>
       <HTMLSelect
         onChange={handleProfileSelect}
         value={selectedProfile.id}
