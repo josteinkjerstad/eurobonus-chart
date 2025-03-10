@@ -3,8 +3,7 @@ import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import type { APIRoute } from "astro";
 
 export const GET: APIRoute = async ({ cookies, request, redirect }) => {
-
-    const supabase = createServerClient(
+  const supabase = createServerClient(
     import.meta.env.SUPABASE_URL,
     import.meta.env.SUPABASE_KEY,
     {
@@ -21,6 +20,7 @@ export const GET: APIRoute = async ({ cookies, request, redirect }) => {
     }
   );
 
-  supabase.auth.signOut();
+  await supabase.auth.signOut();
+
   return redirect("/signin");
 };

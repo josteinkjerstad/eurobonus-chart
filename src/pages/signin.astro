@@ -21,14 +21,14 @@ const supabase = createServerClient(
   }
 );
 
-const { data } = await supabase.auth.getUser();
+const { data } = await supabase.auth.getSession();
 
-if (data.user) {
+if (!!data.session) {
   return redirect("/dashboard");
 }
 ---
 
-<Layout title="Sign in" signedIn={false}>
+<Layout title="Sign in" client:load>
   <h1>Welcome</h1>
   <form action="/api/auth/signin" method="post">
     <button

@@ -27,6 +27,7 @@ const { data } = await supabase.auth.getSession();
 const navLinks = [
   { href: "/dashboard", label: "Dashboard", hidden: !data.session },
   { href: "/profile", label: "Profile", hidden: !data.session },
+  { href: "/showcase", label: "Demo", hidden: !!data.session },
 ];
 ---
 
