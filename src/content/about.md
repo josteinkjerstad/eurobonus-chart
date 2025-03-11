@@ -1,6 +1,6 @@
 # About
 
-Eurobonus Charts provides a visual representation of your SAS EuroBonus points, making it easy to see where you have earned all your points over the years.
+EuroBonus Charts provides a visual representation of your SAS EuroBonus points, making it easy to see where you have earned all your points over the years.
 
 ## FAQ
 
@@ -20,9 +20,9 @@ Logging in keeps your data secure and ensures that only you can access your Euro
 
 You can delete all your transactions and your account at any time under the profile settings.
 
-### Is Eurobonus Charts free to use?
+### Is EuroBonus Charts free to use?
 
-Yes, Eurobonus Charts is completely free to use.
+Yes, EuroBonus Charts is completely free to use.
 
 ### Where are all my transactions from before 2017?
 

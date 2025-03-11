@@ -1,11 +1,10 @@
 import type { GroupVendor, Vendor } from "./vendor";
-import type { Profile } from "./profile";
 
 export interface Transaction {
   id?: number;
   user_id: string;
   date: string;
-  activity: string;
+  activity?: string;
   bonus_points?: number;
   level_points?: number;
   profile_id: string;

@@ -3,7 +3,7 @@ import { Button, Intent, Icon } from "@blueprintjs/core";
 export const DeleteTransactionsButton = () => {
   const handleDelete = async () => {
     const response = await fetch("/api/delete-transactions", {
-      method: "DELETE",
+      method: "POST",
     });
 
     if (response.ok) {
@@ -15,7 +15,11 @@ export const DeleteTransactionsButton = () => {
   };
 
   return (
-    <Button intent={Intent.DANGER} icon={<Icon icon="trash" />} onClick={handleDelete}>
+    <Button
+      intent={Intent.DANGER}
+      icon={<Icon icon="trash" />}
+      onClick={handleDelete}
+    >
       Delete All Transactions
     </Button>
   );

@@ -8,7 +8,11 @@ type AddFamilyMemberDialogProps = {
   onAdd: (member: Profile) => void;
 };
 
-export const AddFamilyMemberDialog = ({ isOpen, onClose, onAdd }: AddFamilyMemberDialogProps) => {
+export const AddFamilyMemberDialog = ({
+  isOpen,
+  onClose,
+  onAdd,
+}: AddFamilyMemberDialogProps) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       display_name: "",
@@ -38,10 +42,18 @@ export const AddFamilyMemberDialog = ({ isOpen, onClose, onAdd }: AddFamilyMembe
   };
 
   return (
-    <Dialog isOpen={isOpen} onClose={onClose} style={{ padding: "20px", width: "400px", height: "200px" }}>
+    <Dialog
+      isOpen={isOpen}
+      onClose={onClose}
+      style={{ padding: "20px", width: "400px", height: "200px" }}
+    >
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <FormGroup label="Display Name">
-          <Controller name="display_name" control={control} render={({ field }) => <InputGroup {...field} />} />
+          <Controller
+            name="display_name"
+            control={control}
+            render={({ field }) => <InputGroup {...field} />}
+          />
         </FormGroup>
         <Button type="submit" intent="primary">
           Add

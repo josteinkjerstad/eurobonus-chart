@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Label, InputGroup, Switch, HTMLSelect, H4 } from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
 import { getAllValidQualifyingPeriods } from "../../models/qualifying-periods";
+import styles from "./ProfileSettings.module.scss";
 
 type ProfileSettingsProps = {
   profile: Profile;
@@ -10,7 +11,9 @@ type ProfileSettingsProps = {
 export const ProfileSettings = ({ profile }: ProfileSettingsProps) => {
   const [isPublic, setIsPublic] = useState(profile.public);
   const [displayName, setDisplayName] = useState(profile.display_name);
-  const [qualifyingPeriod, setQualifyingPeriod] = useState(profile.periode_start_month || 1);
+  const [qualifyingPeriod, setQualifyingPeriod] = useState(
+    profile.periode_start_month
+  );
   const qualifyingPeriods = getAllValidQualifyingPeriods();
 
   const changeIsPublic = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +32,9 @@ export const ProfileSettings = ({ profile }: ProfileSettingsProps) => {
     }
   };
 
-  const changeDisplayName = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeDisplayName = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const newDisplayName = event.target.value;
     setDisplayName(newDisplayName);
     const response = await fetch("/api/profile/change-display-name", {
@@ -45,7 +50,9 @@ export const ProfileSettings = ({ profile }: ProfileSettingsProps) => {
     }
   };
 
-  const changeQualifyingPeriod = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const changeQualifyingPeriod = async (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const newPeriod = parseInt(event.target.value);
     setQualifyingPeriod(newPeriod);
     const response = await fetch("/api/profile/change-qualification-period", {
@@ -62,26 +69,31 @@ export const ProfileSettings = ({ profile }: ProfileSettingsProps) => {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       <H4>Profile Settings</H4>
-      <Label style={{ width: "300px" }}>
+      <Label>
         Display Name
         <InputGroup value={displayName} onChange={changeDisplayName} />
       </Label>
-      <Label style={{ width: "300px" }}>
+      <Label>
         Qualifying Period
         <HTMLSelect
-          value={qualifyingPeriod}
+          value={qualifyingPeriod ?? ""}
           onChange={changeQualifyingPeriod}
-          options={qualifyingPeriods.map(period => ({
-            value: period.month,
-            label: period.label,
-          }))}
+          options={[
+            { value: "", label: "Select a period" },
+            ...qualifyingPeriods.map((period) => ({
+              value: period.month,
+              label: period.label,
+            })),
+          ]}
         />
       </Label>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <Switch label="Public profile" checked={isPublic} onChange={changeIsPublic} />
-      </div>
-    </>
+      <Switch
+        label="Public profile"
+        checked={isPublic}
+        onChange={changeIsPublic}
+      />
+    </div>
   );
 };

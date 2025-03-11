@@ -1,25 +1,23 @@
 import {
   AirlinePartner,
   CreditCardPartner,
-  EurobonusShopPartner,
+  EuroBonusShopPartner,
   HotelPartner,
   HouseholdPartner,
   Partner,
   RentalCarPartner,
-  RestaurantPartner,
   ScandinavianAirlinesPartner,
 } from "./partners";
 
 export type Vendor =
   | Partner
-  | EurobonusShopPartner
+  | EuroBonusShopPartner
   | AirlinePartner
   | RentalCarPartner
   | CreditCardPartner
   | HotelPartner
   | HouseholdPartner
-  | ScandinavianAirlinesPartner
-  | RestaurantPartner;
+  | ScandinavianAirlinesPartner;
 
 export enum GroupVendor {
   CarRental = "Car Rentals",
@@ -30,19 +28,22 @@ export enum GroupVendor {
   HouseholdPartner = "Household Services",
   ScandinavianAirlines = "Scandinavian Airlines",
   NorgesGruppen = "NorgesGruppen",
-  Restaurants = "Restaurants",
 }
 
 export const groupedVendors: Record<GroupVendor, Vendor[]> = {
   [GroupVendor.CarRental]: Object.values(RentalCarPartner),
-  [GroupVendor.EuroBonusEarnShop]: Object.values(EurobonusShopPartner),
-  [GroupVendor.AirlinePartner]: [Partner.Flytoget, ...Object.values(AirlinePartner)],
+  [GroupVendor.EuroBonusEarnShop]: Object.values(EuroBonusShopPartner),
+  [GroupVendor.AirlinePartner]: [
+    Partner.Flytoget,
+    ...Object.values(AirlinePartner),
+  ],
   [GroupVendor.CreditCardPartner]: Object.values(CreditCardPartner),
   [GroupVendor.HotelPartner]: Object.values(HotelPartner),
   [GroupVendor.HouseholdPartner]: Object.values(HouseholdPartner),
-  [GroupVendor.ScandinavianAirlines]: Object.values(ScandinavianAirlinesPartner),
+  [GroupVendor.ScandinavianAirlines]: Object.values(
+    ScandinavianAirlinesPartner
+  ),
   [GroupVendor.NorgesGruppen]: [Partner.Trumf],
-  [GroupVendor.Restaurants]: Object.values(RestaurantPartner),
 };
 
 export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
@@ -71,9 +72,11 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
       return "Travel Wallet";
     case CreditCardPartner.WideroeKortet:
       return "Widerøe-kortet";
+    case HotelPartner.Radisson:
+      return "Radisson Hotels";
     case HotelPartner.Scandic:
       return "Scandic Hotels";
-    case EurobonusShopPartner.EuroBonusShop:
+    case EuroBonusShopPartner.EuroBonusShop:
       return "EuroBonus Shop";
     case HouseholdPartner.LiveNation:
       return "Live Nation";

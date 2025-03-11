@@ -2,8 +2,6 @@ export const prerender = false;
 import type { APIRoute } from "astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import * as XLSX from "xlsx";
-import { getUnknownTransactions } from "../../utils/calculations";
-import type { Transaction } from "../../models/transaction";
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
@@ -18,16 +16,22 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     return new Response("No profile ID provided", { status: 400 });
   }
 
-  const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.env.SUPABASE_KEY, {
-    cookies: {
-      getAll() {
-        return parseCookieHeader(request.headers.get("Cookie") ?? "");
+  const supabase = createServerClient(
+    import.meta.env.SUPABASE_URL,
+    import.meta.env.SUPABASE_KEY,
+    {
+      cookies: {
+        getAll() {
+          return parseCookieHeader(request.headers.get("Cookie") ?? "");
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            cookies.set(name, value, options)
+          );
+        },
       },
-      setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value, options }) => cookies.set(name, value, options));
-      },
-    },
-  });
+    }
+  );
 
   const arrayBuffer = await file.arrayBuffer();
   const workbook = XLSX.read(arrayBuffer, { type: "array" });
@@ -41,27 +45,22 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     return new Response("User not authenticated", { status: 401 });
   }
 
-  const transactions: Transaction[] = jsonData.slice(1).map((row: any) => ({
+  const transactions = jsonData.slice(1).map((row: any) => ({
     user_id: userId,
-    date: new Date(row[0]).toISOString(),
+    date: new Date(row[0]),
     activity: row[1] || null,
     bonus_points: parseInt(row[2], 10) || 0,
     level_points: parseInt(row[3], 10) || 0,
     profile_id: profileId,
   }));
 
-  await supabase.from("transactions").delete().eq("user_id", userId).eq("profile_id", profileId);
+  await supabase
+    .from("transactions")
+    .delete()
+    .eq("user_id", userId)
+    .eq("profile_id", profileId);
 
   const { error } = await supabase.from("transactions").insert(transactions);
-  const unknownTransactions = getUnknownTransactions(transactions);
-
-  if (unknownTransactions.size !== 0) {
-    await supabase.from("unknown_transactions").insert(
-      Array.from(unknownTransactions).map(t => ({
-        activity: t.activity,
-      }))
-    );
-  }
 
   if (error) {
     return new Response(`Error uploading transactions: ${error.message}`, {
