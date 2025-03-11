@@ -62,6 +62,7 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
     [GroupVendor.CreditCardPartner]: true,
     [GroupVendor.ScandinavianAirlines]: true,
     [GroupVendor.NorgesGruppen]: true,
+    [GroupVendor.Restaurants]: true,
   });
 
   const [selectedMembers, setSelectedMembers] = useState<Set<Profile>>(

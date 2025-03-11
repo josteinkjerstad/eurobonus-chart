@@ -15,6 +15,9 @@ export enum ScandinavianAirlinesPartner {
 export enum HotelPartner {
   Radisson = "Radisson Hotels",
   Scandic = "Scandic Hotels | Points Earned",
+  SmartHotel = "SmartHotel",
+  FrognerHouse = "Frogner House",
+  BankenHotel = "Banken Hotel",
 }
 
 export enum CreditCardPartner {
@@ -32,6 +35,7 @@ export enum HouseholdPartner {
   Aftenposten = "Aftenposten",
   DagensNæringsliv = "Dagens Näringsliv | Points Earned",
   LiveNation = "LiveNation | Points Earned",
+  NordiskVentilasjonsrens = "Nordisk Ventilasjonsrens",
 }
 
 export enum RentalCarPartner {
@@ -43,19 +47,65 @@ export enum RentalCarPartner {
 export enum EurobonusShopPartner {
   EuroBonusShop = "Shop",
   Nikita = "Nikita",
-  DognVill = "Døgnvill",
-  Egon = "Egon",
   Rituals = "Rituals",
   Morris = "Morris",
   Samsung = "Samsung",
   OneCall = "OneCall",
   Interflora = "Interflora",
+  RoyalCaribbeanCruises = "Royal Caribbean Cruises",
+  CBDNordic = "Cbd Nordic",
+  EleniChris = "Eleni & Chris",
+  Chillout = "Chillout",
+  Lildog = "Lildog",
+  Golfamore = "Golfamore",
+  NorFloor = "Norfloor",
+  Hultens = "Hultens",
+  FarSunSolskjerming = "Far&Sun Solskjerming",
+  ByBenson = "By Benson",
+  MyScreens = "My Screens",
+  HurtigrutaCarglass = "Hurtigruta Carglass",
+  DitecBilpleie = "Ditec Bilplpeie",
+  TaxiFix = "Taxifix",
+  VonDoren = "Von Doren",
+  Mulberry = "Mulberry",
+  HellyHansen = "Helly Hansen",
+  QOMO = "Qomo",
+  MilesPerHour = "Miles Per Hour",
+  TailorStore = "Tailor Store",
+  LuxReaders = "LuxReaders",
+  ACPerchs = "A.C. Perchs",
+  CruiseAway = "CruiseAway",
+  Solentro = "Solentro",
+  LifeJourney = "Life Journal",
+}
+
+export enum RestaurantPartner {
+  DognVill = "Døgnvill",
+  Egon = "Egon",
   Wolt = "Wolt",
   Sumo = "Sumo",
   CafeMunk = "Cafe Munk",
   TrattoriaSud = "Trattoria Sud",
   ECDahls = "E.C. Dahls",
   MissGin = "Miss Gin",
+  Brasilia = "Brasilia",
+  Escalon = "Escalon",
+  FishCow = "Fish & Cow",
+  Spiseriet = "Spiseriet",
+  Eldhuset = "Eldhuset",
+  Fisketorget = "Fisketorget",
+  JohnnyRockets = "Johnny Rockets",
+  HjemmeHosSvigers = "Hjemme Hos Svigers",
+  Feinschmecker = "Feinschmecker",
+  BolgenMoi = "Bølgen & Moi",
+  RorBua = "Rorbua",
+  Casbar = "Casbar",
+  Vulkanfisk = "Vulkanfisk",
+  Fiskeriet = "Fiskeriet",
+  Wallmans = "Wallmans",
+  Stock = "Stock",
+  KafeAsylet = "Kafe Asylet",
+  OnkelOskar = "Onkel Oskar",
 }
 
 export enum AirlinePartner {
