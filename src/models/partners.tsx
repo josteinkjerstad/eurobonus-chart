@@ -103,7 +103,6 @@ export enum RestaurantPartner {
   Vulkanfisk = "Vulkanfisk",
   Fiskeriet = "Fiskeriet",
   Wallmans = "Wallmans",
-  Stock = "Stock",
   KafeAsylet = "Kafe Asylet",
   OnkelOskar = "Onkel Oskar",
 }
