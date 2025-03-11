@@ -4,9 +4,9 @@ import type { Profile } from "../../models/profile";
 import { ProfileSettings } from "./ProfileSettings";
 import useFetchProfiles from "../../hooks/useFetchProfiles";
 import styles from "./ProfileSection.module.scss";
-import { ActionSection } from "./ActionSection";
 import { MemberSection } from "./MemberSection";
 import { UploadSection } from "./UploadSection";
+import { DeleteSection } from "./DeleteSection";
 
 export const ProfileSection = () => {
   const { data, loading } = useFetchProfiles();
@@ -27,7 +27,7 @@ export const ProfileSection = () => {
       <Divider />
       <UploadSection profiles={[profile, ...members]} />
       <Divider />
-      <ActionSection />
+      <DeleteSection />
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import { getDisplayName, type Vendor, GroupVendor, groupedVendors } from "../../models/vendor";
 import type { VendorTransaction } from "../../models/transaction";
 import styles from "./VendorChart.module.scss";
-import { OptionsDropdown } from "../common/OptionsDropdown";
+import { OptionsDropdown } from "../shared/OptionsDropdown";
 import type { Profile } from "../../models/profile";
 import { Partner } from "../../models/partners";
 

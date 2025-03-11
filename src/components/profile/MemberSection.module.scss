@@ -1,7 +1,17 @@
-.container {
-    flex-direction: row;
-    width: 200px;
+.members {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.buttons {
-    margin-left: 10px;;
+
+.member {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.memberButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
