@@ -1,25 +1,6 @@
-import {
-  AirlinePartner,
-  CreditCardPartner,
-  EurobonusShopPartner,
-  HotelPartner,
-  HouseholdPartner,
-  Partner,
-  RentalCarPartner,
-  RestaurantPartner,
-  ScandinavianAirlinesPartner,
-} from "./partners";
+import { AirlinePartner, CreditCardPartner, EurobonusShopPartner, HotelPartner, HouseholdPartner, Partner, RentalCarPartner, RestaurantPartner, ScandinavianAirlinesPartner } from "./partners";
 
-export type Vendor =
-  | Partner
-  | EurobonusShopPartner
-  | AirlinePartner
-  | RentalCarPartner
-  | CreditCardPartner
-  | HotelPartner
-  | HouseholdPartner
-  | ScandinavianAirlinesPartner
-  | RestaurantPartner;
+export type Vendor = Partner | EurobonusShopPartner | AirlinePartner | RentalCarPartner | CreditCardPartner | HotelPartner | HouseholdPartner | ScandinavianAirlinesPartner | RestaurantPartner;
 
 export enum GroupVendor {
   CarRental = "Car Rentals",
@@ -36,16 +17,11 @@ export enum GroupVendor {
 export const groupedVendors: Record<GroupVendor, Vendor[]> = {
   [GroupVendor.CarRental]: Object.values(RentalCarPartner),
   [GroupVendor.EuroBonusEarnShop]: Object.values(EurobonusShopPartner),
-  [GroupVendor.AirlinePartner]: [
-    Partner.Flytoget,
-    ...Object.values(AirlinePartner),
-  ],
+  [GroupVendor.AirlinePartner]: [Partner.Flytoget, ...Object.values(AirlinePartner)],
   [GroupVendor.CreditCardPartner]: Object.values(CreditCardPartner),
   [GroupVendor.HotelPartner]: Object.values(HotelPartner),
   [GroupVendor.HouseholdPartner]: Object.values(HouseholdPartner),
-  [GroupVendor.ScandinavianAirlines]: Object.values(
-    ScandinavianAirlinesPartner
-  ),
+  [GroupVendor.ScandinavianAirlines]: Object.values(ScandinavianAirlinesPartner),
   [GroupVendor.NorgesGruppen]: [Partner.Trumf],
   [GroupVendor.Restaurants]: Object.values(RestaurantPartner),
 };

@@ -45,7 +45,7 @@ export enum RentalCarPartner {
 }
 
 export enum EurobonusShopPartner {
-  EuroBonusShop = "Shop",
+  EuroBonusShop = "EuroBonus Earn Shop",
   Nikita = "Nikita",
   Rituals = "Rituals",
   Morris = "Morris",

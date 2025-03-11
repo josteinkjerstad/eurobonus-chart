@@ -1,0 +1,5 @@
+{
+  "endOfLine": "auto",
+  "arrowParens": "avoid",
+  "printWidth": 200
+}
