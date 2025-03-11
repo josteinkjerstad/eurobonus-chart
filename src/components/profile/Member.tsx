@@ -10,13 +10,19 @@ import { DeleteButton } from "../shared/DeleteButton";
 type MemberProps = {
   member: Profile;
   onDelete: (id: string) => void;
+  onChange: (member: Profile) => void;
 };
 
-export const Member = ({ member, onDelete }: MemberProps) => {
+export const Member = ({ member, onDelete, onChange }: MemberProps) => {
   const [displayName, setDisplayName] = useState(member.display_name);
 
+  const handleChange = (newValue: string) => {
+    setDisplayName(newValue);
+    onChange({ ...member, display_name: newValue });
+  };
+
   const deleteMember = useDeleteMember(member.id, onDelete);
-  const changeDisplayName = useChangeDisplayName(member.id, setDisplayName);
+  const changeDisplayName = useChangeDisplayName(member.id, handleChange);
 
   return (
     <div className={styles.member}>

@@ -1,15 +1,14 @@
-import { H4 } from "@blueprintjs/core";
+import { H5 } from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
 import { CsvUpload } from "./CsvUpload";
-import styles from "./UploadSection.module.scss";
 
 type UploadSectionProps = {
   profiles: Profile[];
 };
 
 export const UploadSection = ({ profiles }: UploadSectionProps) => (
-  <div className={styles.container}>
-    <H4>Upload Transactions</H4>
+  <div>
+    <H5>Upload Transactions</H5>
     <p>
       To display your data, please download the transaction file from your SAS profile and upload it here.
       <br />

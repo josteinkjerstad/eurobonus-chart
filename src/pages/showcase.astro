@@ -8,34 +8,26 @@ import type { Transaction } from "../models/transaction";
 import type { Profile } from "../models/profile";
 
 const profiles: Profile[] = [
-  { id: "1", display_name: "James" },
-  { id: "2", display_name: "Michael" },
-  { id: "3", display_name: "Mary" },
-  { id: "4", display_name: "Robert" },
+  { id: "1", display_name: "James", created: new Date(2025, 1, 20).toISOString(), user_id: "1", periode_start_month: 1 },
+  { id: "2", display_name: "Michael", created: new Date(2025, 1, 21).toISOString(), parent_id: "1", periode_start_month: 5 },
+  { id: "3", display_name: "Mary", created: new Date(2025, 1, 22).toISOString(), parent_id: "1", periode_start_month: 9 },
+  { id: "4", display_name: "Robert", created: new Date(2025, 1, 23).toISOString(), parent_id: "1", periode_start_month: 12 },
 ];
 
-const allVendors = Object.values(groupedVendors).flatMap((x) => x);
+const allVendors = Object.values(groupedVendors).flatMap(x => x);
 
 const generateRandomDate = (start: Date, end: Date) => {
-  return new Date(
-    start.getTime() + Math.random() * (end.getTime() - start.getTime())
-  );
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 };
 
-const generateRandomTransaction = (
-  profileId: string,
-  vendors: string[],
-  isNegative = false
-): Transaction => {
+const generateRandomTransaction = (profileId: string, vendors: string[], isNegative = false): Transaction => {
   const date = generateRandomDate(new Date(2018, 0, 1), new Date(2025, 11, 31));
   const vendor = vendors[Math.floor(Math.random() * vendors.length)];
   let bonusPoints = Math.floor(Math.random() * 10000) + 1;
 
   if (Object.values(AirlinePartner).includes(vendor as AirlinePartner)) {
     bonusPoints = Math.floor(Math.random() * 100) + 1;
-  } else if (
-    Object.values(EuroBonusShopPartner).includes(vendor as EuroBonusShopPartner)
-  ) {
+  } else if (Object.values(EuroBonusShopPartner).includes(vendor as EuroBonusShopPartner)) {
     bonusPoints = Math.floor(Math.random() * 500) + 1;
   } else if (vendor.includes("MasterCard") || vendor.includes("Amex")) {
     bonusPoints = Math.floor(Math.random() * 50000) + 1;
@@ -46,7 +38,7 @@ const generateRandomTransaction = (
   }
 
   return {
-    user_id: profileId,
+    user_id: "1",
     date: date.toISOString(),
     activity: vendor,
     bonus_points: bonusPoints,
@@ -57,13 +49,13 @@ const generateRandomTransaction = (
 
 const transactions: Transaction[] = [];
 
-profiles.forEach((profile) => {
+profiles.forEach(profile => {
   for (let i = 0; i < 500; i++) {
     transactions.push(generateRandomTransaction(profile.id, allVendors));
   }
   for (let year = 2018; year <= 2025; year++) {
     transactions.push({
-      user_id: profile.id,
+      user_id: "1",
       date: new Date(year, 0, 1).toISOString(),
       activity: "Copenhagen - Chicago | SK Business",
       bonus_points: Math.floor(Math.random() * -100000) - 75000,
@@ -71,9 +63,11 @@ profiles.forEach((profile) => {
     });
   }
 });
+
+console.log(transactions.splice(0, 50));
 ---
 
 <Layout title="Showcase">
   <h1>Showcase</h1>
-  <Charts transactions={transactions} profiles={profiles} />
+  <Charts transactions={transactions} profiles={profiles} client:load />
 </Layout>

@@ -1,12 +1,6 @@
 import { useState } from "react";
 import type { ChangeEvent } from "react";
-import {
-  Button,
-  FileInput,
-  Spinner,
-  SpinnerSize,
-  HTMLSelect,
-} from "@blueprintjs/core";
+import { Button, FileInput, Spinner, SpinnerSize, HTMLSelect } from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
 
 type CsvUploadProps = {
@@ -25,7 +19,7 @@ export const CsvUpload = ({ profiles }: CsvUploadProps) => {
   };
 
   const handleProfileSelect = (event: ChangeEvent<HTMLSelectElement>) => {
-    const profile = profiles.find((p) => p.id === event.target.value);
+    const profile = profiles.find(p => p.id === event.target.value);
     setSelectedProfile(profile!);
   };
 
@@ -55,27 +49,20 @@ export const CsvUpload = ({ profiles }: CsvUploadProps) => {
 
   return (
     <div>
-      <HTMLSelect
-        onChange={handleProfileSelect}
-        value={selectedProfile.id}
-        options={profiles.map((profile) => ({
-          value: profile.id,
-          label: profile.display_name,
-        }))}
-        style={{ marginBottom: "10px", minWidth: "200px" }}
-      />
+      {profiles.length > 1 && (
+        <HTMLSelect
+          onChange={handleProfileSelect}
+          value={selectedProfile.id}
+          options={profiles.map(profile => ({
+            value: profile.id,
+            label: profile.display_name,
+          }))}
+          style={{ marginBottom: "10px", minWidth: "200px" }}
+        />
+      )}
       <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-        <FileInput
-          text={selectedFile?.name ?? "No file selected"}
-          onInputChange={handleFileSelect}
-          inputProps={{ accept: ".xlsx,.xls" }}
-        />
-        <Button
-          text="Upload"
-          onClick={handleUpload}
-          disabled={!selectedFile || isLoading}
-          intent="primary"
-        />
+        <FileInput text={selectedFile?.name ?? "No file selected"} onInputChange={handleFileSelect} inputProps={{ accept: ".xlsx,.xls" }} />
+        <Button text="Upload" onClick={handleUpload} disabled={!selectedFile || isLoading} intent="primary" />
       </div>
       {isLoading && <Spinner size={SpinnerSize.SMALL} />}
     </div>
