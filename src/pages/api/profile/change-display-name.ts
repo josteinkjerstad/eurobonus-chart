@@ -20,7 +20,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }
   );
 
-  const userId = (await supabase.auth.getSession()).data.session?.user?.id;
+  const userId = (await supabase.auth.getUser()).data.user?.id;
 
   const { display_name } = await request.json();
   const { error } = await supabase

@@ -2,7 +2,7 @@ export const prerender = false;
 import type { APIRoute } from "astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 
-export const POST: APIRoute = async ({ request, cookies }) => {
+export const DELETE: APIRoute = async ({ request, cookies }) => {
   const supabase = createServerClient(
     import.meta.env.SUPABASE_URL,
     import.meta.env.SUPABASE_KEY,
@@ -20,7 +20,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }
   );
 
-  const userId = (await supabase.auth.getSession()).data.session?.user.id;
+  const userId = (await supabase.auth.getUser()).data.user?.id;
 
   const { error } = await supabase
     .from("transactions")
