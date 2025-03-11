@@ -22,7 +22,7 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
   const [selectedYears, setSelectedYears] = useState<Set<number>>(new Set(years));
 
   const [groupedVendorsState, setGroupedVendorsState] = useState<Record<GroupVendor, boolean>>(
-    Object.keys(GroupVendor).reduce((acc, group) => {
+    Object.values(GroupVendor).reduce((acc, group) => {
       acc[group as GroupVendor] = true;
       return acc;
     }, {} as Record<GroupVendor, boolean>)
