@@ -14,11 +14,20 @@ type QualifyingPeriodsChartProps = {
 };
 
 export const QualifyingPeriodsChart = ({ transactions, profiles }: QualifyingPeriodsChartProps) => {
-  const [selectedProfile, setSelectedProfile] = useState<Profile>(profiles[0]);
+  const [selectedProfile, setSelectedProfile] = useState<Profile>(profiles.find(p => p.user_id)!);
 
   const profileTransactions = useMemo(
     () => transactions.filter(transaction => transaction.profile_id === selectedProfile.id),
     [transactions, selectedProfile]
+  );
+
+  const profileOptions = useMemo(
+    () =>
+      [profiles.find(p => p.user_id), ...profiles.filter(p => p.parent_id)].map(profile => ({
+        value: profile!.id,
+        label: profile!.display_name,
+      })),
+    [profiles]
   );
 
   const handleProfileSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -71,10 +80,7 @@ export const QualifyingPeriodsChart = ({ transactions, profiles }: QualifyingPer
           <HTMLSelect
             onChange={handleProfileSelect}
             value={selectedProfile.id}
-            options={profiles.map(profile => ({
-              value: profile.id,
-              label: profile.display_name,
-            }))}
+            options={profileOptions}
             style={{ marginBottom: "10px", minWidth: "200px" }}
           />
         </div>
