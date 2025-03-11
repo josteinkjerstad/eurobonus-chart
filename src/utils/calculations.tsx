@@ -40,8 +40,7 @@ export const groupTransactionsByVendor = (transactions: Transaction[]): Record<V
     .filter(x => x.bonus_points && x.bonus_points > 0 && !x.activity?.includes("Refund"))
     .reduce((acc, transaction) => {
       const vendor = allVendors.find(vendor => transaction.activity.includes(vendor)) ?? findVendor(transaction);
-      acc[vendor] ??= [];
-      acc[vendor].push(transaction);
+      (acc[vendor] ??= []).push(transaction);
       return acc;
     }, {} as Record<Vendor, Transaction[]>);
 };
