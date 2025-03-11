@@ -53,18 +53,14 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   await supabase.from("transactions").delete().eq("user_id", userId).eq("profile_id", profileId);
 
   const { error } = await supabase.from("transactions").insert(transactions);
-
   const unknownTransactions = getUnknownTransactions(transactions);
-  console.log(unknownTransactions);
 
-  const { error: unknownError } = await supabase.from("unknown_transactions").insert(
-    Array.from(unknownTransactions).map(activity => ({
-      activity: activity,
-    }))
-  );
-
-  if (unknownError) {
-    console.log(unknownError);
+  if (unknownTransactions.size !== 0) {
+    await supabase.from("unknown_transactions").insert(
+      Array.from(unknownTransactions).map(t => ({
+        activity: t.activity,
+      }))
+    );
   }
 
   if (error) {

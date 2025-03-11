@@ -37,7 +37,7 @@ export const groupTransactionsByVendor = (transactions: Transaction[]): Record<V
     .concat(Partner.Unknown);
 
   return transactions
-    .filter(x => x.bonus_points && x.bonus_points > 0 && !x.activity?.includes("Refund"))
+    .filter(x => x.activity && x.bonus_points && x.bonus_points > 0 && !x.activity?.includes("Refund"))
     .reduce((acc, transaction) => {
       const vendor = allVendors.find(vendor => transaction.activity.includes(vendor)) ?? findVendor(transaction);
       (acc[vendor] ??= []).push(transaction);
@@ -45,9 +45,9 @@ export const groupTransactionsByVendor = (transactions: Transaction[]): Record<V
     }, {} as Record<Vendor, Transaction[]>);
 };
 
-export const getUnknownTransactions = (transactions: Transaction[]): Set<string> => {
+export const getUnknownTransactions = (transactions: Transaction[]): Set<Transaction> => {
   const vendorTransactions = groupTransactionsByVendor(transactions);
-  return new Set(vendorTransactions[Partner.Unknown].map(x => x.activity!));
+  return new Set(vendorTransactions[Partner.Unknown]);
 };
 
 export const calculateVendorTransactions = (transactions: Transaction[]): VendorTransaction[] => {
