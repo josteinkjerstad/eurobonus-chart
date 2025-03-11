@@ -1,72 +1,37 @@
-import { HTMLSelect } from "@blueprintjs/core";
-import {
-  BarElement,
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip,
-} from "chart.js";
-import { useMemo, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import type { Profile } from "../../models/profile";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import type { QualifyingTransaction } from "../../models/transaction";
+import type { Profile } from "../../models/profile";
 import styles from "./QualifyingPeriodsChart.module.scss";
+import { useMemo, useState } from "react";
+import { HTMLSelect } from "@blueprintjs/core";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 type QualifyingPeriodsChartProps = {
   transactions: QualifyingTransaction[];
   profiles: Profile[];
 };
 
-export const QualifyingPeriodsChart = ({
-  transactions,
-  profiles,
-}: QualifyingPeriodsChartProps) => {
-  const [selectedProfile, setSelectedProfile] = useState<Profile>(
-    profiles.find((p) => !p.parent_id)!
-  );
+export const QualifyingPeriodsChart = ({ transactions, profiles }: QualifyingPeriodsChartProps) => {
+  const [selectedProfile, setSelectedProfile] = useState<Profile>(profiles[0]);
 
   const profileTransactions = useMemo(
-    () =>
-      transactions.filter(
-        (transaction) => transaction.profile_id === selectedProfile.id
-      ),
+    () => transactions.filter(transaction => transaction.profile_id === selectedProfile.id),
     [transactions, selectedProfile]
   );
 
   const handleProfileSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const profile = profiles.find((p) => p.id === event.target.value);
+    const profile = profiles.find(p => p.id === event.target.value);
     setSelectedProfile(profile!);
   };
 
-  const profileOptions = useMemo(
-    () =>
-      [
-        profiles.find((p) => p.user_id)!,
-        ...profiles.filter((p) => p.parent_id),
-      ].map((profile) => ({
-        value: profile.id,
-        label: profile.display_name,
-      })),
-    [profiles]
-  );
-
   const data = useMemo(
     () => ({
-      labels: profileTransactions.map((t) => t.period),
+      labels: profileTransactions.map(t => t.period),
       datasets: [
         {
-          data: profileTransactions.map((t) => t.value),
+          data: profileTransactions.map(t => t.value),
           backgroundColor: "rgba(54, 162, 235, 0.2)",
           borderColor: "rgba(54, 162, 235, 1)",
           borderWidth: 1,
@@ -106,7 +71,10 @@ export const QualifyingPeriodsChart = ({
           <HTMLSelect
             onChange={handleProfileSelect}
             value={selectedProfile.id}
-            options={profileOptions}
+            options={profiles.map(profile => ({
+              value: profile.id,
+              label: profile.display_name,
+            }))}
             style={{ marginBottom: "10px", minWidth: "200px" }}
           />
         </div>

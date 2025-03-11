@@ -1,15 +1,15 @@
 import {
   AirlinePartner,
   CreditCardPartner,
-  EurobonusShopPartner,
+  EuroBonusShopPartner,
   HotelPartner,
   Partner,
   RentalCarPartner,
   ScandinavianAirlinesPartner,
 } from "../models/partners";
 import type { Transaction } from "../models/transaction";
-import "../utils/extensions";
 import type { Vendor } from "../models/vendor";
+import "../utils/extensions";
 
 const sasActivities = [
   "Conscious Traveler Reward",
@@ -52,7 +52,7 @@ const isAmex = (activity: string): boolean => activity.includes("Amex");
 const isAvis = (activity: string): boolean => activity.startsWith("ra ");
 const isNorgesgruppen = (activity: string): boolean => activity.includes("NorgesGruppen");
 const isRadisson = (activity: string): boolean => activity.includesAny(["Radisson", "Rezidor SAS"]);
-const isEurobonusEarnShop = (activity: string): boolean => activity.includesAny(["EuroBonus Earn Shop", "EuroBonus Shop (NOK)"]);
+const isEuroBonusEarnShop = (activity: string): boolean => activity.includesAny(["EuroBonus Earn Shop", "EuroBonus Shop (NOK)"]);
 const isPartnerFlight = (activity: string): boolean => activity.includesAny(Object.keys(AirlinePartner).map(key => `| ${key}`));
 
 export const findVendor = (transaction: Transaction): Vendor => {
@@ -63,8 +63,8 @@ export const findVendor = (transaction: Transaction): Vendor => {
       return getPartnerFlightKey(transaction.activity!);
     case isRadisson(transaction.activity!):
       return HotelPartner.Radisson;
-    case isEurobonusEarnShop(transaction.activity!):
-      return EurobonusShopPartner.EuroBonusShop;
+    case isEuroBonusEarnShop(transaction.activity!):
+      return EuroBonusShopPartner.EuroBonusShop;
     case isAmex(transaction.activity!):
       return CreditCardPartner.Amex;
     case isAvis(transaction.activity!):

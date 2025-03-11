@@ -12,11 +12,8 @@ export const ProfileSection = () => {
   const { data, loading } = useFetchProfiles();
   const [members, setMembers] = useState<Profile[]>([]);
 
-  const profile = useMemo(
-    () => data?.find((x) => !x.parent_id) as Profile,
-    [data]
-  );
-  useEffect(() => setMembers(data?.filter((x) => x.parent_id) ?? []), [data]);
+  const profile = useMemo(() => data?.find(x => !x.parent_id) as Profile, [data]);
+  useEffect(() => setMembers(data?.filter(x => x.parent_id) ?? []), [data]);
 
   if (loading) {
     return <Spinner />;
