@@ -1,5 +1,5 @@
-import { DeleteAccountButton } from "../upload/DeleteProfileButton";
-import { DeleteTransactionsButton } from "../upload/DeleteTransactionsButton";
+import { DeleteAccountButton } from "./DeleteProfileButton";
+import { DeleteTransactionsButton } from "./DeleteTransactionsButton";
 
 export const ActionSection = () => (
   <>

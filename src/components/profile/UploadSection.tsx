@@ -1,6 +1,6 @@
 import { H4 } from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
-import { CsvUpload } from "../upload/CsvUpload";
+import { CsvUpload } from "./CsvUpload";
 import styles from "./UploadSection.module.scss";
 
 type UploadSectionProps = {

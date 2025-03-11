@@ -1,47 +1,43 @@
-import { Button } from "@blueprintjs/core";
+import { Button, InputGroup } from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
+import { useState } from "react";
+import { useChangeDisplayName } from "../../hooks/useChangeDisplayName";
+import { useDeleteMember } from "../../hooks/useDeleteMember";
+import styles from "./ProfileSection.module.scss";
 
 type MemberProps = {
   member: Profile;
   onDelete: (id: string) => void;
+  onChange: (member: Profile) => void;
 };
 
-export const Member = ({ member, onDelete }: MemberProps) => {
-  const deleteMember = async () => {
-    const response = await fetch("/api/profile/delete-member", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: member.id }),
-    });
+export const Member = ({ member, onDelete, onChange }: MemberProps) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [displayName, setDisplayName] = useState(member.display_name);
 
-    if (!response.ok) {
-      throw new Error("Failed to delete family member");
-    } else {
-      onDelete(member.id!);
-    }
+  const deleteMember = useDeleteMember(member.id, onDelete);
+  const changeDisplayName = useChangeDisplayName(member.id, setDisplayName);
+
+  const handleSaveClick = async () => {
+    const event = { target: { value: displayName } } as React.ChangeEvent<HTMLInputElement>;
+    await changeDisplayName(event);
+    onChange({ ...member, display_name: displayName });
+    setIsEditing(false);
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: "10px",
-      }}
-    >
-      <div style={{ flex: 1 }}>
-        <span>{member.display_name}</span>
+    <div className={styles.members}>
+      <div style={{ display: "flex", minWidth: "200px" }}>
+        {isEditing ? <InputGroup value={displayName} onChange={e => setDisplayName(e.target.value)} /> : <span>{member.display_name}</span>}
       </div>
-      <div style={{ gap: 5, display: "flex", alignItems: "center" }}>
-        <Button
-          icon="trash"
-          intent="danger"
-          onClick={deleteMember}
-          style={{ marginRight: "5px" }}
-        />
+
+      <div className={styles.memberButtons}>
+        {isEditing ? (
+          <Button icon="tick" intent="success" onClick={handleSaveClick} style={{ marginRight: "5px" }} />
+        ) : (
+          <Button icon="edit" onClick={() => setIsEditing(true)} style={{ marginRight: "5px" }} />
+        )}
+        <Button icon="trash" intent="danger" onClick={deleteMember} style={{ marginRight: "5px" }} />
       </div>
     </div>
   );
