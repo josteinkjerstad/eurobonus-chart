@@ -55,11 +55,10 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const { error } = await supabase.from("transactions").insert(transactions);
 
   const unknownTransactions = getUnknownTransactions(transactions);
-
   console.log(unknownTransactions);
 
   const { error: unknownError } = await supabase.from("unknown_transactions").insert(
-    unknownTransactions.map(activity => ({
+    Array.from(unknownTransactions).map(activity => ({
       activity: activity,
     }))
   );
