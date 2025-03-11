@@ -16,10 +16,7 @@ const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.en
 
 const { data } = await supabase.auth.getSession();
 
-if (!data.session) {
-  return redirect("/signin");
-}
-return redirect("/dashboard");
+return redirect(!data.session ? "/signin" : "/dashboard");
 ---
 
 <Layout />

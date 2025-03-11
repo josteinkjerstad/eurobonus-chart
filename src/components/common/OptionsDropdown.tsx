@@ -45,10 +45,7 @@ export const OptionsDropdown = <T extends unknown>({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
       }
     };
@@ -62,30 +59,19 @@ export const OptionsDropdown = <T extends unknown>({
   return (
     <div className={styles.dropdownContainer} ref={dropdownRef}>
       <div className={styles.dropdown}>
-        <div
-          className={styles.dropdownButton}
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          tabIndex={0}
-        >
+        <div className={styles.dropdownButton} onClick={() => setIsDropdownOpen(!isDropdownOpen)} tabIndex={0}>
           {placeholder}
           <span className={styles.dropdownArrow}></span>
         </div>
         {isDropdownOpen && (
-          <div
-            className={styles.dropdownContent}
-            onMouseDown={(e) => e.preventDefault()}
-          >
+          <div className={styles.dropdownContent} onMouseDown={e => e.preventDefault()}>
             <div className={styles.optionsList}>
               <button onClick={handleClearAll} className={styles.clearButton}>
                 Clear/Select All
               </button>
-              {options.map((option) => (
+              {options.map(option => (
                 <label key={optionLabel(option)} className={styles.optionLabel}>
-                  <input
-                    type="checkbox"
-                    checked={selectedOptions.has(option)}
-                    onChange={() => handleOptionFilterChange(option)}
-                  />
+                  <input type="checkbox" checked={selectedOptions.has(option)} onChange={() => handleOptionFilterChange(option)} />
                   {optionLabel(option)}
                 </label>
               ))}

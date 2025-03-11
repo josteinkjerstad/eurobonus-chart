@@ -12,10 +12,7 @@ export const UserDashboard = () => {
 
   const transactions: Transaction[] = useMemo(() => (data ? data : []), [data]);
 
-  const profiles: Profile[] = useMemo(
-    () => (profilesData ? profilesData : []),
-    [profilesData]
-  );
+  const profiles: Profile[] = useMemo(() => (profilesData ? profilesData : []), [profilesData]);
 
   if (loading || profileLoading) {
     return <Spinner />;

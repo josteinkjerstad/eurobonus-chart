@@ -15,11 +15,7 @@ export const DeleteTransactionsButton = () => {
   };
 
   return (
-    <Button
-      intent={Intent.DANGER}
-      icon={<Icon icon="trash" />}
-      onClick={handleDelete}
-    >
+    <Button intent={Intent.DANGER} icon={<Icon icon="trash" />} onClick={handleDelete}>
       Delete All Transactions
     </Button>
   );

@@ -1,9 +1,26 @@
-import { AirlinePartner, CreditCardPartner, EurobonusShopPartner, HotelPartner, Partner, RentalCarPartner, ScandinavianAirlinesPartner } from "../models/partners";
+import {
+  AirlinePartner,
+  CreditCardPartner,
+  EurobonusShopPartner,
+  HotelPartner,
+  Partner,
+  RentalCarPartner,
+  ScandinavianAirlinesPartner,
+} from "../models/partners";
 import type { Transaction } from "../models/transaction";
 import "../utils/extensions";
 import type { Vendor } from "../models/vendor";
 
-const sasActivities = ["Conscious Traveler Reward", "SASBIOFUEL", "Biofuel", "BEP old", "Special Accrual", "Buy Extra Points", "Buy Basic Points", "Claim | Points Earned"];
+const sasActivities = [
+  "Conscious Traveler Reward",
+  "SASBIOFUEL",
+  "Biofuel",
+  "BEP old",
+  "Special Accrual",
+  "Buy Extra Points",
+  "Buy Basic Points",
+  "Claim | Points Earned",
+];
 
 export const getSasKey = (transaction: Transaction): ScandinavianAirlinesPartner => {
   const activity = transaction.activity!;

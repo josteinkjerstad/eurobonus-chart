@@ -14,28 +14,20 @@ const profiles: Profile[] = [
   { id: "4", display_name: "Robert" },
 ];
 
-const allVendors = Object.values(groupedVendors).flatMap((x) => x);
+const allVendors = Object.values(groupedVendors).flatMap(x => x);
 
 const generateRandomDate = (start: Date, end: Date) => {
-  return new Date(
-    start.getTime() + Math.random() * (end.getTime() - start.getTime())
-  );
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 };
 
-const generateRandomTransaction = (
-  profileId: string,
-  vendors: string[],
-  isNegative = false
-): Transaction => {
+const generateRandomTransaction = (profileId: string, vendors: string[], isNegative = false): Transaction => {
   const date = generateRandomDate(new Date(2018, 0, 1), new Date(2025, 11, 31));
   const vendor = vendors[Math.floor(Math.random() * vendors.length)];
   let bonusPoints = Math.floor(Math.random() * 10000) + 1;
 
   if (Object.values(AirlinePartner).includes(vendor as AirlinePartner)) {
     bonusPoints = Math.floor(Math.random() * 100) + 1;
-  } else if (
-    Object.values(EurobonusShopPartner).includes(vendor as EurobonusShopPartner)
-  ) {
+  } else if (Object.values(EurobonusShopPartner).includes(vendor as EurobonusShopPartner)) {
     bonusPoints = Math.floor(Math.random() * 500) + 1;
   } else if (vendor.includes("MasterCard") || vendor.includes("Amex")) {
     bonusPoints = Math.floor(Math.random() * 50000) + 1;
@@ -57,7 +49,7 @@ const generateRandomTransaction = (
 
 const transactions: Transaction[] = [];
 
-profiles.forEach((profile) => {
+profiles.forEach(profile => {
   for (let i = 0; i < 500; i++) {
     transactions.push(generateRandomTransaction(profile.id, allVendors));
   }

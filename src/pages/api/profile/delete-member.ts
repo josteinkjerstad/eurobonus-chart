@@ -3,22 +3,16 @@ import type { APIRoute } from "astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 
 export const DELETE: APIRoute = async ({ request, cookies }) => {
-  const supabase = createServerClient(
-    import.meta.env.SUPABASE_URL,
-    import.meta.env.SUPABASE_KEY,
-    {
-      cookies: {
-        getAll() {
-          return parseCookieHeader(request.headers.get("Cookie") ?? "");
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookies.set(name, value, options)
-          );
-        },
+  const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.env.SUPABASE_KEY, {
+    cookies: {
+      getAll() {
+        return parseCookieHeader(request.headers.get("Cookie") ?? "");
       },
-    }
-  );
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value, options }) => cookies.set(name, value, options));
+      },
+    },
+  });
 
   const { id } = await request.json();
 

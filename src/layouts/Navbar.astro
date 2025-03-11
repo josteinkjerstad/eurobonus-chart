@@ -5,22 +5,16 @@ import planeLogo from "../images/airplane.png";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 const { cookies, request } = Astro;
 
-const supabase = createServerClient(
-  import.meta.env.SUPABASE_URL,
-  import.meta.env.SUPABASE_KEY,
-  {
-    cookies: {
-      getAll() {
-        return parseCookieHeader(request.headers.get("Cookie") ?? "");
-      },
-      setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value, options }) =>
-          cookies.set(name, value, options)
-        );
-      },
+const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.env.SUPABASE_KEY, {
+  cookies: {
+    getAll() {
+      return parseCookieHeader(request.headers.get("Cookie") ?? "");
     },
-  }
-);
+    setAll(cookiesToSet) {
+      cookiesToSet.forEach(({ name, value, options }) => cookies.set(name, value, options));
+    },
+  },
+});
 
 const { data } = await supabase.auth.getSession();
 
@@ -50,7 +44,7 @@ const navLinks = [
     <nav class="nav">
       <ul class="nav-list">
         {
-          navLinks.map((link) => (
+          navLinks.map(link => (
             <li class="nav-item" hidden={link.hidden}>
               <a href={link.href} class="nav-link">
                 {link.label}
@@ -61,15 +55,8 @@ const navLinks = [
         {
           (
             <li class="nav-item nav-item-cta">
-              <form
-                action={data.session ? "/api/auth/signout" : "/signin"}
-                method="get"
-              >
-                <button
-                  style={{ width: "100px" }}
-                  type="submit"
-                  class={`nav-link-cta ${data.session ? "signout" : "signin"}`}
-                >
+              <form action={data.session ? "/api/auth/signout" : "/signin"} method="get">
+                <button style={{ width: "100px" }} type="submit" class={`nav-link-cta ${data.session ? "signout" : "signin"}`}>
                   {data.session ? "Log out" : "Log in"}
                 </button>
               </form>

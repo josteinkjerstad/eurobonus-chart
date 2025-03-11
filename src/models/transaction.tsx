@@ -1,4 +1,5 @@
 import type { GroupVendor, Vendor } from "./vendor";
+import type { Profile } from "./profile";
 
 export interface Transaction {
   id?: number;

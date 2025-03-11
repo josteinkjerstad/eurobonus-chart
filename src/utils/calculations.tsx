@@ -1,5 +1,6 @@
 import { Partner } from "../models/partners";
-import type { PeopleTransaction, Transaction, VendorTransaction, YearlyTransaction } from "../models/transaction";
+import type { Profile } from "../models/profile";
+import type { PeopleTransaction, QualifyingTransaction, Transaction, VendorTransaction, YearlyTransaction } from "../models/transaction";
 import { type Vendor, type GroupVendor, groupedVendors } from "../models/vendor";
 import { findVendor } from "./partner-lookups";
 
@@ -104,4 +105,28 @@ export const calculateYearlyPoints = (transactions: Transaction[]): YearlyTransa
     earned,
     spent: Math.abs(spent),
   }));
+};
+
+export const calculateQualifyingTransactions = (transactions: Transaction[], profiles: Profile[]): QualifyingTransaction[] => {
+  return profiles
+    .flatMap(profile => {
+      const periodTransactions = transactions
+        .filter(transaction => transaction.profile_id === profile.id && transaction.level_points)
+        .reduce((acc, transaction) => {
+          const date = new Date(transaction.date);
+          const year = date.getFullYear();
+          const month = date.getMonth() + 1;
+          const periodLabel = month >= (profile.periode_start_month ?? 1) ? `${year} / ${year + 1}` : `${year - 1} / ${year}`;
+
+          acc[periodLabel] = (acc[periodLabel] || 0) + transaction.level_points!;
+          return acc;
+        }, {} as Record<string, number>);
+
+      return Object.entries(periodTransactions).map(([period, value]) => ({
+        period,
+        value,
+        profile_id: profile.id,
+      }));
+    })
+    .reverse();
 };

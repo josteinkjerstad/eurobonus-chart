@@ -1,6 +1,25 @@
-import { AirlinePartner, CreditCardPartner, EurobonusShopPartner, HotelPartner, HouseholdPartner, Partner, RentalCarPartner, RestaurantPartner, ScandinavianAirlinesPartner } from "./partners";
+import {
+  AirlinePartner,
+  CreditCardPartner,
+  EurobonusShopPartner,
+  HotelPartner,
+  HouseholdPartner,
+  Partner,
+  RentalCarPartner,
+  RestaurantPartner,
+  ScandinavianAirlinesPartner,
+} from "./partners";
 
-export type Vendor = Partner | EurobonusShopPartner | AirlinePartner | RentalCarPartner | CreditCardPartner | HotelPartner | HouseholdPartner | ScandinavianAirlinesPartner | RestaurantPartner;
+export type Vendor =
+  | Partner
+  | EurobonusShopPartner
+  | AirlinePartner
+  | RentalCarPartner
+  | CreditCardPartner
+  | HotelPartner
+  | HouseholdPartner
+  | ScandinavianAirlinesPartner
+  | RestaurantPartner;
 
 export enum GroupVendor {
   CarRental = "Car Rentals",

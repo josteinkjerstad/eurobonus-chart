@@ -36,12 +36,7 @@ export const GroupMember = ({ member, onDelete }: GroupMemberProps) => {
         <span>{member.display_name}</span>
       </div>
       <div style={{ gap: 5, display: "flex", alignItems: "center" }}>
-        <Button
-          icon="trash"
-          intent="danger"
-          onClick={deleteMember}
-          style={{ marginRight: "5px" }}
-        />
+        <Button icon="trash" intent="danger" onClick={deleteMember} style={{ marginRight: "5px" }} />
       </div>
     </div>
   );
