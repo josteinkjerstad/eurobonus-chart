@@ -55,6 +55,7 @@ export enum EurobonusShopPartner {
   CafeMunk = "Cafe Munk",
   TrattoriaSud = "Trattoria Sud",
   ECDahls = "E.C. Dahls",
+  MissGin = "Miss Gin",
 }
 
 export enum AirlinePartner {
