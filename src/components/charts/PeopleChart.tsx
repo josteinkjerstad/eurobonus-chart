@@ -13,7 +13,7 @@ type PeopleChartProps = {
 
 export const PeopleChart = ({ transactions, profiles }: PeopleChartProps) => {
   const data = {
-    labels: profiles.map(profile => profile.display_name),
+    labels: transactions.map(transaction => profiles.find(profile => profile.id === transaction.profile_id)?.display_name),
     datasets: [
       {
         label: "Points Earned",
