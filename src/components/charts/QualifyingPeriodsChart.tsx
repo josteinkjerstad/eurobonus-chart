@@ -5,6 +5,7 @@ import { Bar } from "react-chartjs-2";
 import type { Profile } from "../../models/profile";
 import type { QualifyingTransaction } from "../../models/transaction";
 import styles from "./QualifyingPeriodsChart.module.scss";
+import { getAllValidQualifyingPeriods } from "../../models/qualifying-periods";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -13,13 +14,21 @@ type QualifyingPeriodsChartProps = {
   profiles: Profile[];
 };
 
+const periods = getAllValidQualifyingPeriods();
+
 export const QualifyingPeriodsChart = ({ transactions, profiles }: QualifyingPeriodsChartProps) => {
-  const [selectedProfile, setSelectedProfile] = useState<Profile>(profiles.find(p => p.user_id)!);
+  const [selectedProfile, setSelectedProfile] = useState(profiles.find(x => x.user_id)!);
 
   const profileTransactions = useMemo(
     () => transactions.filter(transaction => transaction.profile_id === selectedProfile.id),
     [transactions, selectedProfile]
   );
+  const qualifyingPeriod = useMemo(() => periods.find(x => x.month === selectedProfile.periode_start_month) ?? periods[0], [selectedProfile]);
+
+  const handleProfileSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const profile = profiles.find(p => p.id === event.target.value);
+    setSelectedProfile(profile!);
+  };
 
   const profileOptions = useMemo(
     () =>
@@ -29,11 +38,6 @@ export const QualifyingPeriodsChart = ({ transactions, profiles }: QualifyingPer
       })),
     [profiles]
   );
-
-  const handleProfileSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const profile = profiles.find(p => p.id === event.target.value);
-    setSelectedProfile(profile!);
-  };
 
   const data = useMemo(
     () => ({
@@ -75,16 +79,17 @@ export const QualifyingPeriodsChart = ({ transactions, profiles }: QualifyingPer
 
   return (
     <div className={styles.chartContainer}>
-      {profiles.length > 1 && (
-        <div className={styles.controls}>
+      <div>
+        {profiles.length > 1 && (
           <HTMLSelect
             onChange={handleProfileSelect}
             value={selectedProfile.id}
             options={profileOptions}
             style={{ marginBottom: "10px", minWidth: "200px" }}
           />
-        </div>
-      )}
+        )}
+        <div style={{ justifySelf: "center" }}>Qualifying Period {qualifyingPeriod.label}</div>
+      </div>
       <div className={styles.chart}>
         <Bar data={data} options={options} />
       </div>
