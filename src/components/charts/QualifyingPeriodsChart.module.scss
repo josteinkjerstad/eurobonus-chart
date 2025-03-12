@@ -14,21 +14,11 @@
   height: 100%;
 }
 
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
 .chart canvas {
   width: 100% !important;
   height: 100% !important;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-  .controls {
-    flex-direction: column;
-  }
+.dropdownContainer {
+  width: 200px;
 }
