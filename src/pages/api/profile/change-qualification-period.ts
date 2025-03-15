@@ -24,7 +24,6 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const { error } = await supabase.from("profiles").update({ periode_start_month: month }).eq("id", profile_id);
 
   if (error) {
-    console.log(error);
     return new Response(`Error updating profile: ${error.message}`, {
       status: 500,
     });

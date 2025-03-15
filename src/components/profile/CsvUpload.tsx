@@ -5,9 +5,10 @@ import type { Profile } from "../../models/profile";
 
 type CsvUploadProps = {
   profiles: Profile[];
+  onUpload: (input: FormData) => Promise<void>;
 };
 
-export const CsvUpload = ({ profiles }: CsvUploadProps) => {
+export const CsvUpload = ({ profiles, onUpload }: CsvUploadProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedProfile, setSelectedProfile] = useState<Profile>(profiles[0]);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,25 +27,13 @@ export const CsvUpload = ({ profiles }: CsvUploadProps) => {
   const handleUpload = async () => {
     if (!selectedFile || !selectedProfile) return;
 
-    setIsLoading(true);
-
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("profile_id", selectedProfile.id);
 
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
+    setIsLoading(true);
+    await onUpload(formData);
     setIsLoading(false);
-
-    if (response.ok) {
-      window.location.href = "/dashboard";
-    } else {
-      const errorText = await response.text();
-      alert(`Error uploading transactions: ${errorText}`);
-    }
   };
 
   return (

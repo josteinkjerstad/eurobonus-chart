@@ -4,9 +4,10 @@ import { CsvUpload } from "./CsvUpload";
 
 type UploadSectionProps = {
   profiles: Profile[];
+  onUpload: (input: FormData) => Promise<void>;
 };
 
-export const UploadSection = ({ profiles }: UploadSectionProps) => (
+export const UploadSection = ({ profiles, onUpload }: UploadSectionProps) => (
   <div>
     <H5>Upload Transactions</H5>
     <p>
@@ -14,6 +15,6 @@ export const UploadSection = ({ profiles }: UploadSectionProps) => (
       <br />
       All old transactions will automatically be removed when uploading a new file.
     </p>
-    <CsvUpload profiles={profiles} />
+    <CsvUpload onUpload={onUpload} profiles={profiles} />
   </div>
 );

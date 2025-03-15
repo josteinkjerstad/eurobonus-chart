@@ -32,13 +32,13 @@ export const Charts = ({ transactions, profiles }: ChartsProps) => {
 
   return (
     <>
-      <p>{`You've earned a total of ${sum.toLocaleString()} eurobonus points since ${earliestdate}`}</p>
+      {sum > 0 && <p>{`You've earned a total of ${sum.toLocaleString()} eurobonus points since ${earliestdate}`}</p>}
       <Card elevation={Elevation.TWO} style={{ marginTop: 20, alignSelf: "center", alignContent: "center" }}>
         <Tabs>
           <Tab id="points" title="Points" panel={<VendorChart transactions={vendorPoints} profiles={profiles} />} />
           <Tab id="years" title="Years" panel={<YearlySpentChart yearlyPoints={yearlyPoints} />} />
           {profiles.length > 1 && <Tab id="people" title="People" panel={<PeopleChart transactions={peoplePoints} profiles={profiles} />} />}
-          {qualifyingPoints.length > 1 && (
+          {qualifyingPoints.length > 1 && profiles.some(x => x.periode_start_month) && (
             <Tab id="qualifying" title="Level Points" panel={<QualifyingPeriodsChart transactions={qualifyingPoints} profiles={profiles} />} />
           )}
         </Tabs>

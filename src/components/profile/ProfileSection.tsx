@@ -15,6 +15,20 @@ export const ProfileSection = () => {
   const profile = useMemo(() => data?.find(x => !x.parent_id) as Profile, [data]);
   useEffect(() => setMembers(data?.filter(x => x.parent_id) ?? []), [data]);
 
+  const onUpload = async (input: FormData) => {
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: input,
+    });
+
+    if (response.ok) {
+      window.location.href = "/dashboard";
+    } else {
+      const errorText = await response.text();
+      alert(`Error uploading transactions: ${errorText}`);
+    }
+  };
+
   if (loading) {
     return <Spinner />;
   }
@@ -25,7 +39,7 @@ export const ProfileSection = () => {
       <Divider />
       <MemberSection members={members} onChange={setMembers} />
       <Divider />
-      <UploadSection profiles={[profile, ...members]} />
+      <UploadSection onUpload={onUpload} profiles={[profile, ...members]} />
       <Divider />
       <DeleteSection />
     </div>

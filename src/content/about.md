@@ -4,17 +4,21 @@ EuroBonus Charts provides a visual representation of your SAS EuroBonus points, 
 
 ## FAQ
 
-### How do I upload my transactions?
-
-To upload your transactions, simply log in to your SAS profile and download your transaction history as an xlsx file and upload this file here in your profil settings.
-
 ### What does it look like?
 
 [Head over to our demo](./showcase) to take a look!
 
-### Why do I have to log in?
+### How do I upload my transactions?
 
-Logging in keeps your data secure and ensures that only you can access your EuroBonus points information. It also allows you to log back in without needing to upload the data again.
+To upload your transactions, simply log in to your SAS profile and download your transaction history as an xlsx file and upload this file either in the "Try it out" page or in your profil settings.
+
+### Will my transactions be stored?
+
+Only if you log in. Your transactions are safe with us and only you can access them.
+
+### Why should I log in?
+
+Logging in allows you access your data without needing to upload the data again. Also you can add your family members, access more charts and make your profile public.
 
 ### How can I delete my transactions and account?
 

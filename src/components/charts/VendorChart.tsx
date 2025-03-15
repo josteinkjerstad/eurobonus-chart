@@ -157,13 +157,15 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
           optionLabel={(year: number) => year.toString()}
           placeholder={`${selectedYears.size} / ${years.length} Years`}
         />
-        <OptionsDropdown
-          options={profiles}
-          selectedOptions={selectedMembers}
-          onChange={setSelectedMembers}
-          optionLabel={(member: Profile) => member.display_name ?? member.id}
-          placeholder={`${selectedMembers.size} / ${profiles.length} Members`}
-        />
+        {profiles.length > 1 && (
+          <OptionsDropdown
+            options={profiles}
+            selectedOptions={selectedMembers}
+            onChange={setSelectedMembers}
+            optionLabel={(member: Profile) => member.display_name ?? member.id}
+            placeholder={`${selectedMembers.size} / ${profiles.length} Members`}
+          />
+        )}
         <OptionsDropdown
           options={groupOptions}
           selectedOptions={selectedGroups}
