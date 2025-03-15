@@ -2,10 +2,8 @@ export const prerender = false;
 import type { APIRoute } from "astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import * as XLSX from "xlsx";
-import { get } from "react-hook-form";
-import { getUnknownTransactions, groupTransactionsByVendor } from "../../utils/calculations";
+import { getUnknownTransactions } from "../../utils/calculations";
 import type { Transaction } from "../../models/transaction";
-import { Partner } from "../../models/partners";
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
@@ -59,7 +57,15 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const unknownTransactions = Array.from(getUnknownTransactions(transactions));
 
   if (unknownTransactions.length !== 0) {
-    await supabase.from("unknown_transactions").insert(unknownTransactions.map(t => t.activity));
+    const { error: testError } = await supabase.from("unknown_transactions").insert(
+      unknownTransactions.map(t => ({
+        activity: t.activity,
+      }))
+    );
+
+    if (testError) {
+      console.error(`Error uploading unknown transactions: ${testError.message}`);
+    }
   }
 
   if (error) {
@@ -67,6 +73,5 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
       status: 500,
     });
   }
-
   return redirect("/dashboard");
 };
