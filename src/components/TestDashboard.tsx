@@ -31,10 +31,11 @@ export const TestDashboard = () => {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "10px", justifySelf: "center" }}>
+    <>
       <UploadSection onUpload={onUpload} profiles={[profile]} />
       <Divider />
+      <br />
       {transaction.length > 0 && <Charts transactions={transaction} profiles={[profile]} />}
-    </div>
+    </>
   );
 };
