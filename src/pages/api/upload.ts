@@ -58,7 +58,9 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 
   const unknownTransactions = Array.from(getUnknownTransactions(transactions));
 
-  await supabase.from("unknown_transactions").insert(unknownTransactions.map(t => t.activity));
+  if (unknownTransactions.length !== 0) {
+    await supabase.from("unknown_transactions").insert(unknownTransactions.map(t => t.activity));
+  }
 
   if (error) {
     return new Response(`Error uploading transactions: ${error.message}`, {
