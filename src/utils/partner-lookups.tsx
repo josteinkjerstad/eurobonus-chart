@@ -16,6 +16,7 @@ const sasActivities = [
   "SASBIOFUEL",
   "Biofuel",
   "BEP old",
+  "BBP old",
   "Special Accrual",
   "Buy Extra Points",
   "Buy Basic Points",
