@@ -41,7 +41,7 @@ export enum CreditCardPartner {
   DinersClub = "Diners Club",
 }
 
-export enum HouseholdPartner {
+export enum HomePartner {
   Fjordkraft = "Fjordkraft | Points Earned",
   Verisure = "Verisure Norge | Points Earned",
   Aftenposten = "Aftenposten",

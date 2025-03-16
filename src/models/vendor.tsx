@@ -3,7 +3,7 @@ import {
   CreditCardPartner,
   EuroBonusShopPartner,
   HotelPartner,
-  HouseholdPartner,
+  HomePartner,
   Partner,
   RentalCarPartner,
   RestaurantPartner,
@@ -18,7 +18,7 @@ export type Vendor =
   | RentalCarPartner
   | CreditCardPartner
   | HotelPartner
-  | HouseholdPartner
+  | HomePartner
   | ScandinavianAirlinesPartner
   | RestaurantPartner
   | TravelPartner;
@@ -29,7 +29,7 @@ export enum GroupVendor {
   AirlinePartner = "Airline partners",
   CreditCardPartner = "Credit Cards",
   HotelPartner = "Hotels",
-  HouseholdPartner = "Household Services",
+  HomePartner = "Household Services",
   ScandinavianAirlines = "Scandinavian Airlines",
   NorgesGruppen = "NorgesGruppen",
   Restaurants = "Restaurants",
@@ -42,7 +42,7 @@ export const groupedVendors: Record<GroupVendor, Vendor[]> = {
   [GroupVendor.AirlinePartner]: Object.values(AirlinePartner),
   [GroupVendor.CreditCardPartner]: Object.values(CreditCardPartner),
   [GroupVendor.HotelPartner]: Object.values(HotelPartner),
-  [GroupVendor.HouseholdPartner]: Object.values(HouseholdPartner),
+  [GroupVendor.HomePartner]: Object.values(HomePartner),
   [GroupVendor.ScandinavianAirlines]: Object.values(ScandinavianAirlinesPartner),
   [GroupVendor.NorgesGruppen]: [Partner.Trumf],
   [GroupVendor.Restaurants]: Object.values(RestaurantPartner),
@@ -57,11 +57,11 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
       return "Flytoget";
     case Partner.Unknown:
       return "Unknown";
-    case HouseholdPartner.Fjordkraft:
+    case HomePartner.Fjordkraft:
       return "Fjordkraft";
-    case HouseholdPartner.Verisure:
+    case HomePartner.Verisure:
       return "Verisure";
-    case HouseholdPartner.DagensNæringsliv:
+    case HomePartner.DagensNæringsliv:
       return "Dagens Næringsliv";
     case CreditCardPartner.Amex:
       return "American Express";
@@ -81,7 +81,7 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
       return "EuroBonus Hotels";
     case EuroBonusShopPartner.EuroBonusShop:
       return "EuroBonus Shop";
-    case HouseholdPartner.LiveNation:
+    case HomePartner.LiveNation:
       return "Live Nation";
     default:
       return vendor;
