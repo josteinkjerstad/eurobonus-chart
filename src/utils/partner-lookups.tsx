@@ -27,6 +27,7 @@ const sasActivities = [
   "Scandinavian Airlines System | Points Earned",
   "| SK ",
   "SASUPGRADE incentive",
+  "| undefined",
 ];
 
 export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {
