@@ -1,55 +1,22 @@
 ---
 export const prerender = false;
 import Layout from "../layouts/Layout.astro";
-import { createServerClient, parseCookieHeader } from "@supabase/ssr";
-const { cookies, redirect, request } = Astro;
-
-const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.env.SUPABASE_KEY, {
-  cookies: {
-    getAll() {
-      return parseCookieHeader(request.headers.get("Cookie") ?? "");
-    },
-    setAll(cookiesToSet) {
-      cookiesToSet.forEach(({ name, value, options }) => cookies.set(name, value, options));
-    },
-  },
-});
-
-const { data } = await supabase.auth.getSession();
-
-if (!!data.session) {
-  return redirect("/dashboard");
-}
+import SignInForm from "../components/auth/SignInForm";
 ---
 
-<Layout title="Sign in" signedIn={false}>
-  <h1>Welcome</h1>
-  <form action="/api/auth/signin" method="post">
-    <button
-      value="github"
-      name="provider"
-      type="submit"
-      style="display: flex; align-items: center; background-color: #24292e; color: white; border: none; padding: 10px 20px; border-radius: 30px; cursor: pointer; margin-bottom: 10px;"
-    >
-      <img
-        src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-        alt="GitHub logo"
-        style="width: 20px; height: 20px; margin-right: 10px;"
-      />
-      Sign in with GitHub
-    </button>
-    <button
-      value="google"
-      name="provider"
-      type="submit"
-      style="display: flex; align-items: center; background-color: white; color: black; border: 1px solid black; padding: 10px 20px; border-radius: 30px; cursor: pointer; margin-bottom: 10px;"
-    >
-      <img
-        src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
-        alt="Google logo"
-        style="width: 20px; height: 20px; margin-right: 10px; border-radius: 50%;"
-      />
-      Sign in with Google
-    </button>
-  </form>
+<Layout title="Sign In">
+  <div class="signin-container">
+    <SignInForm />
+  </div>
 </Layout>
+
+<style>
+  .signin-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    padding-top: 50px;
+    background-color: white;
+  }
+</style>

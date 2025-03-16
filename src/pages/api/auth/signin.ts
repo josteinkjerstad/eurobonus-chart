@@ -8,22 +8,16 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const provider = formData.get("provider")?.toString();
   const validProviders = ["github", "google", "facebook"];
 
-  const supabase = createServerClient(
-    import.meta.env.SUPABASE_URL,
-    import.meta.env.SUPABASE_KEY,
-    {
-      cookies: {
-        getAll() {
-          return parseCookieHeader(request.headers.get("Cookie") ?? "");
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookies.set(name, value, options)
-          );
-        },
+  const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.env.SUPABASE_KEY, {
+    cookies: {
+      getAll() {
+        return parseCookieHeader(request.headers.get("Cookie") ?? "");
       },
-    }
-  );
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value, options }) => cookies.set(name, value, options));
+      },
+    },
+  });
 
   if (provider && validProviders.includes(provider)) {
     const { data, error } = await supabase.auth.signInWithOAuth({
