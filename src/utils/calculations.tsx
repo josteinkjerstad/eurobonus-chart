@@ -48,7 +48,7 @@ export const groupTransactionsByVendor = (transactions: Transaction[]): Record<V
 
 export const getUnknownTransactions = (transactions: Transaction[]): Set<string> => {
   const vendorTransactions = groupTransactionsByVendor(transactions);
-  return new Set(vendorTransactions[Partner.Unknown].map(f => f.activity));
+  return new Set(vendorTransactions[Partner.Unknown]?.map(f => f.activity) ?? []);
 };
 
 export const calculateVendorTransactions = (transactions: Transaction[]): VendorTransaction[] => {
