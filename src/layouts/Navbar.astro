@@ -19,7 +19,7 @@ const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.en
 const { data } = await supabase.auth.getSession();
 
 const navLinks = [
-  { href: "/dashboard", label: "My Dashboard", hidden: !data.session },
+  { href: "/dashboard", label: "My Points", hidden: !data.session },
   { href: "/showcase", label: "Showcase", hidden: !!data.session },
   { href: "/try-me", label: "Try it out", hidden: !!data.session },
   { href: "/total", label: "Overall Stats", hidden: !data.session },
@@ -182,7 +182,7 @@ const navLinks = [
   .nav-link-cta {
     background-color: rgba(255, 255, 255, 0.8);
     color: #333;
-    padding: 10px 10px; /* Reduced padding */
+    padding: 10px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     text-decoration: none;
@@ -243,31 +243,31 @@ const navLinks = [
   }
 
   .profile-icon {
-    margin-right: 8px; /* Adjust spacing between icon and text */
-    fill: #3889a6; /* Add color to the icon */
+    margin-right: 8px;
+    fill: #3889a6;
   }
 
   .profile-menu {
-    position: relative; /* Ensure dropdown aligns with the button */
+    position: relative;
   }
 
   .profile-dropdown {
     position: absolute;
-    top: 100%; /* Position directly below the button */
+    top: 100%;
     background: white;
     border: 1px solid #ccc;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     list-style: none;
     padding: 5px;
-    display: none; /* Initially hidden */
+    display: none;
     gap: 10px;
     flex-direction: column;
-    min-width: 200px; /* Match the width of the button */
+    min-width: 200px;
     text-align: center;
   }
 
   .profile-menu:hover .profile-dropdown {
-    display: flex; /* Show dropdown on hover */
+    display: flex;
   }
 
   .dropdown-link {
@@ -283,16 +283,16 @@ const navLinks = [
   }
 
   .signout-icon {
-    margin-left: 8px; /* Add spacing between text and icon */
-    font-size: 1rem; /* Adjust icon size */
+    margin-left: 8px;
+    font-size: 1rem;
   }
 
   .custom-signout-text {
-    color: #d32f2f; /* Red color for text */
+    color: #d32f2f;
   }
 
   .custom-signout-text:hover {
-    color: #b71c1c; /* Darker red on hover */
+    color: #b71c1c;
   }
 
   .profile-box {
@@ -304,8 +304,8 @@ const navLinks = [
     padding: 5px 10px;
     border-radius: 4px;
     transition: background-color 0.3s ease;
-    width: auto; /* Ensure the button width is dynamic */
-    position: relative; /* Ensure dropdown aligns with the button */
+    width: auto;
+    position: relative;
   }
 
   .profile-box:hover {
