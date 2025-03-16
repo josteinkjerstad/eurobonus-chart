@@ -53,6 +53,20 @@
   cursor: pointer;
 }
 
+.selectOnlyButton {
+  margin-left: auto;
+  margin-right: 10px;
+  background: none;
+  color: #0066cc;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.optionContainer {
+  display: flex;
+}
+
 .optionLabel {
   display: flex;
   align-items: center;
