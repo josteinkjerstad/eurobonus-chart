@@ -31,8 +31,9 @@ export const UserDashboard = () => {
 
   return (
     <>
+      <h2>Hi, </h2>
       {sum > 0 && <p>{`You've earned a total of ${sum.toLocaleString()} eurobonus points since ${earliestdate}`}</p>}
-      <Charts transactions={transactions} profiles={profiles} />
+      <Charts transactions={transactions} profiles={profiles} />;
     </>
   );
 };

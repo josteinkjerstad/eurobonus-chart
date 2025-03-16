@@ -2,6 +2,7 @@
 export const prerender = false;
 import { Image } from "astro:assets";
 import EurobonusChartsLogo from "../images/eurobonuscharts.png";
+import ProfileLogo from "../images/profile.png";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 const { cookies, request } = Astro;
 
@@ -19,13 +20,12 @@ const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.en
 const { data } = await supabase.auth.getSession();
 
 const navLinks = [
-  { href: "/dashboard", label: "Dashboard", hidden: !data.session },
-  { href: "/profile", label: "Profile", hidden: !data.session },
+  { href: "/dashboard", label: "My Dashboard", hidden: !data.session },
   { href: "/showcase", label: "Showcase", hidden: !!data.session },
   { href: "/try-me", label: "Try it out", hidden: !!data.session },
-  { href: "/total", label: "Total", hidden: !data.session },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/total", label: "Overall Stats", hidden: !data.session },
+  { href: "/about", label: "About", hidden: !!data.session },
+  { href: "/contact", label: "Contact", hidden: !!data.session },
 ];
 ---
 
@@ -33,7 +33,7 @@ const navLinks = [
   <div class="container">
     <div class="logo">
       <a href={data.session ? "/dashboard" : "/showcase"}>
-        <Image src={EurobonusChartsLogo} alt="Plane logo" width="145" height="50" />
+        <Image src={EurobonusChartsLogo} alt="EurobonusChartsLogo" width="145" height="50" />
       </a>
     </div>
 
@@ -55,11 +55,49 @@ const navLinks = [
           ))
         }
         {
-          (
+          data.session ? (
+            <li class="nav-item profile-menu">
+              <button id="profile-box" class="profile-box">
+                <svg class="profile-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="#0066cc">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+                <span class="profile-name">{data.session.user?.user_metadata?.full_name || "User"}</span>
+              </button>
+              <ul id="profile-dropdown" class="profile-dropdown hidden">
+                <li>
+                  <a href="/profile" class="dropdown-link">
+                    Profile Settings
+                  </a>
+                </li>
+                <li>
+                  <a href="/about" class="dropdown-link">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="/contact" class="dropdown-link">
+                    Contact
+                  </a>
+                </li>
+                <li>
+                  <form action="/api/auth/signout" method="get">
+                    <a href="#" class="dropdown-link" onclick="this.closest('form').submit(); return false;">
+                      <span class="custom-signout-text">Sign Out</span>
+                    </a>
+                  </form>
+                </li>
+              </ul>
+            </li>
+          ) : (
             <li class="nav-item nav-item-cta">
-              <form action={data.session ? "/api/auth/signout" : "/signin"} method="get">
-                <button style={{ width: "100px" }} type="submit" class={`nav-link-cta ${data.session ? "signout" : "signin"}`}>
-                  {data.session ? "Log out" : "Log in"}
+              <form action="/signin" method="get">
+                <button style={{ width: "100px" }} type="submit" class="nav-link-cta signin">
+                  <span class="signin-content">
+                    <span class="signin-icon" aria-hidden="true">
+                      👤
+                    </span>
+                    <span>Sign in</span>
+                  </span>
                 </button>
               </form>
             </li>
@@ -143,17 +181,49 @@ const navLinks = [
   }
 
   .nav-link-cta {
-    background-color: #0066cc;
-    color: white;
-    padding: 0.75rem 1.5rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    padding: 10px 10px; /* Reduced padding */
+    border: 1px solid #ccc;
     border-radius: 4px;
     text-decoration: none;
     font-weight: 500;
-    transition: background-color 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease,
+      border-color 0.3s ease;
   }
 
   .nav-link-cta:hover {
-    background-color: #0052a3;
+    background-color: rgba(245, 245, 245, 0.9);
+    border-color: #bbb;
+    transform: scale(1.05);
+  }
+
+  .nav-link-cta.signout {
+    background-color: rgba(255, 235, 238, 0.8);
+    color: #d32f2f;
+    border: 1px solid #f44336;
+  }
+
+  .nav-link-cta.signout:hover {
+    background-color: rgba(255, 205, 210, 0.9);
+    border-color: #d32f2f;
+  }
+
+  .signin-content {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .signin-icon {
+    font-size: 1rem;
+  }
+
+  .signout-content {
+    display: flex;
+    align-items: center;
   }
 
   #mobile-nav-toggle {
@@ -173,7 +243,88 @@ const navLinks = [
     transition: all 0.3s ease-in-out;
   }
 
-  /* Responsive styles */
+  .profile-icon {
+    margin-right: 8px; /* Adjust spacing between icon and text */
+    fill: #5f71c8; /* Add color to the icon */
+  }
+
+  .profile-menu {
+    position: relative; /* Ensure dropdown aligns with the button */
+  }
+
+  .profile-dropdown {
+    position: absolute;
+    top: 100%; /* Position directly below the button */
+    left: 0; /* Align with the left edge of the button */
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 5px;
+    margin: 0; /* Remove extra margin */
+    display: none; /* Initially hidden */
+    gap: 10px;
+    flex-direction: column;
+    min-width: 200px; /* Match the width of the button */
+  }
+
+  .profile-menu:hover .profile-dropdown {
+    display: flex; /* Show dropdown on hover */
+  }
+
+  .dropdown-link {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    display: block;
+    transition: background-color 0.3s ease;
+  }
+
+  .dropdown-link:hover {
+    background-color: #f5f5f5;
+  }
+
+  .signout-icon {
+    margin-left: 8px; /* Add spacing between text and icon */
+    font-size: 1rem; /* Adjust icon size */
+  }
+
+  .custom-signout-text {
+    color: #d32f2f; /* Red color for text */
+  }
+
+  .custom-signout-text:hover {
+    color: #b71c1c; /* Darker red on hover */
+  }
+
+  .profile-box {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    width: auto; /* Ensure the button width is dynamic */
+    position: relative; /* Ensure dropdown aligns with the button */
+  }
+
+  .profile-box:hover {
+    background-color: #f5f5f5;
+  }
+
+  .profile-logo {
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .profile-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+  }
+
   @media (max-width: 768px) {
     .nav {
       position: fixed;
