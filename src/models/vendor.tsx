@@ -29,7 +29,7 @@ export enum GroupVendor {
   AirlinePartner = "Airline partners",
   CreditCardPartner = "Credit Cards",
   HotelPartner = "Hotels",
-  HomePartner = "Household Services",
+  HomePartner = "House and home",
   ScandinavianAirlines = "Scandinavian Airlines",
   NorgesGruppen = "NorgesGruppen",
   Restaurants = "Restaurants",
