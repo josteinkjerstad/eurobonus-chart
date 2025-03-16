@@ -57,11 +57,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const unknownTransactions = Array.from(getUnknownTransactions(transactions));
 
   if (unknownTransactions.length !== 0) {
-    await supabase.from("unknown_transactions").insert(
-      unknownTransactions.map(t => ({
-        activity: t.activity,
-      }))
-    );
+    await supabase.from("unknown_transactions").insert(unknownTransactions.map(t => ({ activity: t })));
   }
 
   if (error) {
