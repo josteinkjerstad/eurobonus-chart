@@ -30,6 +30,7 @@ const sasActivities = [
   "SASUPGRADE incentive",
   "| undefined",
   "PTS DIFF",
+  "TP old",
 ];
 
 export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {

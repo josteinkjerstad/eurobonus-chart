@@ -88,6 +88,7 @@ export enum EuroBonusShopPartner {
   CruiseAway = "CruiseAway",
   Solentro = "Solentro",
   LifeJourney = "Life Journal",
+  Tivoli = "Tivoli",
 }
 
 export enum RestaurantPartner {
@@ -125,6 +126,7 @@ export enum RestaurantPartner {
   Klosteret = "Klosteret",
   Boqueria = "Boqueria",
   Stortorgskalleren = "Stortorgskällaren",
+  CafeSorgenfri = "Cafe Sorgenfri",
 }
 
 export enum AirlinePartner {
