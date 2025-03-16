@@ -46,7 +46,7 @@ export const groupedVendors: Record<GroupVendor, Vendor[]> = {
   [GroupVendor.ScandinavianAirlines]: Object.values(ScandinavianAirlinesPartner),
   [GroupVendor.NorgesGruppen]: [Partner.Trumf],
   [GroupVendor.Restaurants]: Object.values(RestaurantPartner),
-  [GroupVendor.TravelPartners]: [Partner.Unknown, ...Object.values(TravelPartner)],
+  [GroupVendor.TravelPartners]: Object.values(TravelPartner),
 };
 
 export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
