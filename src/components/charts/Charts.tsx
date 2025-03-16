@@ -27,12 +27,8 @@ export const Charts = ({ transactions, profiles }: ChartsProps) => {
   const peoplePoints = calculateTotalBonusPointsByProfile(transactions);
   const qualifyingPoints = calculateQualifyingTransactions(transactions, profiles);
 
-  const sum = useMemo(() => calculateTotalBonusPoints(transactions), [transactions]);
-  const earliestdate = useMemo(() => getEarliestDate(transactions), [transactions]);
-
   return (
     <>
-      {sum > 0 && <p>{`You've earned a total of ${sum.toLocaleString()} eurobonus points since ${earliestdate}`}</p>}
       <Card elevation={Elevation.TWO} style={{ marginTop: 20, alignSelf: "center", alignContent: "center" }}>
         <Tabs>
           <Tab id="points" title="Points" panel={<VendorChart transactions={vendorPoints} profiles={profiles} />} />

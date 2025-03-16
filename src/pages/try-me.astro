@@ -1,9 +1,9 @@
 ---
 export const prerender = false;
-import { TestDashboard } from "../components/TestDashboard";
+import { AnonymousDashboard } from "../components/AnonymousDashboard";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Try it out">
-  <TestDashboard client:load />
+  <AnonymousDashboard client:load />
 </Layout>

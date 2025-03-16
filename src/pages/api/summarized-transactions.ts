@@ -20,7 +20,7 @@ export const GET: APIRoute = async ({ request, cookies }) => {
     return new Response("User not authenticated", { status: 401 });
   }
 
-  const { data: transactions, error } = await supabase.from("transactions").select("*").eq("user_id", userId);
+  const { data: transactions, error } = await supabase.from("summarized_transactions").select();
 
   if (error) {
     return new Response(`Error fetching transactions: ${error.message}`, {

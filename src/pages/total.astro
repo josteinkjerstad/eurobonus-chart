@@ -1,6 +1,6 @@
 ---
 export const prerender = false;
-import { UserDashboard } from "../components/UserDashboard";
+import { TotalDashboard } from "../components/TotalDashboard";
 import Layout from "../layouts/Layout.astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 const { cookies, redirect, request } = Astro;
@@ -23,7 +23,7 @@ if (!data.session) {
 }
 ---
 
-<Layout title="Dashboard" signedIn={!!data.session}>
-  <h1>Dashboard</h1>
-  <UserDashboard client:load />
+<Layout title="Summarized overview" signedIn={!!data.session}>
+  <h1>Total points for all users</h1>
+  <TotalDashboard client:load />
 </Layout>
