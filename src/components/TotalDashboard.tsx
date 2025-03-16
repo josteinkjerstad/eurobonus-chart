@@ -18,8 +18,6 @@ export const TotalDashboard = () => {
 
   const sum = useMemo(() => calculateTotalBonusPoints(transactions), [transactions]);
 
-  console.log(transactions.at(0));
-
   if (loading) {
     return <Spinner />;
   }
