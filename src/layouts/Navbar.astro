@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 import { Image } from "astro:assets";
-import planeLogo from "../images/airplane.png";
+import EurobonusChartsLogo from "../images/eurobonuscharts.png";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 const { cookies, request } = Astro;
 
@@ -33,7 +33,7 @@ const navLinks = [
   <div class="container">
     <div class="logo">
       <a href={data.session ? "/dashboard" : "/showcase"}>
-        <Image src={planeLogo} alt="Plane logo" width="50" height="50" />
+        <Image src={EurobonusChartsLogo} alt="Plane logo" width="145" height="50" />
       </a>
     </div>
 
