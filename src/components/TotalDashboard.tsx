@@ -24,7 +24,7 @@ export const TotalDashboard = () => {
   return (
     <>
       {sum > 0 && <p>{`Users have earned a total of ${sum.toLocaleString()} eurobonus points since 2017`}</p>}
-      <Charts transactions={transactions} profiles={[profile]} />;
+      <Charts transactions={transactions} profiles={[profile]} />
     </>
   );
 };

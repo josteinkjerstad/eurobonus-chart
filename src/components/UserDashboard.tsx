@@ -32,7 +32,7 @@ export const UserDashboard = () => {
   return (
     <>
       {sum > 0 && <p>{`You've earned a total of ${sum.toLocaleString()} eurobonus points since ${earliestdate}`}</p>}
-      <Charts transactions={transactions} profiles={profiles} />;
+      <Charts transactions={transactions} profiles={profiles} />
     </>
   );
 };
