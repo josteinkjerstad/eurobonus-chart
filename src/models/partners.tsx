@@ -7,6 +7,8 @@ export enum TravelPartner {
   Flytoget = "Flytoget | Points Earned",
   OsloTaxi = "Oslo Taxi",
   TaxiFix = "Taxifix",
+  TromsoTaxi = "Tromsø Taxi",
+  Norgesbuss = "Norgesbuss",
 }
 
 export enum ScandinavianAirlinesPartner {
@@ -26,6 +28,7 @@ export enum HotelPartner {
   SmartHotel = "SmartHotel",
   FrognerHouse = "Frogner House",
   BankenHotel = "Banken Hotel",
+  SanktJorgen = "Sankt Jörgen",
 }
 
 export enum CreditCardPartner {
