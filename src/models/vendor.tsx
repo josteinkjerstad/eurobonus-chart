@@ -33,7 +33,7 @@ export enum GroupVendor {
   ScandinavianAirlines = "Scandinavian Airlines",
   NorgesGruppen = "NorgesGruppen",
   Restaurants = "Restaurants",
-  TravelPartners = "Travel",
+  TravelPartners = "Other Travel Partners",
 }
 
 export const groupedVendors: Record<GroupVendor, Vendor[]> = {
@@ -46,7 +46,7 @@ export const groupedVendors: Record<GroupVendor, Vendor[]> = {
   [GroupVendor.ScandinavianAirlines]: Object.values(ScandinavianAirlinesPartner),
   [GroupVendor.NorgesGruppen]: [Partner.Trumf],
   [GroupVendor.Restaurants]: Object.values(RestaurantPartner),
-  [GroupVendor.TravelPartners]: Object.values(TravelPartner),
+  [GroupVendor.TravelPartners]: [Partner.Unknown, ...Object.values(TravelPartner)],
 };
 
 export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
