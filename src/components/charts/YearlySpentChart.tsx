@@ -11,6 +11,8 @@ type YearlySpentChartProps = {
 };
 
 export const YearlySpentChart = ({ yearlyPoints }: YearlySpentChartProps) => {
+  const hasSpentData = yearlyPoints.some(point => point.spent > 0);
+
   const data = {
     labels: yearlyPoints.map(point => point.year.toString()),
     datasets: [
@@ -22,14 +24,18 @@ export const YearlySpentChart = ({ yearlyPoints }: YearlySpentChartProps) => {
         borderWidth: 1,
         maxBarThickness: 100,
       },
-      {
-        label: "Points Spent",
-        data: yearlyPoints.map(point => point.spent),
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgba(255, 99, 132, 1)",
-        borderWidth: 1,
-        maxBarThickness: 100,
-      },
+      ...(hasSpentData
+        ? [
+            {
+              label: "Points Spent",
+              data: yearlyPoints.map(point => point.spent),
+              backgroundColor: "rgba(255, 99, 132, 0.2)",
+              borderColor: "rgba(255, 99, 132, 1)",
+              borderWidth: 1,
+              maxBarThickness: 100,
+            },
+          ]
+        : []),
     ],
   };
 

@@ -39,5 +39,4 @@ export interface SummarizedTransaction {
   activity: string;
   year: number;
   bonus_points: number;
-  level_points: number;
 }
