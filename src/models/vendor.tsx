@@ -77,6 +77,8 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
       return "Widerøe-kortet";
     case HotelPartner.Scandic:
       return "Scandic Hotels";
+    case HotelPartner.EuroBonusHotels:
+      return "EuroBonus Hotels";
     case EuroBonusShopPartner.EuroBonusShop:
       return "EuroBonus Shop";
     case HouseholdPartner.LiveNation:

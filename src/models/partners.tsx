@@ -20,6 +20,7 @@ export enum ScandinavianAirlinesPartner {
 }
 
 export enum HotelPartner {
+  EuroBonusHotels = "EuroBonus-Hotel stay | Points Earned",
   Radisson = "Radisson Hotels",
   Scandic = "Scandic Hotels | Points Earned",
   SmartHotel = "SmartHotel",
@@ -34,6 +35,7 @@ export enum CreditCardPartner {
   SasMC = "MasterCard Reward Norway | Points Earned",
   TravelWallet = "Travel Wallet | Points Earned",
   WideroeKortet = "Widerøe-kortet | Points Earned",
+  DinersClub = "Diners Club",
 }
 
 export enum HouseholdPartner {
@@ -115,6 +117,11 @@ export enum RestaurantPartner {
   VillaParadiso = "Villa Paradiso",
   Amass = "Amass",
   DistrictTonkin = "District Tonkin",
+  Farang = "Farang",
+  StockholmFisk = "Stockholm Fisk",
+  Klosteret = "Klosteret",
+  Boqueria = "Boqueria",
+  Stortorgskalleren = "Stortorgskällaren",
 }
 
 export enum AirlinePartner {

@@ -23,6 +23,7 @@ const sasActivities = [
   "Transfer Extra Points",
   "Scandinavian Airlines System | Points Corrections",
   "EuroBonus intro",
+  "SAS EuroBonus | Points Corrections",
 ];
 
 export const getSasKey = (transaction: Transaction): ScandinavianAirlinesPartner => {
