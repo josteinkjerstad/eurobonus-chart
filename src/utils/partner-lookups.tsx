@@ -20,6 +20,9 @@ const sasActivities = [
   "Buy Extra Points",
   "Buy Basic Points",
   "Claim | Points Earned",
+  "Transfer Extra Points",
+  "Scandinavian Airlines System | Points Corrections",
+  "EuroBonus intro",
 ];
 
 export const getSasKey = (transaction: Transaction): ScandinavianAirlinesPartner => {
@@ -27,19 +30,28 @@ export const getSasKey = (transaction: Transaction): ScandinavianAirlinesPartner
   switch (true) {
     case activity.includesAny(["Buy Extra Points", "Buy Basic Points"]):
       return ScandinavianAirlinesPartner.PointPurchase;
+    case activity.includes("Transfer Extra Points"):
+      return ScandinavianAirlinesPartner.PointTransfers;
     case activity.includes("Claim | Points Earned"):
       return ScandinavianAirlinesPartner.Claim;
     case activity.includes("Conscious Traveler Reward"):
       return ScandinavianAirlinesPartner.ConsciousTraveler;
     case activity.toLowerCase().includes("biofuel"):
       return ScandinavianAirlinesPartner.BioFuel;
+    case activity.includes("EuroBonus intro"):
+      return ScandinavianAirlinesPartner.Intro;
     default:
       return ScandinavianAirlinesPartner.Flights;
   }
 };
 
 export const getPartnerFlightKey = (activity: string): Vendor => {
-  const key = Object.keys(AirlinePartner).find(key => activity.includes(`| ${key}`));
+  let key = Object.keys(AirlinePartner).find(key => activity.includes(`| ${key}`));
+
+  if (key == AirlinePartner.LR || key == AirlinePartner.TA) {
+    key = AirlinePartner.AV;
+  }
+
   return key ? AirlinePartner[key as keyof typeof AirlinePartner] : Partner.Unknown;
 };
 

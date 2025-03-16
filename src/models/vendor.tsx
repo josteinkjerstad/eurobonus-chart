@@ -8,6 +8,7 @@ import {
   RentalCarPartner,
   RestaurantPartner,
   ScandinavianAirlinesPartner,
+  TravelPartner,
 } from "./partners";
 
 export type Vendor =
@@ -19,7 +20,8 @@ export type Vendor =
   | HotelPartner
   | HouseholdPartner
   | ScandinavianAirlinesPartner
-  | RestaurantPartner;
+  | RestaurantPartner
+  | TravelPartner;
 
 export enum GroupVendor {
   CarRental = "Car Rentals",
@@ -31,25 +33,27 @@ export enum GroupVendor {
   ScandinavianAirlines = "Scandinavian Airlines",
   NorgesGruppen = "NorgesGruppen",
   Restaurants = "Restaurants",
+  TravelPartners = "Travel",
 }
 
 export const groupedVendors: Record<GroupVendor, Vendor[]> = {
   [GroupVendor.CarRental]: Object.values(RentalCarPartner),
   [GroupVendor.EuroBonusEarnShop]: Object.values(EuroBonusShopPartner),
-  [GroupVendor.AirlinePartner]: [Partner.Flytoget, ...Object.values(AirlinePartner)],
+  [GroupVendor.AirlinePartner]: Object.values(AirlinePartner),
   [GroupVendor.CreditCardPartner]: Object.values(CreditCardPartner),
   [GroupVendor.HotelPartner]: Object.values(HotelPartner),
   [GroupVendor.HouseholdPartner]: Object.values(HouseholdPartner),
   [GroupVendor.ScandinavianAirlines]: Object.values(ScandinavianAirlinesPartner),
   [GroupVendor.NorgesGruppen]: [Partner.Trumf],
   [GroupVendor.Restaurants]: Object.values(RestaurantPartner),
+  [GroupVendor.TravelPartners]: Object.values(TravelPartner),
 };
 
 export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
   switch (vendor) {
     case Partner.Trumf:
       return "Trumf";
-    case Partner.Flytoget:
+    case TravelPartner.Flytoget:
       return "Flytoget";
     case Partner.Unknown:
       return "Unknown";

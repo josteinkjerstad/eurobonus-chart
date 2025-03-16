@@ -1,7 +1,12 @@
 export enum Partner {
-  Trumf = "NorgesGruppen | Points Earned",
+  Trumf = "NorgesGruppen",
   Unknown = "Unknown",
+}
+
+export enum TravelPartner {
   Flytoget = "Flytoget | Points Earned",
+  OsloTaxi = "Oslo Taxi",
+  TaxiFix = "Taxifix",
 }
 
 export enum ScandinavianAirlinesPartner {
@@ -10,6 +15,8 @@ export enum ScandinavianAirlinesPartner {
   PointPurchase = "SAS Point Purchase",
   ConsciousTraveler = "SAS Conscious Traveler",
   Claim = "SAS Claims",
+  PointTransfers = "Point Transfers",
+  Intro = "EuroBonus Intro",
 }
 
 export enum HotelPartner {
@@ -65,7 +72,6 @@ export enum EuroBonusShopPartner {
   MyScreens = "My Screens",
   HurtigrutaCarglass = "Hurtigruta Carglass",
   DitecBilpleie = "Ditec Bilplpeie",
-  TaxiFix = "Taxifix",
   VonDoren = "Von Doren",
   Mulberry = "Mulberry",
   HellyHansen = "Helly Hansen",
@@ -105,6 +111,10 @@ export enum RestaurantPartner {
   Wallmans = "Wallmans",
   KafeAsylet = "Kafe Asylet",
   OnkelOskar = "Onkel Oskar",
+  NydalenBryggeri = "Nydalen Bryggeri & Spiseri",
+  VillaParadiso = "Villa Paradiso",
+  Amass = "Amass",
+  DistrictTonkin = "District Tonkin",
 }
 
 export enum AirlinePartner {
@@ -114,6 +124,8 @@ export enum AirlinePartner {
   CA = "Air China",
   ZH = "Shenzhen Airlines",
   AV = "Avianca",
+  LR = "Avianca Costa Rica",
+  TA = "Avianca El Salvador",
   OU = "Croatia Airlines",
   MS = "Egyptair",
   ET = "Ethiopian Airlines",
