@@ -9,7 +9,7 @@ const SignInForm = () => {
         <input type="email" name="email" placeholder="Email" required className={styles.input} />
         <input type="password" name="password" placeholder="Password" required className={styles.input} />
         <button type="submit" className={styles.signInButton}>
-          Sign In
+          Sign in
         </button>
       </form>
       <div className={styles.socialLogin}>
