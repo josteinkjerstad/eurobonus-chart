@@ -25,10 +25,10 @@ const sasActivities = [
   "EuroBonus intro",
   "SAS EuroBonus | Points Corrections",
   "Scandinavian Airlines System | Points Earned",
+  "| SK ",
 ];
 
-export const getSasKey = (transaction: Transaction): ScandinavianAirlinesPartner => {
-  const activity = transaction.activity!;
+export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {
   switch (true) {
     case activity.includesAny(["Buy Extra Points", "Buy Basic Points"]):
       return ScandinavianAirlinesPartner.PointPurchase;
@@ -57,11 +57,7 @@ export const getPartnerFlightKey = (activity: string): Vendor => {
   return key ? AirlinePartner[key as keyof typeof AirlinePartner] : Partner.Unknown;
 };
 
-export const isSas = (transaction: Transaction): boolean => {
-  const activity = transaction.activity!;
-  return (activity.includes("SK") && transaction.level_points && transaction.level_points > 0) || activity.includesAny(sasActivities);
-};
-
+const isSas = (activity: string): boolean => activity.includesAny(sasActivities);
 const isAmex = (activity: string): boolean => activity.includes("Amex");
 const isAvis = (activity: string): boolean => activity.startsWith("ra ");
 const isNorgesgruppen = (activity: string): boolean => activity.includesAny(["NorgesGruppen", "Norgesgruppen"]);
@@ -71,8 +67,8 @@ const isPartnerFlight = (activity: string): boolean => activity.includesAny(Obje
 
 export const findVendor = (transaction: Transaction): Vendor => {
   switch (true) {
-    case isSas(transaction):
-      return getSasKey(transaction);
+    case isSas(transaction.activity):
+      return getSasKey(transaction.activity!);
     case isPartnerFlight(transaction.activity!):
       return getPartnerFlightKey(transaction.activity!);
     case isRadisson(transaction.activity!):
