@@ -2,8 +2,6 @@
 
 EuroBonus Charts provides a visual representation of your SAS EuroBonus points, making it easy to see where you have earned all your points over the years.
 
-## FAQ
-
 ### What does it look like?
 
 [Head over to our demo](./showcase) to take a look!
