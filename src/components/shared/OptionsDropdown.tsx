@@ -43,6 +43,10 @@ export const OptionsDropdown = <T extends unknown>({
     }
   };
 
+  const handleSelectOnly = (option: T) => {
+    onChange(new Set([option]));
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -80,14 +84,19 @@ export const OptionsDropdown = <T extends unknown>({
                 Clear/Select All
               </button>
               {options.map((option) => (
-                <label key={optionLabel(option)} className={styles.optionLabel}>
-                  <input
-                    type="checkbox"
-                    checked={selectedOptions.has(option)}
-                    onChange={() => handleOptionFilterChange(option)}
-                  />
-                  {optionLabel(option)}
-                </label>
+                <div className={styles.optionContainer}>
+                  <label key={optionLabel(option)} className={styles.optionLabel}>
+                    <input
+                      type="checkbox"
+                      checked={selectedOptions.has(option)}
+                      onChange={() => handleOptionFilterChange(option)}
+                      />
+                    {optionLabel(option)}
+                  </label>
+                  <button onClick={() => handleSelectOnly(option)} className={styles.selectOnlyButton}>
+                      Only
+                  </button>
+                </div>
               ))}
             </div>
           </div>
