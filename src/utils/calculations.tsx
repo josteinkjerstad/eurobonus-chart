@@ -2,7 +2,7 @@ import { Partner } from "../models/partners";
 import type { Profile } from "../models/profile";
 import type { PeopleTransaction, QualifyingTransaction, Transaction, VendorTransaction, YearlyTransaction } from "../models/transaction";
 import { type Vendor, type GroupVendor, groupedVendors } from "../models/vendor";
-import { findVendor } from "./partner-lookups";
+import { findVendor, isRefund } from "./partner-lookups";
 
 export const calculateTotalBonusPoints = (transactions: Transaction[]): number => {
   return transactions
@@ -23,7 +23,7 @@ export const calculateTotalBonusPointsByProfile = (transactions: Transaction[]):
         value: 0,
       };
     }
-    if (transaction.bonus_points && transaction.bonus_points > 0 && !transaction.activity?.includes("Refund")) {
+    if (transaction.bonus_points && transaction.bonus_points > 0 && !isRefund(transaction.activity)) {
       acc[transaction.profile_id].value += transaction.bonus_points;
     }
     return acc;
@@ -38,7 +38,7 @@ export const groupTransactionsByVendor = (transactions: Transaction[]): Record<V
     .concat(Partner.Unknown);
 
   return transactions
-    .filter(x => x.activity && x.bonus_points && x.bonus_points > 0 && !x.activity?.includes("Refund"))
+    .filter(x => x.activity && x.bonus_points && x.bonus_points > 0 && !isRefund(x.activity))
     .reduce((acc, transaction) => {
       const vendor = allVendors.find(vendor => transaction.activity.includes(vendor)) ?? findVendor(transaction);
       (acc[vendor] ??= []).push(transaction);

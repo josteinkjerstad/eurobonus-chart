@@ -31,6 +31,7 @@ const sasActivities = [
   "| undefined",
   "PTS DIFF",
   "TP old",
+  "SAS  | Points Earned",
 ];
 
 export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {
@@ -69,6 +70,7 @@ const isNorgesgruppen = (activity: string): boolean => activity.includesAny(["No
 const isRadisson = (activity: string): boolean => activity.includesAny(["Radisson", "Rezidor SAS"]);
 const isEuroBonusEarnShop = (activity: string): boolean => activity.includesAny(["EuroBonus Earn Shop", "EuroBonus Shop (NOK)", "Onlineshopping"]);
 const isPartnerFlight = (activity: string): boolean => activity.includesAny(Object.keys(AirlinePartner).map(key => `| ${key}`));
+export const isRefund = (activity: string): boolean => activity.includesAny(["Refund", "Scandinavian Airlines Spec Actv | Points Corrections"]);
 
 export const findVendor = (transaction: Transaction): Vendor => {
   switch (true) {
