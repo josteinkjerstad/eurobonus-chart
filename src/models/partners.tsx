@@ -55,6 +55,7 @@ export enum HomePartner {
   DagensNæringsliv = "Dagens Näringsliv | Points Earned",
   LiveNation = "LiveNation | Points Earned",
   NordiskVentilasjonsrens = "Nordisk Ventilasjonsrens",
+  TideForsikring = "Tide Forsikring",
 }
 
 export enum RentalCarPartner {
