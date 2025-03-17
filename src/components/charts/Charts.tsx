@@ -13,7 +13,6 @@ import type { Profile } from "../../models/profile";
 import { VendorChart } from "./VendorChart";
 import { YearlySpentChart } from "./YearlySpentChart";
 import { PeopleChart } from "./PeopleChart";
-import { useMemo } from "react";
 import { QualifyingPeriodsChart } from "./QualifyingPeriodsChart";
 
 type ChartsProps = {
