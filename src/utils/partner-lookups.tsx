@@ -16,6 +16,7 @@ const sasBioFuel = [
   "SASBIOFUEL",
   "Biofuel",
   "bio ticket campaign",
+  "BIO ticket campaign",
   "Campaign Bio ticket",
   "BIO Ticket campaign",
   "MISSING BIO fuel",
