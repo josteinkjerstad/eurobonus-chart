@@ -104,7 +104,7 @@ export enum RestaurantPartner {
   MissGin = "Miss Gin",
   Brasilia = "Brasilia",
   Escalon = "Escalon",
-  FishCow = "Fish & Cow",
+  FishCow = "Fish&Cow",
   Spiseriet = "Spiseriet",
   Eldhuset = "Eldhuset",
   Fisketorget = "Fisketorget",
