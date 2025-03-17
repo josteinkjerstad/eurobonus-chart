@@ -11,7 +11,7 @@ import type { Transaction } from "../models/transaction";
 import type { Vendor } from "../models/vendor";
 import "../utils/extensions";
 
-const sasBioFuel = ["BIO fuel", "BIO ticket", "SASBIOFUEL", "Biofuel", "bio ticket"];
+const sasBioFuel = ["bio fuel", "BIO fuel", "BIO ticket", "SASBIOFUEL", "Biofuel", "bio ticket"];
 
 const sasActivities = [
   "Conscious Traveler Reward",
@@ -50,7 +50,7 @@ export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {
       return ScandinavianAirlinesPartner.Claim;
     case activity.includes("Conscious Traveler Reward"):
       return ScandinavianAirlinesPartner.ConsciousTraveler;
-    case activity.toLowerCase().includesAny(sasBioFuel):
+    case activity.includesAny(sasBioFuel):
       return ScandinavianAirlinesPartner.BioFuel;
     case activity.includes("EuroBonus intro"):
       return ScandinavianAirlinesPartner.Intro;
