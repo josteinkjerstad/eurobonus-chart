@@ -106,6 +106,23 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
     return [...groupedTransactions, ...individualTransactions].filter(v => v.points > 0).sort((a, b) => b.points - a.points);
   }, [transactions, selectedVendors, selectedYears, groupedVendorsState, selectedMembers]);
 
+  const handleBarClick = (elements: any) => {
+    if (elements.length > 0) {
+      const clickedVendor = filteredVendorPoints[elements[0].index].vendor;
+
+      if (Object.values(GroupVendor).includes(clickedVendor as GroupVendor)) {
+        const group = clickedVendor as GroupVendor;
+
+        setGroupedVendorsState(prevState => ({
+          ...prevState,
+          [group]: false,
+        }));
+
+        handleSelectedGroupsChange(new Set([group]));
+      }
+    }
+  };
+
   const data = {
     labels: filteredVendorPoints.map(v => getDisplayName(v.vendor)),
     datasets: [
@@ -139,6 +156,7 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
         },
       },
     },
+    onClick: (_: unknown, elements: Array<{ index: number }>) => handleBarClick(elements), // Add click handler
   };
 
   return (
