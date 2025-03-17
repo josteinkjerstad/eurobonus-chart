@@ -5,9 +5,10 @@ export enum Partner {
 
 export enum TravelPartner {
   Flytoget = "Flytoget | Points Earned",
-  OsloTaxi = "Oslo Taxi",
   TaxiFix = "Taxifix",
+  OsloTaxi = "Oslo Taxi",
   TromsoTaxi = "Tromsø Taxi",
+  NorlandTaxi = "Nordland Taxi",
   Norgesbuss = "Norgesbuss",
 }
 
@@ -127,6 +128,14 @@ export enum RestaurantPartner {
   Boqueria = "Boqueria",
   Stortorgskalleren = "Stortorgskällaren",
   CafeSorgenfri = "Cafe Sorgenfri",
+  EntrecoteByTrancher = "Entrecote by Trancher",
+  NyhavnsFergekro = "Nyhavns Færgekro",
+  AmundsenBrygger = "Amundsen Bryggeri & Spiseri",
+  EducationNationale = "L'education Nationale",
+  Cartels = "Cartel's",
+  Fratelli = "Fratelli",
+  CafeTrold = "Cafe Trold",
+  LundbergsVaskor = "Lundbergs Väskor",
 }
 
 export enum AirlinePartner {

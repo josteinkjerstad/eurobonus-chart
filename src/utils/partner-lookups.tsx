@@ -11,10 +11,10 @@ import type { Transaction } from "../models/transaction";
 import type { Vendor } from "../models/vendor";
 import "../utils/extensions";
 
+const sasBioFuel = ["BIO fuel", "BIO ticket", "SASBIOFUEL", "Biofuel"];
+
 const sasActivities = [
   "Conscious Traveler Reward",
-  "SASBIOFUEL",
-  "Biofuel",
   "BEP old",
   "BBP old",
   "Special Accrual",
@@ -22,7 +22,7 @@ const sasActivities = [
   "Buy Basic Points",
   "Claim | Points Earned",
   "Transfer Extra Points",
-  "Scandinavian Airlines System | Points Corrections",
+  "Points Corrections",
   "EuroBonus intro",
   "SAS EuroBonus | Points Corrections",
   "Scandinavian Airlines System | Points Earned",
@@ -32,6 +32,12 @@ const sasActivities = [
   "PTS DIFF",
   "TP old",
   "SAS  | Points Earned",
+  "Flight: SK1456 | Points Earned",
+  "RES ID",
+  "Double points campaign",
+  "EMD 117",
+  "Added missing points from pnr",
+  ...sasBioFuel,
 ];
 
 export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {
@@ -44,7 +50,7 @@ export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {
       return ScandinavianAirlinesPartner.Claim;
     case activity.includes("Conscious Traveler Reward"):
       return ScandinavianAirlinesPartner.ConsciousTraveler;
-    case activity.toLowerCase().includes("biofuel"):
+    case activity.toLowerCase().includesAny(sasBioFuel):
       return ScandinavianAirlinesPartner.BioFuel;
     case activity.includes("EuroBonus intro"):
       return ScandinavianAirlinesPartner.Intro;
@@ -65,7 +71,7 @@ export const getPartnerFlightKey = (activity: string): Vendor => {
 
 const isSas = (activity: string): boolean => activity.includesAny(sasActivities);
 const isAmex = (activity: string): boolean => activity.includes("Amex");
-const isAvis = (activity: string): boolean => activity.startsWith("ra ");
+const isAvis = (activity: string): boolean => activity.toLowerCase().startsWith("ra ") || activity.includesAny(["Avis", "AVIS"]);
 const isNorgesgruppen = (activity: string): boolean => activity.includesAny(["NorgesGruppen", "Norgesgruppen"]);
 const isRadisson = (activity: string): boolean => activity.includesAny(["Radisson", "Rezidor SAS"]);
 const isEuroBonusEarnShop = (activity: string): boolean => activity.includesAny(["EuroBonus Earn Shop", "EuroBonus Shop (NOK)", "Onlineshopping"]);
