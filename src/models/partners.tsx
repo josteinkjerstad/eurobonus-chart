@@ -12,6 +12,7 @@ export enum TravelPartner {
   Norgesbuss = "Norgesbuss",
   StavangerTaxi = "Stavanger Taxi",
   TaxiSentralen = "Taxisentralen",
+  VestfoldTaxi = "Vestfold Taxisentral",
 }
 
 export enum ScandinavianAirlinesPartner {
