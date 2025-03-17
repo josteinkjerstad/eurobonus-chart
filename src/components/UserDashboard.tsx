@@ -24,7 +24,7 @@ export const UserDashboard = () => {
   if (transactions.length === 0) {
     return (
       <p>
-        Oops, no data found - <a href="/profile">upload your data here</a>.
+        Oops, no data found - <a href="/profile">upload your data here</a>
       </p>
     );
   }

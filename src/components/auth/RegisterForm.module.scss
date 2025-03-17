@@ -1,3 +1,32 @@
+.error {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.success {
+  color: green;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.switchForm {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+
+.switchForm a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.switchForm a:hover {
+  text-decoration: underline;
+}
+
 .signinBox {
   background-color: white;
   padding: 2rem;
@@ -33,23 +62,6 @@
   justify-content: center;
 }
 
-.signInButton:hover {
-  background-color: #218838;
-}
-
 .socialLogin {
   margin-top: 1rem;
-}
-
-.createAccount {
-  margin-top: 1rem;
-  font-size: 0.875rem;
-}
-.createAccount a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.createAccount a:hover {
-  text-decoration: underline;
 }

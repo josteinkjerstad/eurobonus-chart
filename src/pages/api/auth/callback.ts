@@ -6,7 +6,7 @@ export const GET: APIRoute = async ({ url, cookies, request, redirect }) => {
   const authCode = url.searchParams.get("code");
 
   if (!authCode) {
-    return new Response("No code provided", { status: 400 });
+    return new Response(url.searchParams.get("error_description"), { status: 400 });
   }
 
   const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.env.SUPABASE_KEY, {

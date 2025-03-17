@@ -7,6 +7,7 @@ import styles from "./ProfileSection.module.scss";
 import { MemberSection } from "./MemberSection";
 import { UploadSection } from "./UploadSection";
 import { DeleteSection } from "./DeleteSection";
+import { ChangePasswordForm } from "../auth/ChangePasswordForm";
 
 export const ProfileSection = () => {
   const { data, loading } = useFetchProfiles();
@@ -40,6 +41,8 @@ export const ProfileSection = () => {
       <MemberSection members={members} onChange={setMembers} />
       <Divider />
       <UploadSection onUpload={onUpload} profiles={[profile, ...members]} />
+      <Divider />
+      <ChangePasswordForm />
       <Divider />
       <DeleteSection />
     </div>

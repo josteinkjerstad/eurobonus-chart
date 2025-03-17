@@ -1,0 +1,22 @@
+---
+export const prerender = false;
+import { RegisterForm } from "../components/auth/RegisterForm";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Register">
+  <div class="signin-container">
+    <RegisterForm client:load />
+  </div>
+</Layout>
+
+<style>
+  .signin-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    padding-top: 50px;
+    background-color: white;
+  }
+</style>

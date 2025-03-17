@@ -5,6 +5,8 @@ import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
+  const email = formData.get("email")?.toString();
+  const password = formData.get("password")?.toString();
   const provider = formData.get("provider")?.toString();
   const validProviders = ["github", "google", "facebook"];
 
@@ -32,6 +34,22 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     }
 
     return redirect(data.url);
+  }
+
+  if (!email || !password) {
+    return new Response("Email and password are required", { status: 400 });
+  }
+
+  console.log(email, password);
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    console.error(error);
+    return new Response(error.message, { status: 500 });
   }
 
   return redirect("/dashboard");

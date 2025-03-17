@@ -1,0 +1,10 @@
+---
+import { MagicLinkLoginForm } from "../components/auth/MagicLinkLoginForm";
+import Layout from "../layouts/Layout.astro";
+
+export const prerender = false;
+---
+
+<Layout title="Forgot Password">
+  <MagicLinkLoginForm client:load />
+</Layout>
