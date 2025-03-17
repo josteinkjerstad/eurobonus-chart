@@ -20,6 +20,7 @@ const sasBioFuel = [
   "Campaign Bio ticket",
   "BIO Ticket campaign",
   "MISSING BIO fuel",
+  "OTGJMU | Points Earned",
 ];
 const aviancaIataCodes = [
   "AV", // Avianca
@@ -88,6 +89,7 @@ export const getPartnerFlightKey = (activity: string): Vendor => {
 const isSas = (activity: string): boolean => activity.includesAny(sasActivities);
 const isAmex = (activity: string): boolean => activity.includes("Amex");
 const isAvianca = (activity: string): boolean => activity.includesAny(aviancaIataCodes.map(x => `| ${x}`));
+const isWideroe = (activity: string): boolean => activity.includes("Missing BP for WF");
 const isAvis = (activity: string): boolean => activity.toLowerCase().startsWith("ra ") || activity.includesAny(["Avis", "AVIS"]);
 const isNorgesgruppen = (activity: string): boolean => activity.includesAny(["NorgesGruppen", "Norgesgruppen"]);
 const isRadisson = (activity: string): boolean => activity.includesAny(["Radisson", "Rezidor SAS"]);
@@ -102,6 +104,8 @@ export const findVendor = (transaction: Transaction): Vendor => {
       return getSasKey(transaction.activity!);
     case isAvianca(transaction.activity):
       return AirlinePartner.AV;
+    case isWideroe(transaction.activity):
+      return AirlinePartner.WF;
     case isPartnerFlight(transaction.activity!):
       return getPartnerFlightKey(transaction.activity!);
     case isRadisson(transaction.activity!):
