@@ -24,7 +24,7 @@ export const useSendMagicLink = () => {
       }
 
       setSuccessMessage(
-        "A magic link email has been sent to your email. Click the link to access your account and change your password under profile settings"
+        "A magic link has been sent to your email. Click the link to access your account and change your password in profile settings"
       );
     } catch (err: any) {
       setError(err.message || "An error occurred.");
