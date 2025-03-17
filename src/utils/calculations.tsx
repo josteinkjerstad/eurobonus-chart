@@ -76,6 +76,17 @@ export const getEarliestDate = (transactions: Transaction[]): string | null => {
   });
 };
 
+export const getLatestDate = (transactions: Transaction[]): string | null => {
+  if (transactions.length === 0) {
+    return null;
+  }
+  return new Date(Math.max(...transactions.map(transaction => new Date(transaction.date).getTime()))).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
 export const calculateYearlyPoints = (transactions: Transaction[]): YearlyTransaction[] => {
   const yearlyPoints: Record<number, { earned: number; spent: number }> = {};
   const uniqueNegativeTransactions = new Set<string>();

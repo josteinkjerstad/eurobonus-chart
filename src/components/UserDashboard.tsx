@@ -5,7 +5,7 @@ import { Charts } from "./charts/Charts";
 import type { Transaction } from "../models/transaction";
 import type { Profile } from "../models/profile";
 import { Spinner } from "@blueprintjs/core";
-import { calculateTotalBonusPoints, getEarliestDate } from "../utils/calculations";
+import { calculateTotalBonusPoints, getEarliestDate, getLatestDate } from "../utils/calculations";
 
 export const UserDashboard = () => {
   const { data, loading } = useFetchTransactions();
@@ -17,6 +17,7 @@ export const UserDashboard = () => {
 
   const sum = useMemo(() => calculateTotalBonusPoints(transactions), [transactions]);
   const earliestdate = useMemo(() => getEarliestDate(transactions), [transactions]);
+  const latestDate = useMemo(() => getLatestDate(transactions), [transactions]);
 
   if (loading || profileLoading) {
     return <Spinner />;
@@ -32,7 +33,12 @@ export const UserDashboard = () => {
   return (
     <>
       <h2>Hi, </h2>
-      {sum > 0 && <p>{`You've earned a total of ${sum.toLocaleString()} eurobonus points since ${earliestdate}`}</p>}
+      {sum > 0 && (
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <p>{`You've earned a total of ${sum.toLocaleString()} eurobonus points since ${earliestdate}`}</p>
+          <p>{`Last transaction date: ${latestDate}`}</p>
+        </div>
+      )}
       <Charts transactions={transactions} profiles={profiles} />
     </>
   );

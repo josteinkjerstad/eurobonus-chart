@@ -1,11 +1,9 @@
 export const prerender = false;
 import {
   calculateQualifyingTransactions,
-  calculateTotalBonusPoints,
   calculateTotalBonusPointsByProfile,
   calculateVendorTransactions,
   calculateYearlyPoints,
-  getEarliestDate,
 } from "../../utils/calculations";
 import type { Transaction } from "../../models/transaction";
 import { Tabs, Tab, Card, Elevation } from "@blueprintjs/core";
@@ -28,7 +26,7 @@ export const Charts = ({ transactions, profiles }: ChartsProps) => {
 
   return (
     <>
-      <Card elevation={Elevation.TWO} style={{ marginTop: 20, alignSelf: "center", alignContent: "center" }}>
+      <Card elevation={Elevation.TWO} style={{ marginTop: 5, alignSelf: "center", alignContent: "center" }}>
         <Tabs>
           <Tab id="points" title="Points" panel={<VendorChart transactions={vendorPoints} profiles={profiles} />} />
           <Tab id="years" title="Years" panel={<YearlySpentChart yearlyPoints={yearlyPoints} />} />
