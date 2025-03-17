@@ -99,7 +99,7 @@ export enum EuroBonusShopPartner {
   Tivoli = "Tivoli",
   CodanForsikring = "Codan Forsikring",
   SteenStrom = "Steen & Stroem",
-  FangenePaaFortet = "Fangene på fortet",
+  FangenePaaFortet = "Fangene på Fortet",
 }
 
 export enum RestaurantPartner {
