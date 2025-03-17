@@ -10,6 +10,7 @@ export enum TravelPartner {
   TromsoTaxi = "Tromsø Taxi",
   NorlandTaxi = "Nordland Taxi",
   Norgesbuss = "Norgesbuss",
+  StavangerTaxi = "Stavanger Taxi",
 }
 
 export enum ScandinavianAirlinesPartner {
@@ -136,6 +137,8 @@ export enum RestaurantPartner {
   Fratelli = "Fratelli",
   CafeTrold = "Cafe Trold",
   LundbergsVaskor = "Lundbergs Väskor",
+  ChinaPalace = "China Palace",
+  Zalt = "Zalt",
 }
 
 export enum AirlinePartner {
