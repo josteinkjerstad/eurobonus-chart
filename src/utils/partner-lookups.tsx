@@ -11,7 +11,15 @@ import type { Transaction } from "../models/transaction";
 import type { Vendor } from "../models/vendor";
 import "../utils/extensions";
 
-const sasBioFuel = ["SASBIOFUEL", "Biofuel", "bio ticket campaign", "Campaign Bio ticket", "BIO Ticket campaign", "MISSING BIO fuel"];
+const sasBioFuel = [
+  "biofuel points",
+  "SASBIOFUEL",
+  "Biofuel",
+  "bio ticket campaign",
+  "Campaign Bio ticket",
+  "BIO Ticket campaign",
+  "MISSING BIO fuel",
+];
 const aviancaIataCodes = [
   "AV", // Avianca
   "LR", // Avianca Costa Rica
