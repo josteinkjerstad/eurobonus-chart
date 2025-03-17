@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import type { Transaction } from "../models/transaction";
+import type { SummarizedTransaction } from "../models/transaction";
 
 const useFetchTotalTransactions = () => {
-  const [data, setData] = useState<Transaction[]>([]);
+  const [data, setData] = useState<SummarizedTransaction[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTransactions = async () => {
       const transactionsResponse = await fetch("/api/summarized-transactions");
 
-      const transactions = (await transactionsResponse.json()) as Transaction[];
+      const transactions = (await transactionsResponse.json()) as SummarizedTransaction[];
 
       setData(transactions);
       setLoading(false);

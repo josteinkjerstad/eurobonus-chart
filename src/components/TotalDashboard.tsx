@@ -10,7 +10,10 @@ export const TotalDashboard = () => {
   const { data, loading } = useFetchTotalTransactions();
 
   const profile: Profile = useMemo(() => ({ id: "1", display_name: "All Users", created: new Date(2025, 1, 20).toISOString(), user_id: "1" }), []);
-  const transactions: Transaction[] = useMemo(() => (data ? data : []), [data]);
+  const transactions: Transaction[] = useMemo(
+    () => (data ? data.map(x => ({ ...x, date: new Date(x.year).toISOString(), profile_id: profile.id, user_id: profile.user_id! })) : []),
+    [data]
+  );
 
   const sum = useMemo(() => calculateTotalBonusPoints(transactions), [transactions]);
 

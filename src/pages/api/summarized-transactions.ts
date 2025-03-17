@@ -44,16 +44,14 @@ export const GET: APIRoute = async ({ request, cookies }) => {
       const year = new Date(transaction.date).getFullYear();
       if (!acc[year]) {
         acc[year] = {
-          user_id: profile.user_id!,
-          profile_id: profile.id,
-          date: new Date(year, 1, 1).toISOString(),
+          year,
           activity: vendor,
           bonus_points: 0,
         };
       }
-      acc[year].bonus_points! += transaction.bonus_points || 0;
+      acc[year].bonus_points += transaction.bonus_points || 0;
       return acc;
-    }, {} as Record<number, Transaction>);
+    }, {} as Record<number, SummarizedTransaction>);
 
     return Object.values(groupedByYear);
   });
