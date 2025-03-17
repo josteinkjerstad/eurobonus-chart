@@ -120,6 +120,8 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
   };
 
   const options = {
+    responsive: true,
+    maintainAspectRatio: false, // Prevent chart shaking by maintaining aspect ratio
     plugins: {
       legend: {
         display: false,
