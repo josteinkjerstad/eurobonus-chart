@@ -4,8 +4,8 @@ export const useDeleteAccount = () => {
       method: "DELETE",
     });
 
-    if (!response.ok) {
-      alert(`Error deleting account`);
+    if (response.ok) {
+      window.location.href = "/signin";
     }
   };
 

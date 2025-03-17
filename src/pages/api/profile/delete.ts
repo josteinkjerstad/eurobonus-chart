@@ -27,6 +27,4 @@ export const DELETE: APIRoute = async ({ request, cookies, redirect }) => {
 
   await supabase.auth.signOut();
   return redirect("/signin");
-
-  return new Response("Transactions deleted successfully!", { status: 200 });
 };
