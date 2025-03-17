@@ -151,8 +151,6 @@ export enum AirlinePartner {
   CA = "Air China",
   ZH = "Shenzhen Airlines",
   AV = "Avianca",
-  LR = "Avianca Costa Rica",
-  TA = "Avianca El Salvador",
   OU = "Croatia Airlines",
   MS = "Egyptair",
   ET = "Ethiopian Airlines",

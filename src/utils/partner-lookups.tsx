@@ -71,11 +71,7 @@ export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {
 };
 
 export const getPartnerFlightKey = (activity: string): Vendor => {
-  let key = Object.keys(AirlinePartner).find(key => activity.includes(`| ${key}`));
-
-  if (key == AirlinePartner.LR || key == AirlinePartner.TA) {
-    key = AirlinePartner.AV;
-  }
+  const key = Object.keys(AirlinePartner).find(key => activity.includes(`| ${key}`));
 
   return key ? AirlinePartner[key as keyof typeof AirlinePartner] : Partner.Unknown;
 };
