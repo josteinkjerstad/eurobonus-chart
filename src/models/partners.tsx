@@ -11,6 +11,7 @@ export enum TravelPartner {
   NorlandTaxi = "Nordland Taxi",
   Norgesbuss = "Norgesbuss",
   StavangerTaxi = "Stavanger Taxi",
+  TaxiSentralen = "Taxisentralen",
 }
 
 export enum ScandinavianAirlinesPartner {
@@ -31,6 +32,7 @@ export enum HotelPartner {
   FrognerHouse = "Frogner House",
   BankenHotel = "Banken Hotel",
   SanktJorgen = "Sankt Jörgen",
+  ThonHotels = "Thon Hotels",
 }
 
 export enum CreditCardPartner {
@@ -91,6 +93,7 @@ export enum EuroBonusShopPartner {
   Solentro = "Solentro",
   LifeJourney = "Life Journal",
   Tivoli = "Tivoli",
+  CodanForsikring = "Codan Forsikring",
 }
 
 export enum RestaurantPartner {
@@ -133,7 +136,7 @@ export enum RestaurantPartner {
   NyhavnsFergekro = "Nyhavns Færgekro",
   AmundsenBrygger = "Amundsen Bryggeri & Spiseri",
   EducationNationale = "L'education Nationale",
-  Cartels = "Cartel's",
+  Cartels = "Latin American Kitchen & Bar",
   Fratelli = "Fratelli",
   CafeTrold = "Cafe Trold",
   LundbergsVaskor = "Lundbergs Väskor",

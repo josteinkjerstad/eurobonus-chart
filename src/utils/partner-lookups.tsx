@@ -11,7 +11,7 @@ import type { Transaction } from "../models/transaction";
 import type { Vendor } from "../models/vendor";
 import "../utils/extensions";
 
-const sasBioFuel = ["BIO fuel", "BIO ticket", "SASBIOFUEL", "Biofuel"];
+const sasBioFuel = ["BIO fuel", "BIO ticket", "SASBIOFUEL", "Biofuel", "bio ticket"];
 
 const sasActivities = [
   "Conscious Traveler Reward",

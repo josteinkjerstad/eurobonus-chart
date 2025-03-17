@@ -83,6 +83,8 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
       return "EuroBonus Shop";
     case HomePartner.LiveNation:
       return "Live Nation";
+    case RestaurantPartner.Cartels:
+      return "Cartel's";
     default:
       return vendor;
   }
