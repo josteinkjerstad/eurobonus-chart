@@ -13,6 +13,7 @@ export enum TravelPartner {
   StavangerTaxi = "Stavanger Taxi",
   TaxiSentralen = "Taxisentralen",
   VestfoldTaxi = "Vestfold Taxisentral",
+  MoreTaxi = "Møre og Romsdal Taxi",
 }
 
 export enum ScandinavianAirlinesPartner {
@@ -100,6 +101,7 @@ export enum EuroBonusShopPartner {
   CodanForsikring = "Codan Forsikring",
   SteenStrom = "Steen & Stroem",
   FangenePaaFortet = "Fangene på Fortet",
+  BjornBorg = "Björn Borg",
 }
 
 export enum RestaurantPartner {
