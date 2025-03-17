@@ -26,7 +26,7 @@ export const Charts = ({ transactions, profiles }: ChartsProps) => {
 
   return (
     <>
-      <Card elevation={Elevation.TWO} style={{ marginTop: 5, alignSelf: "center", alignContent: "center" }}>
+      <Card elevation={Elevation.TWO} style={{ marginRight: 5, marginTop: 5, alignSelf: "center", alignContent: "center" }}>
         <Tabs>
           <Tab id="points" title="Points" panel={<VendorChart transactions={vendorPoints} profiles={profiles} />} />
           <Tab id="years" title="Years" panel={<YearlySpentChart yearlyPoints={yearlyPoints} />} />

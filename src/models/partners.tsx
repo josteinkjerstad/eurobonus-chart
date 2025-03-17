@@ -99,6 +99,7 @@ export enum EuroBonusShopPartner {
   Tivoli = "Tivoli",
   CodanForsikring = "Codan Forsikring",
   SteenStrom = "Steen & Stroem",
+  FangenePaaFortet = "Fangene på fortet",
 }
 
 export enum RestaurantPartner {
@@ -148,6 +149,7 @@ export enum RestaurantPartner {
   ChinaPalace = "China Palace",
   Zalt = "Zalt",
   Palegade = "Palægade",
+  Magasasa = "Magasasa Dim Sum",
 }
 
 export enum AirlinePartner {
