@@ -25,9 +25,9 @@ export enum ScandinavianAirlinesPartner {
   PointPurchase = "SAS Point Purchase",
   ConsciousTraveler = "SAS Conscious Traveler",
   Claim = "SAS Claims",
-  PointTransfers = "SAS Point Transfers",
-  Intro = "SAS EuroBonus Intro",
-  MillionaireCampaign = "SAS Millionaire Campaign",
+  PointTransfers = "Point Transfers",
+  Intro = "EuroBonus Intro",
+  MillionaireCampaign = "Millionaire Campaign",
 }
 
 export enum HotelPartner {
