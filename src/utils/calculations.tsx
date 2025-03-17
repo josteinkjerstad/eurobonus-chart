@@ -8,7 +8,7 @@ export const calculateTotalBonusPoints = (transactions: Transaction[]): number =
   return transactions
     .filter(x => x.bonus_points)
     .reduce((acc, transaction) => {
-      if (transaction.bonus_points! < 0 || transaction.activity?.includes("Refund")) {
+      if (transaction.bonus_points! < 0 || isRefund(transaction.activity)) {
         return acc;
       }
       return acc + transaction.bonus_points!;
@@ -88,7 +88,7 @@ export const calculateYearlyPoints = (transactions: Transaction[]): YearlyTransa
         yearlyPoints[year] = { earned: 0, spent: 0 };
       }
       if (transaction.bonus_points) {
-        if (transaction.bonus_points > 0 && !transaction.activity?.includes("Refund")) {
+        if (transaction.bonus_points > 0 && !isRefund(transaction.activity)) {
           yearlyPoints[year].earned += transaction.bonus_points;
         } else {
           const transactionKey = `${transaction.activity}-${transaction.bonus_points}-${transaction.date}`;
