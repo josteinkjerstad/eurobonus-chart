@@ -30,7 +30,7 @@ export const Charts = ({ transactions, profiles }: ChartsProps) => {
         <Tabs>
           <Tab id="points" title="Points" panel={<VendorChart transactions={vendorPoints} profiles={profiles} />} />
           <Tab id="years" title="Years" panel={<YearlySpentChart yearlyPoints={yearlyPoints} />} />
-          {profiles.length > 1 && <Tab id="people" title="People" panel={<PeopleChart transactions={peoplePoints} profiles={profiles} />} />}
+          {profiles.length > 1 && <Tab id="people" title="Members" panel={<PeopleChart transactions={peoplePoints} profiles={profiles} />} />}
           {qualifyingPoints.length > 1 && profiles.some(x => x.periode_start_month) && (
             <Tab id="qualifying" title="Level Points" panel={<QualifyingPeriodsChart transactions={qualifyingPoints} profiles={profiles} />} />
           )}
