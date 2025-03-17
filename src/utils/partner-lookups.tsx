@@ -12,6 +12,17 @@ import type { Vendor } from "../models/vendor";
 import "../utils/extensions";
 
 const sasBioFuel = ["bio", "BIO", "bio", "BIO fuel", "BIO ticket", "SASBIOFUEL", "Biofuel", "bio ticket"];
+const aviancaIataCodes = [
+  "AV", // Avianca
+  "LR", // Avianca Costa Rica
+  "T0", // Avianca El Salvador
+  "2K", // Avianca Ecuador
+  "P5", // Avianca Peru
+  "O6", // Avianca Brazil
+  "VH", // Avianca Venezuela
+  "PU", // Avianca Uruguay
+  "GU", // Avianca Guatemala
+];
 
 const sasActivities = [
   "Conscious Traveler Reward",
@@ -71,6 +82,7 @@ export const getPartnerFlightKey = (activity: string): Vendor => {
 
 const isSas = (activity: string): boolean => activity.includesAny(sasActivities);
 const isAmex = (activity: string): boolean => activity.includes("Amex");
+const isAvianca = (activity: string): boolean => activity.includesAny(aviancaIataCodes.map(x => `| ${x}`));
 const isAvis = (activity: string): boolean => activity.toLowerCase().startsWith("ra ") || activity.includesAny(["Avis", "AVIS"]);
 const isNorgesgruppen = (activity: string): boolean => activity.includesAny(["NorgesGruppen", "Norgesgruppen"]);
 const isRadisson = (activity: string): boolean => activity.includesAny(["Radisson", "Rezidor SAS"]);
@@ -82,6 +94,8 @@ export const findVendor = (transaction: Transaction): Vendor => {
   switch (true) {
     case isSas(transaction.activity):
       return getSasKey(transaction.activity!);
+    case isAvianca(transaction.activity):
+      return AirlinePartner.AV;
     case isPartnerFlight(transaction.activity!):
       return getPartnerFlightKey(transaction.activity!);
     case isRadisson(transaction.activity!):
