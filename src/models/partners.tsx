@@ -35,6 +35,7 @@ export enum HotelPartner {
   BankenHotel = "Banken Hotel",
   SanktJorgen = "Sankt Jörgen",
   ThonHotels = "Thon Hotels",
+  Hilton = "Hilton Hotels",
 }
 
 export enum CreditCardPartner {
@@ -96,6 +97,7 @@ export enum EuroBonusShopPartner {
   LifeJourney = "Life Journal",
   Tivoli = "Tivoli",
   CodanForsikring = "Codan Forsikring",
+  SteenStrom = "Steen & Stroem",
 }
 
 export enum RestaurantPartner {
@@ -144,6 +146,7 @@ export enum RestaurantPartner {
   LundbergsVaskor = "Lundbergs Väskor",
   ChinaPalace = "China Palace",
   Zalt = "Zalt",
+  Palegade = "Palægade",
 }
 
 export enum AirlinePartner {
