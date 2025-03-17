@@ -22,6 +22,7 @@ const sasBioFuel = [
   "MISSING BIO fuel",
   "OTGJMU | Points Earned",
   "BIOFUEL CAMP",
+  "BIO FUEL CAMPAIGN",
 ];
 const aviancaIataCodes = [
   "AV", // Avianca

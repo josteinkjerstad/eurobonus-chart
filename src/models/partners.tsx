@@ -162,6 +162,8 @@ export enum RestaurantPartner {
   Magasasa = "Magasasa Dim Sum",
   Honsan = "Honsan",
   BrasserieMakalos = "Brasserie Makalös",
+  Scarpetta = "Scarpetta",
+  BernsAsiatiska = "Berns Asiatiska",
 }
 
 export enum AirlinePartner {
