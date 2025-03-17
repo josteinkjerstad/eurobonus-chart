@@ -1,5 +1,10 @@
 ---
 export const prerender = false;
+export const metadata = {
+  verification: {
+    google: "1svCa-wULEr04P-grA9_q6v8l1XvdT-6wZEWt7K0qfE",
+  },
+};
 import Layout from "../layouts/Layout.astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 const { cookies, redirect, request } = Astro;
