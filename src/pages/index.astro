@@ -24,4 +24,4 @@ const { data } = await supabase.auth.getSession();
 return data.session ? redirect("/dashboard") : redirect("/signin");
 ---
 
-<Layout />
+<Layout {metadata} />
