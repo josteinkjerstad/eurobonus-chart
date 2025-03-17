@@ -22,6 +22,9 @@ export const MagicLinkLoginForm = () => {
           {loading ? "Sending..." : "Send Magic Link"}
         </button>
       </form>
+      <div style={{ marginTop: "1rem" }}>
+        Go back to <a href="/signin">Log in</a>
+      </div>
     </div>
   );
 };
