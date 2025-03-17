@@ -23,6 +23,7 @@ export enum ScandinavianAirlinesPartner {
   Claim = "SAS Claims",
   PointTransfers = "Point Transfers",
   Intro = "EuroBonus Intro",
+  MillionaireCampaign = "Millionaire Campaign",
 }
 
 export enum HotelPartner {
