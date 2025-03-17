@@ -60,7 +60,7 @@ const SignInForm = () => {
         <SocialLoginButtons />
       </div>
       <div className={styles.createAccount}>
-        <a href="/forgot-password">Forgot Password?</a>
+        <a href="/magic-link">Forgot Password?</a>
       </div>
       <div className={styles.createAccount}>
         <a href="/register">Register</a> or <a href="/magic-link">Sign up with a magic link</a>
