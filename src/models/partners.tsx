@@ -14,6 +14,9 @@ export enum TravelPartner {
   TaxiSentralen = "Taxisentralen",
   VestfoldTaxi = "Vestfold Taxisentral",
   MoreTaxi = "Møre og Romsdal Taxi",
+  AltaTaxi = "Alta Taxi",
+  OnePark = "ONEPARK",
+  Flygbussarne = "Flygbussarna",
 }
 
 export enum ScandinavianAirlinesPartner {
@@ -37,6 +40,7 @@ export enum HotelPartner {
   SanktJorgen = "Sankt Jörgen",
   ThonHotels = "Thon Hotels",
   Hilton = "Hilton Hotels",
+  FirstHotels = "First Hotels",
 }
 
 export enum CreditCardPartner {
@@ -47,6 +51,7 @@ export enum CreditCardPartner {
   TravelWallet = "Travel Wallet | Points Earned",
   WideroeKortet = "Widerøe-kortet | Points Earned",
   DinersClub = "Diners Club",
+  SparebankenSor = "Sparebanken Sør",
 }
 
 export enum HomePartner {
@@ -102,6 +107,9 @@ export enum EuroBonusShopPartner {
   SteenStrom = "Steen & Stroem",
   FangenePaaFortet = "Fangene på Fortet",
   BjornBorg = "Björn Borg",
+  Elkjop = "Elkjøp",
+  Appoteket = "Appoteket.no",
+  Burberry = "Burberry",
 }
 
 export enum RestaurantPartner {
@@ -152,6 +160,8 @@ export enum RestaurantPartner {
   Zalt = "Zalt",
   Palegade = "Palægade",
   Magasasa = "Magasasa Dim Sum",
+  Honsan = "Honsan",
+  BrasserieMakalos = "Brasserie Makalös",
 }
 
 export enum AirlinePartner {
@@ -200,4 +210,5 @@ export enum AirlinePartner {
   UX = "Air Europa",
   MF = "XiamenAir",
   SN = "Brussels Airlines",
+  KQ = "Kenya Airways",
 }

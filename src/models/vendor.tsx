@@ -55,6 +55,8 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
       return "Trumf";
     case TravelPartner.Flytoget:
       return "Flytoget";
+    case TravelPartner.OnePark:
+      return "OnePark";
     case Partner.Unknown:
       return "Unknown";
     case HomePartner.Fjordkraft:

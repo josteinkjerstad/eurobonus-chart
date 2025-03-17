@@ -21,6 +21,7 @@ const sasBioFuel = [
   "BIO Ticket campaign",
   "MISSING BIO fuel",
   "OTGJMU | Points Earned",
+  "BIOFUEL CAMP",
 ];
 const aviancaIataCodes = [
   "AV", // Avianca
@@ -90,7 +91,8 @@ const isSas = (activity: string): boolean => activity.includesAny(sasActivities)
 const isAmex = (activity: string): boolean => activity.includes("Amex");
 const isAvianca = (activity: string): boolean => activity.includesAny(aviancaIataCodes.map(x => `| ${x}`));
 const isWideroe = (activity: string): boolean => activity.includes("Missing BP for WF");
-const isAvis = (activity: string): boolean => activity.toLowerCase().startsWith("ra ") || activity.includesAny(["Avis", "AVIS"]);
+const isAvis = (activity: string): boolean =>
+  activity.toLowerCase().startsWith("ra ") || activity.includesAny(["Rental agreement number", "Avis", "AVIS"]);
 const isNorgesgruppen = (activity: string): boolean => activity.includesAny(["NorgesGruppen", "Norgesgruppen"]);
 const isRadisson = (activity: string): boolean => activity.includesAny(["Radisson", "Rezidor SAS"]);
 const isEuroBonusEarnShop = (activity: string): boolean => activity.includesAny(["EuroBonus Earn Shop", "EuroBonus Shop (NOK)", "Onlineshopping"]);
