@@ -55,13 +55,14 @@ const sasActivities = [
   "PTS DIFF",
   "TP old",
   "SAS  | Points Earned",
-  "Flight: SK1456 | Points Earned",
   "RES ID",
   "Double points campaign",
   "EMD 117",
   "Added missing points from pnr",
   ...sasBioFuel,
 ];
+
+const skPointsEarned = /.*SK\d{4} \| Points Earned/;
 
 export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {
   switch (true) {
@@ -88,7 +89,7 @@ export const getPartnerFlightKey = (activity: string): Vendor => {
   return key ? AirlinePartner[key as keyof typeof AirlinePartner] : Partner.Unknown;
 };
 
-const isSas = (activity: string): boolean => activity.includesAny(sasActivities);
+const isSas = (activity: string): boolean => activity.includesAny(sasActivities) || skPointsEarned.test(activity);
 const isAmex = (activity: string): boolean => activity.includes("Amex");
 const isAvianca = (activity: string): boolean => activity.includesAny(aviancaIataCodes.map(x => `| ${x}`));
 const isWideroe = (activity: string): boolean => activity.includes("Missing BP for WF");

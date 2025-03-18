@@ -15,6 +15,7 @@ export enum TravelPartner {
   VestfoldTaxi = "Vestfold Taxisentral",
   MoreTaxi = "Møre og Romsdal Taxi",
   AltaTaxi = "Alta Taxi",
+  MossTaxi = "Moss Taxi",
   OnePark = "ONEPARK",
   Flygbussarne = "Flygbussarna",
 }
@@ -28,6 +29,7 @@ export enum ScandinavianAirlinesPartner {
   PointTransfers = "Point Transfers",
   Intro = "EuroBonus Intro",
   MillionaireCampaign = "Millionaire Campaign",
+  TravelCash = "Travel Cash",
 }
 
 export enum HotelPartner {
@@ -110,6 +112,10 @@ export enum EuroBonusShopPartner {
   Elkjop = "Elkjøp",
   Appoteket = "Appoteket.no",
   Burberry = "Burberry",
+  LundbergsVaskor = "Lundbergs Väskor",
+  Happysweeds = "Happyswweeds",
+  Ting = "Ting",
+  NorskLuftfartsmuseum = "Norsk Luftfartsmuseum",
 }
 
 export enum RestaurantPartner {
@@ -155,7 +161,6 @@ export enum RestaurantPartner {
   Cartels = "Latin American Kitchen & Bar",
   Fratelli = "Fratelli",
   CafeTrold = "Cafe Trold",
-  LundbergsVaskor = "Lundbergs Väskor",
   ChinaPalace = "China Palace",
   Zalt = "Zalt",
   Palegade = "Palægade",
@@ -164,6 +169,12 @@ export enum RestaurantPartner {
   BrasserieMakalos = "Brasserie Makalös",
   Scarpetta = "Scarpetta",
   BernsAsiatiska = "Berns Asiatiska",
+  PontusInTheAir = "Pontus in the Air",
+  RoyalGastroPub = "Royal GastroPub",
+  Neighbourhood = "NEIGHBOURHOOD",
+  BrasserieHansken = "Brasserie Hansken",
+  Kullt = "Kullt",
+  SollidensMatsal = "Sollidens Matsal",
 }
 
 export enum AirlinePartner {
