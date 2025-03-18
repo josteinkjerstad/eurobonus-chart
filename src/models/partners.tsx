@@ -113,7 +113,7 @@ export enum EuroBonusShopPartner {
   Appoteket = "Appoteket.no",
   Burberry = "Burberry",
   LundbergsVaskor = "Lundbergs Väskor",
-  Happysweeds = "Happyswweeds",
+  Happysweeds = "Happysweeds",
   Ting = "Ting",
   NorskLuftfartsmuseum = "Norsk Luftfartsmuseum",
 }
