@@ -170,7 +170,7 @@ export enum RestaurantPartner {
   Scarpetta = "Scarpetta",
   BernsAsiatiska = "Berns Asiatiska",
   PontusInTheAir = "Pontus in the Air",
-  RoyalGastroPub = "Royal GastroPub",
+  RoyalGastroPub = "Royal Gastropub",
   Neighbourhood = "NEIGHBOURHOOD",
   BrasserieHansken = "Brasserie Hansken",
   Kullt = "Kullt",
