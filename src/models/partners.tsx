@@ -16,6 +16,7 @@ export enum TravelPartner {
   MoreTaxi = "Møre og Romsdal Taxi",
   AltaTaxi = "Alta Taxi",
   MossTaxi = "Moss Taxi",
+  DanTaxi = "DanTaxi",
   OnePark = "ONEPARK",
   Flygbussarne = "Flygbussarna",
 }
@@ -175,6 +176,9 @@ export enum RestaurantPartner {
   BrasserieHansken = "Brasserie Hansken",
   Kullt = "Kullt",
   SollidensMatsal = "Sollidens Matsal",
+  HuksFluks = "Huks Fluks",
+  PederOxe = "Peder Oxe",
+  RentMel = "Rent Mel",
 }
 
 export enum AirlinePartner {
