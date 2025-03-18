@@ -59,9 +59,6 @@ const sasActivities = [
   "Double points campaign",
   "EMD 117",
   "Added missing points from pnr",
-  "Flight: SK1456 | Points Earned",
-  // "SK4042 | Points Earned",
-  // "SK4011 | Points Earned",
   ...sasBioFuel,
 ];
 
