@@ -120,7 +120,7 @@ export enum EuroBonusShopPartner {
 }
 
 export enum RestaurantPartnerSweden {
-  Kallerkrogen = "Källarkrogen",
+  Kallerkrogen = "Källerkrogen",
   Agaton = "Agaton",
   SollidensMatsal = "Sollidens Matsal",
   Farang = "Farang",
