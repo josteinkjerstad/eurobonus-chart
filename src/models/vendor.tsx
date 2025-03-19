@@ -6,7 +6,9 @@ import {
   HomePartner,
   Partner,
   RentalCarPartner,
-  RestaurantPartner,
+  RestaurantPartnerNorway,
+  RestaurantPartnerDenmark,
+  RestaurantPartnerSweden,
   ScandinavianAirlinesPartner,
   TravelPartner,
 } from "./partners";
@@ -20,7 +22,9 @@ export type Vendor =
   | HotelPartner
   | HomePartner
   | ScandinavianAirlinesPartner
-  | RestaurantPartner
+  | RestaurantPartnerNorway
+  | RestaurantPartnerDenmark
+  | RestaurantPartnerSweden
   | TravelPartner;
 
 export enum GroupVendor {
@@ -32,7 +36,9 @@ export enum GroupVendor {
   HomePartner = "Household",
   ScandinavianAirlines = "Scandinavian Airlines",
   NorgesGruppen = "NorgesGruppen",
-  Restaurants = "Restaurants",
+  RestaurantsNorway = "Restaurants NO",
+  RestaurantsDenmark = "Restaurants DK",
+  RestaurantsSweden = "Restaurants SE",
   TravelPartners = "Other Travel Partners",
 }
 
@@ -45,7 +51,9 @@ export const groupedVendors: Record<GroupVendor, Vendor[]> = {
   [GroupVendor.HomePartner]: Object.values(HomePartner),
   [GroupVendor.ScandinavianAirlines]: Object.values(ScandinavianAirlinesPartner),
   [GroupVendor.NorgesGruppen]: [Partner.Trumf],
-  [GroupVendor.Restaurants]: Object.values(RestaurantPartner),
+  [GroupVendor.RestaurantsNorway]: Object.values(RestaurantPartnerNorway),
+  [GroupVendor.RestaurantsDenmark]: Object.values(RestaurantPartnerDenmark),
+  [GroupVendor.RestaurantsSweden]: Object.values(RestaurantPartnerSweden),
   [GroupVendor.TravelPartners]: Object.values(TravelPartner),
 };
 
@@ -85,9 +93,9 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
       return "EuroBonus Shop";
     case HomePartner.LiveNation:
       return "Live Nation";
-    case RestaurantPartner.Cartels:
+    case RestaurantPartnerNorway.Cartels:
       return "Cartel's";
-    case RestaurantPartner.Neighbourhood:
+    case RestaurantPartnerDenmark.Neighbourhood:
       return "Neighbourhood";
     case ScandinavianAirlinesPartner.MillionaireCampaign:
       return "SAS Millionaire Campaign";
