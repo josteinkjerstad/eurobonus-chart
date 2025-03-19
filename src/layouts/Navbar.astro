@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 import { Image } from "astro:assets";
-import EurobonusChartsLogo from "../images/eurobonuscharts.png";
+import EurobonusChartsLogo from "../images/logo.svg";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 const { cookies, request } = Astro;
 
@@ -103,7 +103,7 @@ const navLinks = [
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: #ffffff;
+    background-color: #fcfcfc;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
 
@@ -111,6 +111,7 @@ const navLinks = [
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 1.5rem;
+    background-color: #fcfcfc;
     display: flex;
     justify-content: space-between;
     align-items: center;
