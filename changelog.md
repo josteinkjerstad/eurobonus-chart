@@ -4,6 +4,7 @@
 
 - Split Restaurant into NO, DK & SE
 - Added new restaurants: Agaton, Källerkrogen
+- Renamed `Other Travel Partners` to `Transportation`
 
 ### 18.03.2025
 
