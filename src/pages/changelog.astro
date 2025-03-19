@@ -1,7 +1,9 @@
 ---
+export const prerender = false;
 import { Content as ChangelogContent } from "../../changelog.md";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<article>
+<Layout title="Changelog">
   <ChangelogContent />
-</article>
+</Layout>

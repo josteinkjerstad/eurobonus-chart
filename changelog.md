@@ -1,14 +1,14 @@
 ## Changelog
 
-## 16.03.2025
+### 16.03.2025
 
 - Added OTP + Email/Password login
 
-## 17.03.2025
+### 17.03.2025
 
 - Last uploaded transaction date now available in Dashboard
 
-## 18.03.2025
+### 18.03.2025
 
 - Added new restaurants and shopping vendors
 
