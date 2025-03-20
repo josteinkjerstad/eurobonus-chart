@@ -59,6 +59,7 @@ const sasActivities = [
   "Double points campaign",
   "EMD 117",
   "Added missing points from pnr",
+  "WTU85U | Points Earned",
   ...sasBioFuel,
 ];
 
