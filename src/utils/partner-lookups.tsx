@@ -5,6 +5,7 @@ import {
   HotelPartner,
   Partner,
   RentalCarPartner,
+  RestaurantPartnerNorway,
   ScandinavianAirlinesPartner,
 } from "../models/partners";
 import type { Transaction } from "../models/transaction";
@@ -100,6 +101,9 @@ const isNorgesgruppen = (activity: string): boolean => activity.includesAny(["No
 const isRadisson = (activity: string): boolean => activity.includesAny(["Radisson", "Rezidor SAS"]);
 const isEuroBonusEarnShop = (activity: string): boolean => activity.includesAny(["EuroBonus Earn Shop", "EuroBonus Shop (NOK)", "Onlineshopping"]);
 const isPartnerFlight = (activity: string): boolean => activity.includesAny(Object.keys(AirlinePartner).map(key => `| ${key}`));
+const isCartel = (activity: string): boolean => activity.includesAny(["Salsa", "cartel"]);
+const isMPH = (activity: string): boolean => activity.includesAny(["Miles Per Hour", "milesperhour"]);
+const isScandic = (activity: string): boolean => activity.includesAny(["Scandic", "SCANDIC"]);
 export const isRefund = (activity: string): boolean =>
   activity.includesAny(["Refund", "Scandinavian Airlines Spec Actv | Points Corrections", "SAS EuroBonus | Points Corrections"]);
 
@@ -123,6 +127,12 @@ export const findVendor = (transaction: Transaction): Vendor => {
       return RentalCarPartner.Avis;
     case isNorgesgruppen(transaction.activity!):
       return Partner.Trumf;
+    case isMPH(transaction.activity!):
+      return EuroBonusShopPartner.MilesPerHour;
+    case isCartel(transaction.activity!):
+      return RestaurantPartnerNorway.Cartels;
+    case isScandic(transaction.activity!):
+      return HotelPartner.Scandic;
     default:
       console.log(`Unknown transaction: ${transaction.activity} ${transaction.bonus_points} ${transaction.date}`);
       return Partner.Unknown;

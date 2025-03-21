@@ -65,6 +65,7 @@ export enum HomePartner {
   LiveNation = "LiveNation | Points Earned",
   NordiskVentilasjonsrens = "Nordisk Ventilasjonsrens",
   TideForsikring = "Tide Forsikring",
+  TheEconomist = "The Economist",
 }
 
 export enum RentalCarPartner {
@@ -93,7 +94,7 @@ export enum EuroBonusShopPartner {
   ByBenson = "By Benson",
   MyScreens = "My Screens",
   HurtigrutaCarglass = "Hurtigruta Carglass",
-  DitecBilpleie = "Ditec Bilplpeie",
+  DitecBilpleie = "Ditec",
   VonDoren = "Von Doren",
   Mulberry = "Mulberry",
   HellyHansen = "Helly Hansen",
@@ -117,6 +118,9 @@ export enum EuroBonusShopPartner {
   Happysweeds = "Happysweeds",
   Ting = "Ting",
   NorskLuftfartsmuseum = "Norsk Luftfartsmuseum",
+  LoyalSolutions = "Loyal Solutions",
+  HanskeHallen = "Hanske-Hallén",
+  Simplifiers = "Simplifiers",
 }
 
 export enum RestaurantPartnerSweden {
@@ -144,6 +148,9 @@ export enum RestaurantPartnerDenmark {
   Neighbourhood = "NEIGHBOURHOOD",
   HuksFluks = "Huks Fluks",
   PederOxe = "Peder Oxe",
+  Kokkeriet = "Kokkeriet",
+  CafeVivaldi = "Café Vivaldi",
+  RistoranteBuono = "Ristorante Buono",
 }
 
 export enum RestaurantPartnerNorway {
@@ -187,6 +194,7 @@ export enum RestaurantPartnerNorway {
   BrasserieHansken = "Brasserie Hansken",
   Kullt = "Kullt",
   RentMel = "Rent Mel",
+  JarmannGastropub = "Jarmann Gastropub",
 }
 
 export enum AirlinePartner {

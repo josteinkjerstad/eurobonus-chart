@@ -105,6 +105,8 @@ export const getDisplayName = (vendor: Vendor | GroupVendor): string => {
       return "SAS EuroBonus Intro";
     case ScandinavianAirlinesPartner.TravelCash:
       return "SAS Travel Cash";
+    case EuroBonusShopPartner.DitecBilpleie:
+      return "Ditec Bilpleie";
     default:
       return vendor;
   }
