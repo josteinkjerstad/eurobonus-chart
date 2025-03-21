@@ -6,6 +6,7 @@ import type { Profile } from "../models/profile";
 import { Divider, Spinner } from "@blueprintjs/core";
 import { UploadSection } from "./profile/UploadSection";
 import { calculateTotalBonusPoints, getEarliestDate } from "../utils/calculations";
+import { CsvUpload } from "./profile/CsvUpload";
 
 export const AnonymousDashboard = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -36,8 +37,7 @@ export const AnonymousDashboard = () => {
 
   return (
     <>
-      <UploadSection onUpload={onUpload} profiles={[profile]} />
-      <Divider />
+      <CsvUpload onUpload={onUpload} profileId={profile.id} />
       <br />
       {sum > 0 && <p>{`You've earned a total of ${sum.toLocaleString()} eurobonus points since ${earliestdate}`}</p>}
       {transactions.length > 0 && <Charts transactions={transactions} profiles={[profile]} />}

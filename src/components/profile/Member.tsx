@@ -1,4 +1,4 @@
-import { Button, InputGroup, Label } from "@blueprintjs/core";
+import { InputGroup } from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
 import { useState } from "react";
 import { useChangeDisplayName } from "../../hooks/useChangeDisplayName";

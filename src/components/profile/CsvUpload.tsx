@@ -1,16 +1,17 @@
 import { useState } from "react";
 import type { ChangeEvent } from "react";
-import { Button, FileInput, Spinner, SpinnerSize, HTMLSelect } from "@blueprintjs/core";
+import { Button, FileInput, Spinner, SpinnerSize, HTMLSelect, Label, H6 } from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
+import { SelectDropdown } from "../shared/SelectDropdown";
+import styles from "./CsvUpload.module.scss";
 
 type CsvUploadProps = {
-  profiles: Profile[];
+  profileId: string;
   onUpload: (input: FormData) => Promise<void>;
 };
 
-export const CsvUpload = ({ profiles, onUpload }: CsvUploadProps) => {
+export const CsvUpload = ({ profileId, onUpload }: CsvUploadProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [selectedProfile, setSelectedProfile] = useState<Profile>(profiles[0]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,17 +20,12 @@ export const CsvUpload = ({ profiles, onUpload }: CsvUploadProps) => {
     }
   };
 
-  const handleProfileSelect = (event: ChangeEvent<HTMLSelectElement>) => {
-    const profile = profiles.find(p => p.id === event.target.value);
-    setSelectedProfile(profile!);
-  };
-
   const handleUpload = async () => {
-    if (!selectedFile || !selectedProfile) return;
+    if (!selectedFile) return;
 
     const formData = new FormData();
     formData.append("file", selectedFile);
-    formData.append("profile_id", selectedProfile.id);
+    formData.append("profile_id", profileId);
 
     setIsLoading(true);
     await onUpload(formData);
@@ -37,23 +33,22 @@ export const CsvUpload = ({ profiles, onUpload }: CsvUploadProps) => {
   };
 
   return (
-    <div>
-      {profiles.length > 1 && (
-        <HTMLSelect
-          onChange={handleProfileSelect}
-          value={selectedProfile.id}
-          options={profiles.map(profile => ({
-            value: profile.id,
-            label: profile.display_name,
-          }))}
-          style={{ marginBottom: "10px", minWidth: "200px" }}
-        />
-      )}
+    <>
+      <H6>SAS Transactions Upload</H6>
+      To display your data, please download the transaction file from your SAS profile and upload it here.
+      <br />
+      All old transactions will automatically be removed when uploading a new file.
       <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-        <FileInput text={selectedFile?.name ?? "No file selected"} onInputChange={handleFileSelect} inputProps={{ accept: ".xlsx,.xls" }} />
-        <Button text="Upload" onClick={handleUpload} disabled={!selectedFile || isLoading} intent="primary" />
+        <FileInput
+          style={{ width: 360 }}
+          text={selectedFile?.name ?? "No file selected"}
+          onInputChange={handleFileSelect}
+          inputProps={{ accept: ".xlsx,.xls" }}
+        />
+        <button onClick={() => handleUpload()} disabled={!selectedFile || isLoading} className={styles.button}>
+          {isLoading ? <Spinner size={20} /> : "Upload"}
+        </button>
       </div>
-      {isLoading && <Spinner size={SpinnerSize.SMALL} />}
-    </div>
+    </>
   );
 };

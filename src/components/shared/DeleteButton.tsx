@@ -17,7 +17,7 @@ export const DeleteButton = ({ label, dialogLabel, onDelete }: DeleteButtonProps
   };
   return (
     <div className={styles.deleteButton}>
-      <Button intent={Intent.DANGER} onClick={() => setIsDialogOpen(true)}>
+      <Button intent={Intent.DANGER} variant="minimal" onClick={() => setIsDialogOpen(true)}>
         {label}
       </Button>
       <Dialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} title="Confirm Deletion">

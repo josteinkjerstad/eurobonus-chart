@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Divider, Spinner } from "@blueprintjs/core";
+import { Card, Divider, Spinner } from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
 import { ProfileSettings } from "./ProfileSettings";
 import useFetchProfiles from "../../hooks/useFetchProfiles";
@@ -16,17 +16,12 @@ export const ProfileSection = () => {
   const profile = useMemo(() => data?.find(x => !x.parent_id) as Profile, [data]);
   useEffect(() => setMembers(data?.filter(x => x.parent_id) ?? []), [data]);
 
-  const onUpload = async (input: FormData) => {
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: input,
-    });
+  const profiles = useMemo(() => [profile, ...members], [profile, members]);
 
-    if (response.ok) {
-      window.location.href = "/dashboard";
-    } else {
-      const errorText = await response.text();
-      alert(`Error uploading transactions: ${errorText}`);
+  const updateProfileDisplayName = (id: string, newDisplayName: string) => {
+    setMembers(prevMembers => prevMembers.map(member => (member.id === id ? { ...member, display_name: newDisplayName } : member)));
+    if (profile?.id === id) {
+      profile.display_name = newDisplayName;
     }
   };
 
@@ -36,15 +31,10 @@ export const ProfileSection = () => {
 
   return (
     <div className={styles.container}>
-      <ProfileSettings profile={profile} />
-      <Divider />
+      <ProfileSettings profile={profile} onUpdateDisplayName={updateProfileDisplayName} />
       <MemberSection members={members} onChange={setMembers} />
-      <Divider />
-      <UploadSection onUpload={onUpload} profiles={[profile, ...members]} />
-      <Divider />
+      <UploadSection profiles={profiles} />
       <ChangePasswordForm />
-      <Divider />
-      <DeleteSection />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { Button, H5 } from "@blueprintjs/core";
+import { Button, Card, H5 } from "@blueprintjs/core";
 import { AddFamilyMemberDialog } from "./AddFamilyMemberDialog";
 import { Member } from "./Member";
 import type { Profile } from "../../models/profile";
@@ -26,15 +26,17 @@ export const MemberSection = ({ members, onChange }: MemberSectionProps) => {
   };
 
   return (
-    <div className={styles.members}>
-      <H5>Point Sharing Members</H5>
-      {members.map(member => (
-        <Member key={member.id} member={member} onChange={handleChange} onDelete={handleDelete} />
-      ))}
-      <Button style={{ maxWidth: 150 }} onClick={() => setIsOpen(true)}>
-        Add member
-      </Button>
-      {isOpen && <AddFamilyMemberDialog isOpen={isOpen} onClose={() => setIsOpen(false)} onAdd={handleAdd} />}
-    </div>
+    <Card>
+      <div className={styles.members}>
+        <H5>Point Sharing Members</H5>
+        {members.map(member => (
+          <Member key={member.id} member={member} onChange={handleChange} onDelete={handleDelete} />
+        ))}
+        <Button style={{ maxWidth: 150 }} onClick={() => setIsOpen(true)}>
+          Add member
+        </Button>
+        {isOpen && <AddFamilyMemberDialog isOpen={isOpen} onClose={() => setIsOpen(false)} onAdd={handleAdd} />}
+      </div>
+    </Card>
   );
 };

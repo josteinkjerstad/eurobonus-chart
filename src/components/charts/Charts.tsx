@@ -12,17 +12,22 @@ import { VendorChart } from "./VendorChart";
 import { YearlySpentChart } from "./YearlySpentChart";
 import { PeopleChart } from "./PeopleChart";
 import { QualifyingPeriodsChart } from "./QualifyingPeriodsChart";
+import type { ViatrumfTransaction } from "../../models/viatrumf_transaction";
+import { calculateViatrumfVendorTransactions } from "../../utils/viatrumf-calculations";
+import { ViatrumfVendorChart } from "./ViatrumfVendorChart";
 
 type ChartsProps = {
   transactions: Transaction[];
+  viatrumfTransactions?: ViatrumfTransaction[];
   profiles: Profile[];
 };
 
-export const Charts = ({ transactions, profiles }: ChartsProps) => {
+export const Charts = ({ transactions, viatrumfTransactions, profiles }: ChartsProps) => {
   const vendorPoints = calculateVendorTransactions(transactions);
   const yearlyPoints = calculateYearlyPoints(transactions);
   const peoplePoints = calculateTotalBonusPointsByProfile(transactions);
   const qualifyingPoints = calculateQualifyingTransactions(transactions, profiles);
+  const viatrumfVendorPoints = calculateViatrumfVendorTransactions(viatrumfTransactions ?? []);
 
   return (
     <>
@@ -33,6 +38,9 @@ export const Charts = ({ transactions, profiles }: ChartsProps) => {
           {profiles.length > 1 && <Tab id="people" title="Members" panel={<PeopleChart transactions={peoplePoints} profiles={profiles} />} />}
           {qualifyingPoints.length >= 1 && profiles.some(x => x.periode_start_month) && (
             <Tab id="qualifying" title="Level Points" panel={<QualifyingPeriodsChart transactions={qualifyingPoints} profiles={profiles} />} />
+          )}
+          {viatrumfVendorPoints.length >= 1 && (
+            <Tab id="viatrumf" title="Viatrumf" panel={<ViatrumfVendorChart transactions={viatrumfVendorPoints} profiles={profiles} />} />
           )}
         </Tabs>
       </Card>

@@ -1,3 +1,4 @@
+import type { Status } from "../enums/status";
 import type { GroupVendor, Vendor } from "./vendor";
 
 export interface Transaction {
@@ -39,4 +40,12 @@ export interface SummarizedTransaction {
   activity: string;
   year: number;
   bonus_points: number;
+}
+
+export interface ViatrumfVendorTransaction {
+  vendor: string;
+  year: number;
+  value: number;
+  status: Status;
+  profile_id;
 }

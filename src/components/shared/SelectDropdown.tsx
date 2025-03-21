@@ -6,10 +6,18 @@ type SelectDropdownProps<T> = {
   selectedOption: T;
   onChange: (selectedOption: T) => void;
   optionLabel: (option: T) => string;
-  placeholder: string;
+  placeholder?: string;
+  prefix?: string;
 };
 
-export const SelectDropdown = <T extends unknown>({ options, selectedOption, onChange, optionLabel, placeholder }: SelectDropdownProps<T>) => {
+export const SelectDropdown = <T extends unknown>({
+  options,
+  selectedOption,
+  onChange,
+  optionLabel,
+  placeholder,
+  prefix,
+}: SelectDropdownProps<T>) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +43,7 @@ export const SelectDropdown = <T extends unknown>({ options, selectedOption, onC
     <div className={styles.dropdownContainer} ref={dropdownRef}>
       <div className={styles.dropdown}>
         <div className={styles.dropdownButton} onClick={() => setIsDropdownOpen(!isDropdownOpen)} tabIndex={0}>
-          {optionLabel(selectedOption) || placeholder}
+          {prefix} {optionLabel(selectedOption) || placeholder}
           <span className={styles.dropdownArrow}></span>
         </div>
         {isDropdownOpen && (
