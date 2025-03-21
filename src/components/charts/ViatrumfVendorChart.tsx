@@ -22,13 +22,13 @@ export const ViatrumfVendorChart = ({ transactions, profiles }: ViatrumfChartPro
   const status = useMemo(() => Object.values(Status), []);
   const stores = useMemo(() => Array.from(new Set(transactions.map(t => t.vendor))), [transactions]);
   const pointDisplayOptions = useMemo(() => Object.values(TrumfCurrency), []);
-  const memberOptions = useMemo(() => profiles.filter(x => transactions.some(t => x.id == t.profile_id)), [profiles, transactions]);
+  const members = useMemo(() => profiles.filter(x => transactions.some(t => x.id == t.profile_id)), [profiles, transactions]);
 
   const [selectedPointDisplay, setSelectedPointDisplay] = useState(TrumfCurrency.Sas13_5);
   const [selectedYears, setSelectedYears] = useState<Set<number>>(new Set(years));
   const [selectedStores, setSelectedStores] = useState<Set<string>>(new Set(stores));
   const [selectedStatus, setSelectedStatus] = useState<Set<Status>>(new Set(status.filter(s => s === Status.Transferred)));
-  const [selectedMembers, setSelectedMembers] = useState<Set<Profile>>(new Set(profiles));
+  const [selectedMembers, setSelectedMembers] = useState<Set<Profile>>(new Set(members));
 
   const groupedTransactions = useMemo(
     () =>
@@ -100,9 +100,9 @@ export const ViatrumfVendorChart = ({ transactions, profiles }: ViatrumfChartPro
           optionLabel={(year: number) => year.toString()}
           placeholder={`${selectedYears.size} / ${years.length} Years`}
         />
-        {memberOptions.length > 1 && (
+        {members.length > 1 && (
           <OptionsDropdown
-            options={memberOptions}
+            options={members}
             selectedOptions={selectedMembers}
             onChange={setSelectedMembers}
             optionLabel={(member: Profile) => member.display_name ?? member.id}
