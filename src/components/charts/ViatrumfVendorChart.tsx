@@ -22,6 +22,7 @@ export const ViatrumfVendorChart = ({ transactions, profiles }: ViatrumfChartPro
   const status = useMemo(() => Object.values(Status), []);
   const stores = useMemo(() => Array.from(new Set(transactions.map(t => t.vendor))), [transactions]);
   const pointDisplayOptions = useMemo(() => Object.values(TrumfCurrency), []);
+  const memberOptions = useMemo(() => profiles.filter(x => transactions.some(t => x.id == t.profile_id)), [profiles, transactions]);
 
   const [selectedPointDisplay, setSelectedPointDisplay] = useState(TrumfCurrency.Sas13_5);
   const [selectedYears, setSelectedYears] = useState<Set<number>>(new Set(years));
@@ -99,9 +100,9 @@ export const ViatrumfVendorChart = ({ transactions, profiles }: ViatrumfChartPro
           optionLabel={(year: number) => year.toString()}
           placeholder={`${selectedYears.size} / ${years.length} Years`}
         />
-        {profiles.length > 1 && (
+        {memberOptions.length > 1 && (
           <OptionsDropdown
-            options={profiles}
+            options={memberOptions}
             selectedOptions={selectedMembers}
             onChange={setSelectedMembers}
             optionLabel={(member: Profile) => member.display_name ?? member.id}
@@ -121,7 +122,6 @@ export const ViatrumfVendorChart = ({ transactions, profiles }: ViatrumfChartPro
           onChange={setSelectedPointDisplay}
           optionLabel={option => option}
           placeholder="Select Points Display"
-          prefix="Currency: "
         />
       </div>
       <div className={styles.chart}>
