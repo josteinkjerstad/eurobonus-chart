@@ -1,5 +1,9 @@
 ## Changelog
 
+### 21.03.2025
+
+- Added Viatrumf upload
+
 ### 20.03.2025
 
 - Added new restaurants: Kokkeriet (DK), Café Vivaldi (DK), Ristorante Buono (DK), Jarmann Gastropub (NO)
