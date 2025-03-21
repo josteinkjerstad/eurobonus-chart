@@ -1,5 +1,10 @@
 ## Changelog
 
+### 20.03.2025
+
+- Added new restaurants: Kokkeriet (DK), Café Vivaldi (DK), Ristorante Buono (DK), Jarmann Gastropub (NO)
+- Added other vendors: The Economist, Loyal Solutions, Hanske-Hallén, Simplifiers,
+
 ### 19.03.2025
 
 - Split Restaurant into NO, DK & SE
