@@ -106,7 +106,7 @@ export const ViatrumfVendorChart = ({ transactions, profiles }: ViatrumfChartPro
             selectedOptions={selectedMembers}
             onChange={setSelectedMembers}
             optionLabel={(member: Profile) => member.display_name ?? member.id}
-            placeholder={`${selectedMembers.size} / ${profiles.length} Members`}
+            placeholder={`${selectedMembers.size} / ${members.length} Members`}
           />
         )}
         <OptionsDropdown
