@@ -1,5 +1,9 @@
 ## Changelog
 
+### 22.03.2025
+
+- Added new travel vendors: Grenland Taxi, 06565-Drosjene & Flygets Långtidsparkering
+
 ### 21.03.2025
 
 - Added Viatrumf upload
