@@ -19,6 +19,9 @@ export enum TravelPartner {
   DanTaxi = "DanTaxi",
   OnePark = "ONEPARK",
   Flygbussarne = "Flygbussarna",
+  Drosjene = "06565-drosjene",
+  GrenlandTaxi = "Grenland Taxi",
+  FlygetsLangstidsparkering = "Flygets Långtidsparkering",
 }
 
 export enum ScandinavianAirlinesPartner {
