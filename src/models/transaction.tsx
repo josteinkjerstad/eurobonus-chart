@@ -47,5 +47,5 @@ export interface ViatrumfVendorTransaction {
   year: number;
   value: number;
   status: Status;
-  profile_id;
+  profile_id: string;
 }
