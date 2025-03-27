@@ -1,5 +1,9 @@
 ## Changelog
 
+### 27.03.2025
+
+- Added missing car rental partner: Budget
+
 ### 22.03.2025
 
 - Added new travel vendors: Grenland Taxi, 06565-Drosjene & Flygets Långtidsparkering
