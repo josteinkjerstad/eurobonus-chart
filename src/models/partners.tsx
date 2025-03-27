@@ -75,6 +75,7 @@ export enum RentalCarPartner {
   Avis = "Avis",
   Hertz = "Hertz",
   Sixt = "SIXT",
+  Budget = "Budget",
 }
 
 export enum EuroBonusShopPartner {
