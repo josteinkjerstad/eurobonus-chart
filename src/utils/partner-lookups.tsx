@@ -61,6 +61,9 @@ const sasActivities = [
   "EMD 117",
   "Added missing points from pnr",
   "WTU85U | Points Earned",
+  "Corrected pts to original flight",
+  "E389452733",
+  "PNR KNJ6LH",
   ...sasBioFuel,
 ];
 
