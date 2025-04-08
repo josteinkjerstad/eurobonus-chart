@@ -3,6 +3,7 @@ import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import styles from "./TransactionsTable.module.scss";
 import type { Transaction } from "../../../models/transaction";
 import type { Profile } from "../../../models/profile";
+import { useState } from "react";
 
 type TransactionsTableProps = {
   transactions: Transaction[];
@@ -10,6 +11,8 @@ type TransactionsTableProps = {
 };
 
 export const TransactionsTable = ({ transactions, profiles }: TransactionsTableProps) => {
+  const [paginationModel, setPaginationModel] = useState({ pageSize: 10, page: 0 });
+
   const columns: GridColDef[] = [
     ...(profiles.length > 1
       ? [
@@ -63,12 +66,18 @@ export const TransactionsTable = ({ transactions, profiles }: TransactionsTableP
     <DataGrid
       rows={transactions}
       columns={columns}
+      sx={{
+        ".MuiTablePagination-displayedRows, .MuiTablePagination-selectLabel": {
+          "margin-top": "1em",
+          "margin-bottom": "1em",
+        },
+      }}
       getRowId={row => row.id!}
       rowSelection={false}
+      paginationModel={paginationModel}
+      onPaginationModelChange={setPaginationModel}
+      pageSizeOptions={[5, 10, 20, 50]}
       initialState={{
-        pagination: {
-          paginationModel: { pageSize: 10 },
-        },
         sorting: {
           sortModel: [{ field: "date", sort: "desc" }],
         },
