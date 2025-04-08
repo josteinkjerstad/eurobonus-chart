@@ -7,6 +7,7 @@ import type { QualifyingTransaction } from "../../../models/transaction";
 import styles from "./QualifyingPeriodsChart.module.scss";
 import { getAllValidQualifyingPeriods } from "../../../models/qualifying-periods";
 import { SelectDropdown } from "../../shared/SelectDropdown";
+import { Colors } from "../../../styles/colors";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -45,8 +46,8 @@ export const QualifyingPeriodsChart = ({ transactions, profiles }: QualifyingPer
       datasets: [
         {
           data: profileTransactions.map(t => t.value),
-          backgroundColor: "rgba(255, 206, 86, 0.2)", // New color
-          borderColor: "rgba(255, 206, 86, 1)", // New color
+          backgroundColor: Colors.yellow,
+          borderColor: Colors.yellowBorder,
           borderWidth: 1,
           maxBarThickness: 100,
         },

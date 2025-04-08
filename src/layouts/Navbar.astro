@@ -3,6 +3,7 @@ export const prerender = false;
 import { Image } from "astro:assets";
 import EurobonusChartsLogo from "../images/logo.svg";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
+import { Colors } from "../styles/colors";
 const { cookies, request } = Astro;
 
 const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.env.SUPABASE_KEY, {
@@ -142,7 +143,7 @@ const navLinks = [
   }
 
   .nav-link:hover {
-    color: #0066cc;
+    color: {Colors.primaryBlue};
   }
 
   .nav-link::after {
@@ -152,7 +153,7 @@ const navLinks = [
     height: 2px;
     bottom: -4px;
     left: 0;
-    background-color: #0066cc;
+    background-color: {Colors.primaryBlue};
     transition: width 0.3s ease;
   }
 
@@ -162,7 +163,7 @@ const navLinks = [
 
   .nav-link-cta {
     background-color: rgba(255, 255, 255, 0.8);
-    color: #333;
+    color: {Colors.darkGray};
     padding: 10px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -182,13 +183,13 @@ const navLinks = [
 
   .nav-link-cta.signout {
     background-color: rgba(255, 255, 255, 0.8);
-    color: #d32f2f;
-    border: 1px solid #d32f2f;
+    color: {Colors.red};
+    border: 1px solid {Colors.red};
   }
 
   .nav-link-cta.signout:hover {
     background-color: #ffffff;
-    border-color: #d32f2f;
+    border-color: {Colors.red};
   }
 
   .signin-content {
@@ -199,7 +200,7 @@ const navLinks = [
 
   .signin-icon {
     font-size: 1rem;
-    color: #000; /* Changed color to black */
+    color: {Colors.black}; /* Changed color to black */
   }
 
   .signout-content {
@@ -226,7 +227,7 @@ const navLinks = [
 
   .profile-icon {
     margin-right: 8px;
-    fill: #000000;
+    fill: {Colors.black};
   }
 
   .profile-menu {
@@ -237,7 +238,7 @@ const navLinks = [
   .profile-dropdown {
     position: absolute;
     top: 100%;
-    background: white;
+    background: {Colors.white};
     border: 1px solid #ccc;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     list-style: none;
@@ -256,7 +257,7 @@ const navLinks = [
   .dropdown-link {
     padding: 10px 15px;
     text-decoration: none;
-    color: #333;
+    color: {Colors.darkGray};
     display: block;
     transition: background-color 0.3s ease;
   }
@@ -271,11 +272,11 @@ const navLinks = [
   }
 
   .custom-signout-text {
-    color: #d32f2f;
+    color: {Colors.red};
   }
 
   .custom-signout-text:hover {
-    color: #b71c1c;
+    color: {Colors.darkRed};
   }
 
   .profile-box {
@@ -303,7 +304,7 @@ const navLinks = [
   .profile-name {
     font-size: 1rem;
     font-weight: 500;
-    color: #333;
+    color: {Colors.darkGray};
   }
 
   .dropdown-arrow {

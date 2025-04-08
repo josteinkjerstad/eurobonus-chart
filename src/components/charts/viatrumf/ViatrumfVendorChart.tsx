@@ -9,6 +9,7 @@ import { Status } from "../../../enums/status";
 import type { Profile } from "../../../models/profile";
 import { TrumfCurrency } from "../../../enums/trumfCurrency";
 import { getTrumfValue } from "../../../utils/viatrumf-calculations";
+import { Colors } from "../../../styles/colors";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -53,8 +54,8 @@ export const ViatrumfVendorChart = ({ transactions, profiles }: ViatrumfChartPro
       {
         label: `${selectedPointDisplay}`,
         data: groupedTransactions.map(t => t.value),
-        backgroundColor: "rgba(153, 102, 255, 0.2)",
-        borderColor: "rgba(153, 102, 255, 1)",
+        backgroundColor: Colors.lightBlue,
+        borderColor: Colors.blueBorder,
         borderWidth: 1,
         maxBarThickness: 100,
       },

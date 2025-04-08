@@ -3,6 +3,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import type { PeopleTransaction, Transaction } from "../../../models/transaction";
 import type { Profile } from "../../../models/profile";
 import styles from "./PeopleChart.module.scss";
+import { Colors } from "../../../styles/colors";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -18,8 +19,8 @@ export const PeopleChart = ({ transactions, profiles }: PeopleChartProps) => {
       {
         label: "Points Earned",
         data: transactions.map(transaction => transaction.value),
-        backgroundColor: "rgba(54, 162, 235, 0.2)",
-        borderColor: "rgba(54, 162, 235, 1)",
+        backgroundColor: Colors.lightBlue,
+        borderColor: Colors.blueBorder,
         borderWidth: 1,
         maxBarThickness: 100,
       },
