@@ -70,8 +70,9 @@ export const ViatrumfTransactionsTable = ({ transactions }: TransactionsTablePro
       headerName: "Comment",
       flex: 1.5,
       editable: true,
-      sortable: false,
-      filterable: false,
+      sortable: true,
+      filterable: true,
+      headerClassName: styles.header,
     },
   ];
 
