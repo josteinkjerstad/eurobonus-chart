@@ -65,7 +65,9 @@ const sasActivities = [
   "Corrected pts to original flight",
   "E389452733",
   "PNR KNJ6LH",
-  "chr calender | Points Earned",
+  "Chr calender",
+  "chr caleneder",
+  "chr calender",
   ...sasBioFuel,
 ];
 
@@ -85,7 +87,7 @@ export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {
       return ScandinavianAirlinesPartner.BioFuel;
     case activity.includes("EuroBonus intro"):
       return ScandinavianAirlinesPartner.Intro;
-    case activity.includes("Chr calender"):
+    case activity.includesAny(["Chr calender", "chr caleneder", "chr calender"]):
       return ScandinavianAirlinesPartner.ChristmasCalendar;
     default:
       return ScandinavianAirlinesPartner.Flights;
