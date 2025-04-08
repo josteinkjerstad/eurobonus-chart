@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Charts } from "./charts/eurobonus/EurobonusCharts";
+import { EurobonusCharts } from "./charts/eurobonus/EurobonusCharts";
 import type { Transaction } from "../models/transaction";
 import type { Profile } from "../models/profile";
 import { Spinner } from "@blueprintjs/core";
@@ -23,7 +23,7 @@ export const TotalDashboard = () => {
   return (
     <>
       {sum > 0 && <p>{`Users have earned a total of ${sum.toLocaleString()} eurobonus points since 2017`}</p>}
-      <Charts transactions={transactions} profiles={[profile]} />
+      <EurobonusCharts transactions={transactions} profiles={[profile]} />
     </>
   );
 };
