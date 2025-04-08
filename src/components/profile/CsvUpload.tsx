@@ -38,7 +38,7 @@ export const CsvUpload = ({ profileId, onUpload }: CsvUploadProps) => {
       To display your data, please download the transaction file from your SAS profile and upload it here.
       <br />
       All old transactions will automatically be removed when uploading a new file.
-      <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+      <div style={{ display: "flex", flexDirection: "row", gap: "10px", paddingTop: 5 }}>
         <FileInput
           style={{ width: 360 }}
           text={selectedFile?.name ?? "No file selected"}
