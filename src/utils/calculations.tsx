@@ -151,3 +151,10 @@ export const calculateQualifyingTransactions = (transactions: Transaction[], pro
     })
     .reverse();
 };
+
+export const calculateAveragePoints = (points: number[]) => {
+  if (points.length === 0) return 0;
+
+  const total = points.reduce((sum, point) => sum + point, 0);
+  return Math.round(total / points.length);
+};

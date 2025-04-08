@@ -68,8 +68,8 @@ export const TransactionsTable = ({ transactions, profiles }: TransactionsTableP
       columns={columns}
       sx={{
         ".MuiTablePagination-displayedRows, .MuiTablePagination-selectLabel": {
-          "margin-top": "1em",
-          "margin-bottom": "1em",
+          marginTop: "1em",
+          marginBottom: "1em",
         },
       }}
       getRowId={row => row.id!}

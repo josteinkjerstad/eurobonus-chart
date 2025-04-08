@@ -82,8 +82,8 @@ export const ViatrumfTransactionsTable = ({ transactions }: TransactionsTablePro
     <DataGrid
       sx={{
         ".MuiTablePagination-displayedRows, .MuiTablePagination-selectLabel": {
-          "margin-top": "1em",
-          "margin-bottom": "1em",
+          marginTop: "1em",
+          marginBottom: "1em",
         },
       }}
       rows={transactions}

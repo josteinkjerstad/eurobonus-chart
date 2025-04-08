@@ -1,13 +1,13 @@
 ## Changelog
 
-### 08.04.225
+### 08.04.2025
 
 - Created separate viatrumf page
 - Added viatrumf transaction table
 - Added eurobonus transaction table
 - Added possibility to add comments to viatrumf transaction
-
 - Added missing sas activity: Christmas Calendar
+- Show average value in total dashboard
 
 ### 27.03.2025
 
