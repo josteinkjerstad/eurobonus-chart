@@ -9,9 +9,6 @@ import type { Transaction } from "../../../models/transaction";
 import { Tabs, Tab, Card, Elevation } from "@blueprintjs/core";
 import type { Profile } from "../../../models/profile";
 import { PeopleChart } from "./PeopleChart";
-import type { ViatrumfTransaction } from "../../../models/viatrumf_transaction";
-import { calculateViatrumfVendorTransactions } from "../../../utils/viatrumf-calculations";
-import { ViatrumfVendorChart } from "../viatrumf/ViatrumfVendorChart";
 import { QualifyingPeriodsChart } from "./QualifyingPeriodsChart";
 import { VendorChart } from "./VendorChart";
 import { YearlySpentChart } from "./YearlySpentChart";
@@ -20,9 +17,10 @@ import { TransactionsTable } from "./TransactionsTable";
 type EurobonusChartsProps = {
   transactions: Transaction[];
   profiles: Profile[];
+  hideTable?: boolean;
 };
 
-export const EurobonusCharts = ({ transactions, profiles }: EurobonusChartsProps) => {
+export const EurobonusCharts = ({ transactions, profiles, hideTable }: EurobonusChartsProps) => {
   const vendorPoints = calculateVendorTransactions(transactions);
   const yearlyPoints = calculateYearlyPoints(transactions);
   const peoplePoints = calculateTotalEuroBonusPointsByProfile(transactions);
@@ -38,7 +36,7 @@ export const EurobonusCharts = ({ transactions, profiles }: EurobonusChartsProps
           {qualifyingPoints.length >= 1 && profiles.some(x => x.periode_start_month) && (
             <Tab id="qualifying" title="Level Points" panel={<QualifyingPeriodsChart transactions={qualifyingPoints} profiles={profiles} />} />
           )}
-          <Tab id="transactions" title="Transactions" panel={<TransactionsTable transactions={transactions} profiles={profiles} />} />
+          {!hideTable && <Tab id="transactions" title="Transactions" panel={<TransactionsTable transactions={transactions} profiles={profiles} />} />}
         </Tabs>
       </Card>
     </>

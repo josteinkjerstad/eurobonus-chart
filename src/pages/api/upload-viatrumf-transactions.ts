@@ -29,7 +29,6 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     return new Response("User not authenticated", { status: 401 });
   }
 
-  // Add userId to all transactions
   const transactions = transactionsData.map(transaction => ({
     ...transaction,
     user_id: userId,
