@@ -40,7 +40,7 @@ export const AnonymousDashboard = () => {
       <CsvUpload onUpload={onUpload} profileId={profile.id} />
       <br />
       {sum > 0 && <p>{`You've earned a total of ${sum.toLocaleString()} eurobonus points since ${earliestdate}`}</p>}
-      {transactions.length > 0 && <EurobonusCharts transactions={transactions} profiles={[profile]} />}
+      {transactions.length > 0 && <EurobonusCharts transactions={transactions} profiles={[profile]} hideTable />}
     </>
   );
 };
