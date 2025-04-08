@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 import Layout from "../layouts/Layout.astro";
-import { Charts } from "../components/charts/eurobonus/EurobonusCharts";
+import { EurobonusCharts } from "../components/charts/eurobonus/EurobonusCharts";
 import { groupedVendors } from "../models/vendor";
 import { AirlinePartner, EuroBonusShopPartner } from "../models/partners";
 import type { Transaction } from "../models/transaction";
@@ -67,5 +67,5 @@ profiles.forEach(profile => {
 
 <Layout title="Showcase">
   <h1>Showcase</h1>
-  <Charts transactions={transactions} profiles={profiles} client:load />
+  <EurobonusCharts transactions={transactions} profiles={profiles} client:load />
 </Layout>
