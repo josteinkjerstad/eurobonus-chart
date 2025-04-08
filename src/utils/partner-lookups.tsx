@@ -65,7 +65,7 @@ const sasActivities = [
   "Corrected pts to original flight",
   "E389452733",
   "PNR KNJ6LH",
-  "Chr calender | Points Earned",
+  "chr calender | Points Earned",
   ...sasBioFuel,
 ];
 
