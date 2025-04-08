@@ -61,7 +61,6 @@ export const TransactionsTable = ({ transactions, profiles }: TransactionsTableP
 
   return (
     <DataGrid
-      autoHeight
       rows={transactions}
       columns={columns}
       getRowId={row => row.id!}

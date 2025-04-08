@@ -9,4 +9,5 @@ export interface ViatrumfTransaction {
   status: Status;
   profile_id?: string;
   user_id?: string;
+  comment?: string;
 }

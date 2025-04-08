@@ -1,5 +1,6 @@
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import type { ViatrumfTransaction } from "../../../models/viatrumf_transaction";
+import { useUpdateViatrumfComment } from "../../../hooks/useUpdateViatrumfComment";
 
 import styles from "./ViatrumfTransactionsTable.module.scss";
 
@@ -8,6 +9,12 @@ type TransactionsTableProps = {
 };
 
 export const ViatrumfTransactionsTable = ({ transactions }: TransactionsTableProps) => {
+  const { updateComment, loading } = useUpdateViatrumfComment();
+
+  const handleCommentUpdate = async (id: number, comment: string) => {
+    await updateComment(id, comment);
+  };
+
   const columns: GridColDef[] = [
     {
       field: "purchase_date",
@@ -29,7 +36,7 @@ export const ViatrumfTransactionsTable = ({ transactions }: TransactionsTablePro
       type: "number",
       headerName: "Price",
       valueFormatter: (value: number) => `${value.toLocaleString("no-NO", { style: "currency", currency: "NOK" })}`,
-      flex: 0.6,
+      flex: 0.5,
       sortable: true,
       filterable: true,
       headerClassName: styles.header,
@@ -39,7 +46,7 @@ export const ViatrumfTransactionsTable = ({ transactions }: TransactionsTablePro
       type: "number",
       headerName: "Trumf (kr)",
       valueFormatter: (value: number) => `${value.toLocaleString("no-NO", { style: "currency", currency: "NOK" })}`,
-      flex: 0.6,
+      flex: 0.5,
       sortable: true,
       filterable: true,
       headerClassName: styles.header,
@@ -48,7 +55,7 @@ export const ViatrumfTransactionsTable = ({ transactions }: TransactionsTablePro
       headerName: "Trumf (%)",
       field: "trumf_earning",
       type: "number",
-      flex: 0.6,
+      flex: 0.5,
       sortable: true,
       filterable: true,
       headerClassName: styles.header,
@@ -57,7 +64,15 @@ export const ViatrumfTransactionsTable = ({ transactions }: TransactionsTablePro
       },
       valueFormatter: (value: number) => `${value.toFixed(2)}%`,
     },
-    { field: "status", headerName: "Status", flex: 1, sortable: true, filterable: true, headerClassName: styles.header },
+    { field: "status", headerName: "Status", flex: 0.7, sortable: true, filterable: true, headerClassName: styles.header },
+    {
+      field: "comment",
+      headerName: "Comment",
+      flex: 1.5,
+      editable: true,
+      sortable: false,
+      filterable: false,
+    },
   ];
 
   return (
@@ -65,7 +80,11 @@ export const ViatrumfTransactionsTable = ({ transactions }: TransactionsTablePro
       rows={transactions}
       columns={columns}
       getRowId={row => row.id!}
-      rowSelection={false}
+      processRowUpdate={row => {
+        handleCommentUpdate(row.id, row.comment);
+        return row;
+      }}
+      loading={loading}
       initialState={{
         pagination: {
           paginationModel: { pageSize: 10 },

@@ -5,6 +5,7 @@
 - Created separate viatrumf page
 - Added viatrumf transaction table
 - Added eurobonus transaction table
+- Added possibility to add comments to viatrumf transaction
 
 ### 27.03.2025
 
