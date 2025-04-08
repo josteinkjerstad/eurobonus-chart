@@ -7,6 +7,8 @@
 - Added eurobonus transaction table
 - Added possibility to add comments to viatrumf transaction
 
+- Added missing sas activity: Christmas Calendar
+
 ### 27.03.2025
 
 - Added missing car rental partner: Budget
