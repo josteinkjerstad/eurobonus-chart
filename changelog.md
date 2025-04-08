@@ -1,5 +1,11 @@
 ## Changelog
 
+### 08.04.225
+
+- Created separate viatrumf page
+- Added viatrumf transaction table
+- Added eurobonus transaction table
+
 ### 27.03.2025
 
 - Added missing car rental partner: Budget

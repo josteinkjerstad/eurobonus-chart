@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
-import { getDisplayName, type Vendor, GroupVendor, groupedVendors } from "../../models/vendor";
-import type { VendorTransaction } from "../../models/transaction";
+import { getDisplayName, type Vendor, GroupVendor, groupedVendors } from "../../../models/vendor";
+import type { VendorTransaction } from "../../../models/transaction";
 import styles from "./VendorChart.module.scss";
-import { OptionsDropdown } from "../shared/OptionsDropdown";
-import type { Profile } from "../../models/profile";
-import { Partner } from "../../models/partners";
+import { OptionsDropdown } from "../../shared/OptionsDropdown";
+import type { Profile } from "../../../models/profile";
+import { Partner } from "../../../models/partners";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 

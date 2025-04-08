@@ -1,6 +1,6 @@
 ---
 export const prerender = false;
-import { EurobonusDashboard } from "../components/EurobonusDashboard";
+import { ViatrumfDashboard } from "../components/ViatrumfDashboard";
 import Layout from "../layouts/Layout.astro";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 const { cookies, redirect, request } = Astro;
@@ -23,6 +23,6 @@ if (!data.session) {
 }
 ---
 
-<Layout title="Dashboard" signedIn={!!data.session}>
-  <EurobonusDashboard client:load />
+<Layout title="Viatrumf" signedIn={!!data.session}>
+  <ViatrumfDashboard client:load />
 </Layout>

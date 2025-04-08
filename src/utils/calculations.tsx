@@ -1,3 +1,4 @@
+import { Status } from "../enums/status";
 import { Partner } from "../models/partners";
 import type { Profile } from "../models/profile";
 import type { PeopleTransaction, QualifyingTransaction, Transaction, VendorTransaction, YearlyTransaction } from "../models/transaction";
@@ -5,7 +6,7 @@ import { type Vendor, type GroupVendor, groupedVendors } from "../models/vendor"
 import type { ViatrumfTransaction } from "../models/viatrumf_transaction";
 import { findVendor, isRefund } from "./partner-lookups";
 
-export const calculateTotalBonusPoints = (transactions: Transaction[]): number => {
+export const calculateTotalEuroBonusPoints = (transactions: Transaction[]): number => {
   return transactions
     .filter(x => x.bonus_points)
     .reduce((acc, transaction) => {
@@ -16,7 +17,15 @@ export const calculateTotalBonusPoints = (transactions: Transaction[]): number =
     }, 0);
 };
 
-export const calculateTotalBonusPointsByProfile = (transactions: Transaction[]): PeopleTransaction[] => {
+export const calculateTotalViatrumfPoints = (transactions: ViatrumfTransaction[]): number => {
+  return transactions
+    .filter(x => x.status === Status.Transferred)
+    .reduce((acc, transaction) => {
+      return acc + transaction.trumf_bonus!;
+    }, 0);
+};
+
+export const calculateTotalEuroBonusPointsByProfile = (transactions: Transaction[]): PeopleTransaction[] => {
   const groupedTransactions = transactions.reduce((acc, transaction) => {
     if (!acc[transaction.profile_id]) {
       acc[transaction.profile_id] = {
@@ -141,15 +150,4 @@ export const calculateQualifyingTransactions = (transactions: Transaction[], pro
       }));
     })
     .reverse();
-};
-
-export const calculateViatrumfTransactions = (transactions: ViatrumfVendorTransaction[]) => {
-  return transactions.reduce((acc, transaction) => {
-    const store = transaction.store;
-    if (!acc[store]) {
-      acc[store] = { store, points: 0 };
-    }
-    acc[store].points += transaction.trumf_bonus ?? 0;
-    return acc;
-  }, {} as Record<string, { store: string; points: number }>);
 };

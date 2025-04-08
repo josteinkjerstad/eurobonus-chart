@@ -1,0 +1,79 @@
+import { DataGrid, type GridColDef } from "@mui/x-data-grid";
+
+import styles from "./TransactionsTable.module.scss";
+import type { Transaction } from "../../../models/transaction";
+import type { Profile } from "../../../models/profile";
+
+type TransactionsTableProps = {
+  transactions: Transaction[];
+  profiles: Profile[];
+};
+
+export const TransactionsTable = ({ transactions, profiles }: TransactionsTableProps) => {
+  const columns: GridColDef[] = [
+    ...(profiles.length > 1
+      ? [
+          {
+            field: "profile_id",
+            headerName: "Profile",
+            flex: 0.5,
+            sortable: true,
+            filterable: true,
+            headerClassName: styles.header,
+            valueGetter: (value: string) => profiles.find(profile => profile.id === value)?.display_name!,
+          },
+        ]
+      : []),
+    {
+      field: "date",
+      type: "date",
+      headerName: "Date",
+      valueFormatter: (value: Date) =>
+        value.toLocaleDateString("no-NB", {
+          dateStyle: "short",
+        }),
+      valueGetter: value => new Date(value),
+      flex: 0.4,
+      sortable: true,
+      filterable: true,
+      headerClassName: styles.header,
+    },
+    { field: "activity", headerName: "Activity", flex: 2, sortable: true, filterable: true, headerClassName: styles.header },
+    {
+      field: "bonus_points",
+      headerName: "Bonus Points",
+      type: "number",
+      flex: 0.6,
+      sortable: true,
+      filterable: true,
+      headerClassName: styles.header,
+    },
+    {
+      field: "level_points",
+      headerName: "Level Points",
+      type: "number",
+      flex: 0.6,
+      sortable: true,
+      filterable: true,
+      headerClassName: styles.header,
+    },
+  ];
+
+  return (
+    <DataGrid
+      autoHeight
+      rows={transactions}
+      columns={columns}
+      getRowId={row => row.id!}
+      rowSelection={false}
+      initialState={{
+        pagination: {
+          paginationModel: { pageSize: 10 },
+        },
+        sorting: {
+          sortModel: [{ field: "date", sort: "desc" }],
+        },
+      }}
+    />
+  );
+};

@@ -1,10 +1,10 @@
 import { useMemo } from "react";
-import { Charts } from "./charts/Charts";
+import { Charts } from "./charts/eurobonus/EurobonusCharts";
 import type { Transaction } from "../models/transaction";
 import type { Profile } from "../models/profile";
 import { Spinner } from "@blueprintjs/core";
 import useFetchTotalTransactions from "../hooks/useFetchTotalTransactions";
-import { calculateTotalBonusPoints } from "../utils/calculations";
+import { calculateTotalEuroBonusPoints } from "../utils/calculations";
 
 export const TotalDashboard = () => {
   const { data, loading } = useFetchTotalTransactions();
@@ -15,7 +15,7 @@ export const TotalDashboard = () => {
     [data]
   );
 
-  const sum = useMemo(() => calculateTotalBonusPoints(transactions), [transactions]);
+  const sum = useMemo(() => calculateTotalEuroBonusPoints(transactions), [transactions]);
 
   if (loading) {
     return <Spinner />;

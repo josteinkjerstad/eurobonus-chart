@@ -2,13 +2,13 @@ import { useState, useMemo } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import styles from "./ViatrumfVendorChart.module.scss";
-import { OptionsDropdown } from "../shared/OptionsDropdown";
-import { SelectDropdown } from "../shared/SelectDropdown"; // Add import for SelectDropdown
-import type { ViatrumfVendorTransaction } from "../../models/transaction";
-import { Status } from "../../enums/status";
-import type { Profile } from "../../models/profile";
-import { TrumfCurrency } from "../../enums/trumfCurrency";
-import { getTrumfValue } from "../../utils/viatrumf-calculations";
+import { OptionsDropdown } from "../../shared/OptionsDropdown";
+import { SelectDropdown } from "../../shared/SelectDropdown"; // Add import for SelectDropdown
+import type { ViatrumfVendorTransaction } from "../../../models/transaction";
+import { Status } from "../../../enums/status";
+import type { Profile } from "../../../models/profile";
+import { TrumfCurrency } from "../../../enums/trumfCurrency";
+import { getTrumfValue } from "../../../utils/viatrumf-calculations";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 

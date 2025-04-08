@@ -2,11 +2,11 @@ import { HTMLSelect } from "@blueprintjs/core";
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from "chart.js";
 import { useMemo, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import type { Profile } from "../../models/profile";
-import type { QualifyingTransaction } from "../../models/transaction";
+import type { Profile } from "../../../models/profile";
+import type { QualifyingTransaction } from "../../../models/transaction";
 import styles from "./QualifyingPeriodsChart.module.scss";
-import { getAllValidQualifyingPeriods } from "../../models/qualifying-periods";
-import { SelectDropdown } from "../shared/SelectDropdown";
+import { getAllValidQualifyingPeriods } from "../../../models/qualifying-periods";
+import { SelectDropdown } from "../../shared/SelectDropdown";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 

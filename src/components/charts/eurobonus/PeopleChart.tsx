@@ -1,7 +1,7 @@
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
-import type { PeopleTransaction, Transaction } from "../../models/transaction";
-import type { Profile } from "../../models/profile";
+import type { PeopleTransaction, Transaction } from "../../../models/transaction";
+import type { Profile } from "../../../models/profile";
 import styles from "./PeopleChart.module.scss";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);

@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import useLoadTransactions from "../hooks/useLoadTransactions";
-import { Charts } from "./charts/Charts";
+import { EurobonusCharts } from "./charts/eurobonus/EurobonusCharts";
 import type { Transaction } from "../models/transaction";
 import type { Profile } from "../models/profile";
 import { Divider, Spinner } from "@blueprintjs/core";
 import { UploadSection } from "./profile/UploadSection";
-import { calculateTotalBonusPoints, getEarliestDate } from "../utils/calculations";
+import { calculateTotalEuroBonusPoints, getEarliestDate } from "../utils/calculations";
 import { CsvUpload } from "./profile/CsvUpload";
 
 export const AnonymousDashboard = () => {
@@ -28,7 +28,7 @@ export const AnonymousDashboard = () => {
     setTransactions(data);
   }, [data]);
 
-  const sum = useMemo(() => calculateTotalBonusPoints(transactions), [transactions]);
+  const sum = useMemo(() => calculateTotalEuroBonusPoints(transactions), [transactions]);
   const earliestdate = useMemo(() => getEarliestDate(transactions), [transactions]);
 
   if (loading) {
@@ -40,7 +40,7 @@ export const AnonymousDashboard = () => {
       <CsvUpload onUpload={onUpload} profileId={profile.id} />
       <br />
       {sum > 0 && <p>{`You've earned a total of ${sum.toLocaleString()} eurobonus points since ${earliestdate}`}</p>}
-      {transactions.length > 0 && <Charts transactions={transactions} profiles={[profile]} />}
+      {transactions.length > 0 && <EurobonusCharts transactions={transactions} profiles={[profile]} />}
     </>
   );
 };
