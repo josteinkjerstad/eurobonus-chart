@@ -24,6 +24,7 @@ const sasBioFuel = [
   "OTGJMU | Points Earned",
   "BIOFUEL CAMP",
   "BIO FUEL CAMPAIGN",
+  "missing biofuel campaign",
 ];
 const aviancaIataCodes = [
   "AV", // Avianca
@@ -64,6 +65,7 @@ const sasActivities = [
   "Corrected pts to original flight",
   "E389452733",
   "PNR KNJ6LH",
+  "Chr calender | Points Earned",
   ...sasBioFuel,
 ];
 
@@ -83,6 +85,8 @@ export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {
       return ScandinavianAirlinesPartner.BioFuel;
     case activity.includes("EuroBonus intro"):
       return ScandinavianAirlinesPartner.Intro;
+    case activity.includes("Chr calender"):
+      return ScandinavianAirlinesPartner.ChristmasCalendar;
     default:
       return ScandinavianAirlinesPartner.Flights;
   }

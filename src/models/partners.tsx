@@ -34,6 +34,7 @@ export enum ScandinavianAirlinesPartner {
   Intro = "EuroBonus Intro",
   MillionaireCampaign = "Millionaire Campaign",
   TravelCash = "Travel Cash",
+  ChristmasCalendar = "Christmas Calendar",
 }
 
 export enum HotelPartner {
