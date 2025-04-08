@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import type { ViatrumfTransaction } from "../../../models/viatrumf_transaction";
 import { useUpdateViatrumfComment } from "../../../hooks/useUpdateViatrumfComment";
@@ -10,6 +11,7 @@ type TransactionsTableProps = {
 
 export const ViatrumfTransactionsTable = ({ transactions }: TransactionsTableProps) => {
   const { updateComment, loading } = useUpdateViatrumfComment();
+  const [paginationModel, setPaginationModel] = useState({ pageSize: 10, page: 0 });
 
   const handleCommentUpdate = async (id: number, comment: string) => {
     await updateComment(id, comment);
@@ -78,6 +80,12 @@ export const ViatrumfTransactionsTable = ({ transactions }: TransactionsTablePro
 
   return (
     <DataGrid
+      sx={{
+        ".MuiTablePagination-displayedRows, .MuiTablePagination-selectLabel": {
+          "margin-top": "1em",
+          "margin-bottom": "1em",
+        },
+      }}
       rows={transactions}
       columns={columns}
       getRowId={row => row.id!}
@@ -86,10 +94,10 @@ export const ViatrumfTransactionsTable = ({ transactions }: TransactionsTablePro
         return row;
       }}
       loading={loading}
+      paginationModel={paginationModel}
+      onPaginationModelChange={setPaginationModel}
+      pageSizeOptions={[5, 10, 20, 50]}
       initialState={{
-        pagination: {
-          paginationModel: { pageSize: 10 },
-        },
         sorting: {
           sortModel: [{ field: "purchase_date", sort: "desc" }],
         },
