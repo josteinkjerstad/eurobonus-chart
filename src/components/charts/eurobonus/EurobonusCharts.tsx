@@ -5,7 +5,6 @@ import {
   calculateTotalEuroBonusPointsByProfile,
   calculateVendorTransactions,
   calculateYearlyPoints,
-  groupPointsByRange,
 } from "../../../utils/calculations";
 import type { Transaction } from "../../../models/transaction";
 import { Tabs, Tab, Card, Box } from "@mui/material";

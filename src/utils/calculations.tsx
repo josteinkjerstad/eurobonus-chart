@@ -1,4 +1,5 @@
 import { Status } from "../enums/status";
+import { PointBucketRanges, PointBuckets } from "../models/buckets";
 import { Partner } from "../models/partners";
 import type { Profile } from "../models/profile";
 import type { PeopleTransaction, QualifyingTransaction, Transaction, VendorTransaction, YearlyTransaction } from "../models/transaction";
@@ -167,29 +168,20 @@ export const calculateQualifyingTransactions = (transactions: Transaction[], pro
     .reverse();
 };
 
-export const calculateAveragePoints = (points: number[]) => {
-  if (points.length === 0) return 0;
+export const calculateAverages = (points: number[]) => {
+  if (points.length === 0) return { average: 0, median: 0, lowest: 0, highest: 0 };
 
   const total = points.reduce((sum, point) => sum + point, 0);
-  return Math.round(total / points.length);
-};
+  const average = Math.round(total / points.length);
 
-export enum PointBuckets {
-  Low = "0 - 99.999",
-  Medium = "100.000 - 499.999",
-  High = "500.0000 - 999.999",
-  VeryHigh = "1.000.000 - 1.999.999",
-  UltraHigh = "2.000.000 - 4.999.999",
-  Elite = "5.000.000+",
-}
+  const sortedPoints = [...points].sort((a, b) => a - b);
+  const mid = Math.floor(sortedPoints.length / 2);
+  const median = sortedPoints.length % 2 === 0 ? Math.round((sortedPoints[mid - 1] + sortedPoints[mid]) / 2) : sortedPoints[mid];
 
-export const PointBucketRanges: Record<PointBuckets, [number, number | null]> = {
-  [PointBuckets.Low]: [0, 99999],
-  [PointBuckets.Medium]: [100000, 499999],
-  [PointBuckets.High]: [500000, 999999],
-  [PointBuckets.VeryHigh]: [1000000, 1999999],
-  [PointBuckets.UltraHigh]: [2000000, 4999999],
-  [PointBuckets.Elite]: [5000000, null],
+  const lowest = Math.min(...points);
+  const highest = Math.max(...points);
+
+  return { average, median, lowest, highest };
 };
 
 export const groupPointsByRange = (points: number[]): Record<PointBuckets, number> => {

@@ -4,7 +4,7 @@ import type { Transaction } from "../models/transaction";
 import type { Profile } from "../models/profile";
 import { Spinner } from "@blueprintjs/core";
 import useFetchTotalTransactions from "../hooks/useFetchTotalTransactions";
-import { calculateAveragePoints, calculateTotalEuroBonusPoints } from "../utils/calculations";
+import { calculateAverages, calculateTotalEuroBonusPoints } from "../utils/calculations";
 import { useSummarizedPoints } from "../hooks/useSummarizedPoints";
 import { IconButton, Tooltip } from "@mui/material";
 import InfoOutlined from "@mui/icons-material/InfoOutlined";
@@ -30,7 +30,7 @@ export const TotalDashboard = () => {
     return <p>Error: {error}</p>;
   }
 
-  const average = calculateAveragePoints(summarizedPoints);
+  const { average, median, lowest, highest } = calculateAverages(summarizedPoints);
 
   return (
     <TotalCharts
@@ -44,8 +44,9 @@ export const TotalDashboard = () => {
           <Tooltip
             title={
               <>
-                Total points all signed in users have earned since 2017 <br />
-                Avg per user: {average.toLocaleString()}
+                Total points all signed in users have earned since 2017 <br /> <br />
+                Average / Median: &ensp;{average.toLocaleString()} / {median.toLocaleString()} <br />
+                Lowest / Highest: &nbsp; &ensp;{lowest.toLocaleString()} / {highest.toLocaleString()}
               </>
             }
             arrow
