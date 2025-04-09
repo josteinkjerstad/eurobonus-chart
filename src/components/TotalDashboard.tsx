@@ -43,11 +43,16 @@ export const TotalDashboard = () => {
           {sum.toLocaleString()}
           <Tooltip
             title={
-              <>
-                Total points all signed in users have earned since 2017 <br /> <br />
-                Average / Median: &ensp;{average.toLocaleString()} / {median.toLocaleString()} <br />
-                Lowest / Highest: &nbsp; &ensp;{lowest.toLocaleString()} / {highest.toLocaleString()}
-              </>
+              <div style={{ textAlign: "left", lineHeight: "1.5" }}>
+                Total points users have earned
+                <br />
+                <br />
+                <strong>Average:</strong> {average.toLocaleString()} <br />
+                <strong>Median:</strong> {median.toLocaleString()} <br />
+                <br />
+                <strong>Lowest:</strong> {lowest.toLocaleString()} <br />
+                <strong>Highest:</strong> {highest.toLocaleString()}
+              </div>
             }
             arrow
           >
