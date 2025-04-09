@@ -54,14 +54,14 @@ export const EurobonusCharts = ({ transactions, profiles, hideTable, headerLeft 
         onChange={handleTabChange}
         centered
         visibleScrollbar
-        scrollButtons="auto"
+        scrollButtons
         allowScrollButtonsMobile
       >
         <Tab label="Points" value={TabsEnum.Points} />
         <Tab label="Years" value={TabsEnum.Years} />
-        {profiles.length > 1 && <Tab label="Members" value={TabsEnum.Members} />}
-        {qualifyingPoints.length >= 1 && profiles.some(x => x.periode_start_month) && <Tab label="Level Points" value={TabsEnum.LevelPoints} />}
-        {!hideTable && <Tab label="Transactions" value={TabsEnum.Transactions} />}
+        <Tab label="Members" value={TabsEnum.Members} hidden={hidePeople} />
+        <Tab label="Level Points" value={TabsEnum.LevelPoints} hidden={hideQualifying} />
+        <Tab hidden={!hideTable} label="Transactions" value={TabsEnum.Transactions} />
       </Tabs>
       {activeTab === TabsEnum.Points && <VendorChart transactions={vendorPoints} profiles={profiles} />}
       {activeTab === TabsEnum.Years && <YearlySpentChart yearlyPoints={yearlyPoints} />}
