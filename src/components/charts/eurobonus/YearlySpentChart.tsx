@@ -25,15 +25,17 @@ export const YearlySpentChart = ({ yearlyPoints }: YearlySpentChartProps) => {
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
         maxBarThickness: 100,
+        stack: "1",
       },
       {
         label: "Estimated Points Earned",
-        data: yearlyPoints.map(point => (point.year === new Date().getFullYear() ? estimatedPointsForYear : 0)),
+        data: yearlyPoints.map(point => (point.year === new Date().getFullYear() ? estimatedPointsForYear - point.earned : null)),
         backgroundColor: Colors.yellow,
         borderColor: Colors.yellowBorder,
         borderWidth: 1,
         maxBarThickness: 100,
         hidden: true,
+        stack: "1",
       },
       ...(hasSpentData
         ? [
@@ -44,6 +46,7 @@ export const YearlySpentChart = ({ yearlyPoints }: YearlySpentChartProps) => {
               borderColor: "rgba(255, 99, 132, 1)",
               borderWidth: 1,
               maxBarThickness: 100,
+              stack: "2",
             },
           ]
         : []),
