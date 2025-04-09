@@ -39,7 +39,7 @@ export const EurobonusCharts = ({ transactions, profiles, hideTable, headerLeft 
 
   const [activeTab, setActiveTab] = React.useState<TabsEnum>(TabsEnum.Points);
 
-  const hideQualifying = qualifyingPoints.length === 0 || profiles.some(x => !x.periode_start_month);
+  const hideQualifying = qualifyingPoints.length === 0 || profiles.some(x => !x.periode_start_month === null);
   const hidePeople = peoplePoints.length <= 1;
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: TabsEnum) => {
