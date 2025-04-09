@@ -29,7 +29,14 @@ export const ViatrumfCharts = ({ transactions, profiles, headerLeft }: ViatrumfC
   return (
     <Card style={{ marginRight: 5, marginTop: 5, alignSelf: "center", alignContent: "center", padding: 16 }}>
       <div style={{ display: "flex", alignItems: "center" }}>{headerLeft}</div>
-      <Tabs style={{ marginTop: -10, paddingBottom: 10 }} value={activeTab} onChange={handleTabChange} centered allowScrollButtonsMobile>
+      <Tabs
+        style={{ marginTop: -10, paddingBottom: 10 }}
+        value={activeTab}
+        onChange={handleTabChange}
+        centered
+        scrollButtons="auto"
+        allowScrollButtonsMobile
+      >
         <Tab label="Points" value={ViatrumfTabsEnum.Points} />
         <Tab label="Transactions" value={ViatrumfTabsEnum.Transactions} />
       </Tabs>

@@ -54,7 +54,7 @@ export const EurobonusCharts = ({ transactions, profiles, hideTable, headerLeft 
         onChange={handleTabChange}
         centered
         visibleScrollbar
-        scrollButtons
+        scrollButtons="auto"
         allowScrollButtonsMobile
       >
         <Tab label="Points" value={TabsEnum.Points} />
