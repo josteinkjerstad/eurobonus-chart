@@ -1,5 +1,5 @@
 export const prerender = false;
-import { Tabs, Tab, Card } from "@mui/material";
+import { Tabs, Tab, Card, Box } from "@mui/material";
 import type { Profile } from "../../../models/profile";
 import type { ViatrumfTransaction } from "../../../models/viatrumf_transaction";
 import { calculateViatrumfVendorTransactions } from "../../../utils/viatrumf-calculations";
@@ -29,17 +29,19 @@ export const ViatrumfCharts = ({ transactions, profiles, headerLeft }: ViatrumfC
   return (
     <Card style={{ marginRight: 5, marginTop: 5, alignSelf: "center", alignContent: "center", padding: 16 }}>
       <div style={{ display: "flex", alignItems: "center" }}>{headerLeft}</div>
-      <Tabs
-        style={{ marginTop: -10, paddingBottom: 10 }}
-        value={activeTab}
-        onChange={handleTabChange}
-        centered
-        scrollButtons="auto"
-        allowScrollButtonsMobile
-      >
-        <Tab label="Points" value={ViatrumfTabsEnum.Points} />
-        <Tab label="Transactions" value={ViatrumfTabsEnum.Transactions} />
-      </Tabs>
+      <Box display="flex" justifyContent="center" width="100%">
+        <Tabs
+          style={{ marginTop: -10, paddingBottom: 10 }}
+          value={activeTab}
+          onChange={handleTabChange}
+          variant="scrollable"
+          scrollButtons="auto"
+          allowScrollButtonsMobile
+        >
+          <Tab label="Points" value={ViatrumfTabsEnum.Points} />
+          <Tab label="Transactions" value={ViatrumfTabsEnum.Transactions} />
+        </Tabs>
+      </Box>
       {activeTab === ViatrumfTabsEnum.Points && <ViatrumfVendorChart transactions={viatrumfVendorPoints} profiles={profiles} />}
       {activeTab === ViatrumfTabsEnum.Transactions && <ViatrumfTransactionsTable transactions={transactions} />}
     </Card>

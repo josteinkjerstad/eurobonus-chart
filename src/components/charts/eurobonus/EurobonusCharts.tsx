@@ -6,7 +6,7 @@ import {
   calculateYearlyPoints,
 } from "../../../utils/calculations";
 import type { Transaction } from "../../../models/transaction";
-import { Tabs, Tab, Card } from "@mui/material";
+import { Tabs, Tab, Card, Box } from "@mui/material";
 import type { Profile } from "../../../models/profile";
 import { PeopleChart } from "./PeopleChart";
 import { QualifyingPeriodsChart } from "./QualifyingPeriodsChart";
@@ -48,21 +48,22 @@ export const EurobonusCharts = ({ transactions, profiles, hideTable, headerLeft 
   return (
     <Card style={{ marginRight: 5, marginTop: 5, alignSelf: "center", alignContent: "center", padding: 16 }}>
       <div style={{ display: "flex", alignItems: "center" }}>{headerLeft}</div>
-      <Tabs
-        style={{ marginTop: -10, paddingBottom: 10 }}
-        value={activeTab}
-        onChange={handleTabChange}
-        centered
-        visibleScrollbar
-        scrollButtons
-        allowScrollButtonsMobile
-      >
-        <Tab label="Points" value={TabsEnum.Points} />
-        <Tab label="Years" value={TabsEnum.Years} />
-        <Tab label="Members" value={TabsEnum.Members} hidden={hidePeople} />
-        <Tab label="Level Points" value={TabsEnum.LevelPoints} hidden={hideQualifying} />
-        <Tab hidden={!hideTable} label="Transactions" value={TabsEnum.Transactions} />
-      </Tabs>
+      <Box display="flex" justifyContent="center" width="100%">
+        <Tabs
+          style={{ marginTop: -10, paddingBottom: 10 }}
+          value={activeTab}
+          onChange={handleTabChange}
+          variant="scrollable"
+          scrollButtons="auto"
+          allowScrollButtonsMobile
+        >
+          <Tab label="Points" value={TabsEnum.Points} />
+          <Tab label="Years" value={TabsEnum.Years} />
+          <Tab label="Members" value={TabsEnum.Members} hidden={hidePeople} />
+          <Tab label="Level Points" value={TabsEnum.LevelPoints} hidden={hideQualifying} />
+          <Tab hidden={!hideTable} label="Transactions" value={TabsEnum.Transactions} />
+        </Tabs>
+      </Box>
       {activeTab === TabsEnum.Points && <VendorChart transactions={vendorPoints} profiles={profiles} />}
       {activeTab === TabsEnum.Years && <YearlySpentChart yearlyPoints={yearlyPoints} />}
       {activeTab === TabsEnum.Members && !hidePeople && <PeopleChart transactions={peoplePoints} profiles={profiles} />}
