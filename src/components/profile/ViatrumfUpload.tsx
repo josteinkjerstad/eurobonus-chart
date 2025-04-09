@@ -63,7 +63,7 @@ export const ViatrumfUpload = ({ profileId }: ViatrumfUploadProps) => {
       <H6>Viatrumf Upload</H6>
       Copy your entire viatrumf earnings page (Ctrl/Command-A) and paste it here.
       <br />
-      Remember to click Show more / Se mer" before copying to make sure all transactions are visible.
+      Remember to click Show more / Se mer before copying to make sure all transactions are visible.
       <div style={{ display: "flex", width: 450, flexDirection: "row", gap: "10px", paddingTop: 5 }}>
         <TextArea value={viatrumfText} onChange={e => setViatrumfText(e.target.value)} placeholder="Paste your viatrumf transactions here" fill />
         <button onClick={() => handleUpload()} disabled={loading || viatrumfText == ""} className={styles.button}>
