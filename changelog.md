@@ -4,6 +4,7 @@
 
 - Redesigned tabs in charts
 - Deployed to new domain ebcharts.com
+- Added percentile chart
 - Added current year estimate in years graph
 - Added missing hotelpartner: Smart Hotel
 - Added missing resturant: Folk & Fe
