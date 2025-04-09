@@ -38,7 +38,8 @@ export const TotalDashboard = () => {
       hideTable
       headerLeft={
         <>
-          <strong>Points Earned:&nsbp;</strong> {sum.toLocaleString()}
+          <strong>Points Earned:&nbsp;</strong>
+          {sum.toLocaleString()}
           <Tooltip
             title={
               <>
