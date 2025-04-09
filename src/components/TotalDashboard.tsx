@@ -34,7 +34,7 @@ export const TotalDashboard = () => {
       {sum > 0 && (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <p> {`Users have earned a total of ${sum.toLocaleString()} eurobonus points since 2017`}</p>
-          <p>{`Average per user: ${average.toLocaleString()}`}</p>
+          <p>{`Avg/user: ${average.toLocaleString()}`}</p>
         </div>
       )}
       <EurobonusCharts transactions={transactions} profiles={[profile]} hideTable />
