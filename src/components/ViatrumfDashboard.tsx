@@ -7,6 +7,8 @@ import useFetchViatrumfTransactions from "../hooks/useFetchViatrumfTransactions"
 import type { ViatrumfTransaction } from "../models/viatrumf_transaction";
 import { ViatrumfCharts } from "./charts/viatrumf/ViatrumfCharts";
 import { getEarliestViatrumfDate, getLatestViatrumfDate } from "../utils/viatrumf-calculations";
+import { IconButton, Tooltip } from "@mui/material";
+import InfoOutlined from "@mui/icons-material/InfoOutlined";
 
 export const ViatrumfDashboard = () => {
   const { data: viatrumfData, loading } = useFetchViatrumfTransactions();
@@ -36,12 +38,21 @@ export const ViatrumfDashboard = () => {
       profiles={profiles}
       headerLeft={
         <>
-          <strong>Points Earned:</strong> {sum.toLocaleString(undefined, { maximumFractionDigits: 0 })}
-        </>
-      }
-      headerRight={
-        <>
-          <strong>Last Transaction:</strong> {latestDate}
+          <strong>Trumf Earned:&nbsp;</strong> {sum.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+          <Tooltip
+            title={
+              <>
+                {`Total trumf that has been transfered since ${earliestdate}`}
+                <br />
+                Last Transaction: {latestDate}
+              </>
+            }
+            arrow
+          >
+            <IconButton size="small" style={{ marginLeft: 4 }}>
+              <InfoOutlined fontSize="small" />
+            </IconButton>
+          </Tooltip>
         </>
       }
     />

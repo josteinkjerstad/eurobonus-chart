@@ -11,7 +11,6 @@ type ViatrumfChartsProps = {
   transactions: ViatrumfTransaction[];
   profiles: Profile[];
   headerLeft?: ReactNode;
-  headerRight?: ReactNode;
 };
 
 enum ViatrumfTabsEnum {
@@ -19,7 +18,7 @@ enum ViatrumfTabsEnum {
   Transactions = "Transactions",
 }
 
-export const ViatrumfCharts = ({ transactions, profiles, headerLeft, headerRight }: ViatrumfChartsProps) => {
+export const ViatrumfCharts = ({ transactions, profiles, headerLeft }: ViatrumfChartsProps) => {
   const viatrumfVendorPoints = calculateViatrumfVendorTransactions(transactions);
   const [activeTab, setActiveTab] = React.useState<ViatrumfTabsEnum>(ViatrumfTabsEnum.Points);
 
@@ -29,18 +28,7 @@ export const ViatrumfCharts = ({ transactions, profiles, headerLeft, headerRight
 
   return (
     <Card style={{ marginRight: 5, marginTop: 5, alignSelf: "center", alignContent: "center", padding: 16 }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap", // Ensure proper alignment on smaller screens
-          gap: 8, // Add spacing between elements
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center" }}>{headerLeft}</div>
-        <div style={{ display: "flex", alignItems: "center" }}>{headerRight}</div>
-      </div>
+      <div style={{ display: "flex", alignItems: "center" }}>{headerLeft}</div>
       <Tabs style={{ marginTop: -10, paddingBottom: 10 }} value={activeTab} onChange={handleTabChange} centered allowScrollButtonsMobile>
         <Tab label="Points" value={ViatrumfTabsEnum.Points} />
         <Tab label="Transactions" value={ViatrumfTabsEnum.Transactions} />

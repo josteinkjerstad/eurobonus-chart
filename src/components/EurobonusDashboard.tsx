@@ -39,16 +39,20 @@ export const EurobonusDashboard = () => {
       headerLeft={
         <>
           <strong>Points Earned:</strong> {sum.toLocaleString()}
-          <Tooltip title={`Total points earned since ${earliestdate}`} arrow>
+          <Tooltip
+            title={
+              <>
+                {`Total points earned since ${earliestdate}`}
+                <br />
+                Last Transaction: {latestDate}
+              </>
+            }
+            arrow
+          >
             <IconButton size="small" style={{ marginLeft: 4 }}>
               <InfoOutlined fontSize="small" />
             </IconButton>
           </Tooltip>
-        </>
-      }
-      headerRight={
-        <>
-          <strong>Last Transaction:</strong> {latestDate}
         </>
       }
     />
