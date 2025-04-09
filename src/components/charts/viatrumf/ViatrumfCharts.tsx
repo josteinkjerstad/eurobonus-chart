@@ -31,7 +31,7 @@ export const ViatrumfCharts = ({ transactions, profiles, headerLeft }: ViatrumfC
       <div style={{ display: "flex", alignItems: "center" }}>{headerLeft}</div>
       <Box display="flex" justifyContent="center" width="100%">
         <Tabs
-          style={{ marginTop: -10, paddingBottom: 10 }}
+          style={{ paddingBottom: 10 }}
           value={activeTab}
           onChange={handleTabChange}
           variant="scrollable"
