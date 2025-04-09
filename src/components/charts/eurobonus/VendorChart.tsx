@@ -7,6 +7,7 @@ import styles from "./VendorChart.module.scss";
 import { OptionsDropdown } from "../../shared/OptionsDropdown";
 import type { Profile } from "../../../models/profile";
 import { Partner } from "../../../models/partners";
+import { Colors } from "../../../styles/colors";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -128,8 +129,8 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
     datasets: [
       {
         data: filteredVendorPoints.map(v => v.points),
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgba(75, 192, 192, 1)",
+        backgroundColor: Colors.primary,
+        borderColor: Colors.primaryBorder,
         borderWidth: 1,
         maxBarThickness: 100,
       },

@@ -6,6 +6,8 @@ import { Spinner } from "@blueprintjs/core";
 import useFetchTotalTransactions from "../hooks/useFetchTotalTransactions";
 import { calculateAveragePoints, calculateTotalEuroBonusPoints } from "../utils/calculations";
 import { useSummarizedPoints } from "../hooks/useSummarizedPoints";
+import { IconButton, Tooltip } from "@mui/material";
+import InfoOutlined from "@mui/icons-material/InfoOutlined";
 
 export const TotalDashboard = () => {
   const { data, loading } = useFetchTotalTransactions();
@@ -30,14 +32,28 @@ export const TotalDashboard = () => {
   const average = calculateAveragePoints(summarizedPoints);
 
   return (
-    <>
-      {sum > 0 && (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <p> {`Users have earned a total of ${sum.toLocaleString()} eurobonus points since 2017`}</p>
-          <p>{`Avg/user: ${average.toLocaleString()}`}</p>
-        </div>
-      )}
-      <EurobonusCharts transactions={transactions} profiles={[profile]} hideTable />
-    </>
+    <EurobonusCharts
+      transactions={transactions}
+      profiles={[profile]}
+      hideTable
+      headerLeft={
+        <>
+          <strong>Points Earned:</strong> {sum.toLocaleString()}
+          <Tooltip
+            title={
+              <>
+                Total points all signed in users have earned since 2017 <br />
+                Avg per user: {average.toLocaleString()}
+              </>
+            }
+            arrow
+          >
+            <IconButton size="small" style={{ marginLeft: 4 }}>
+              <InfoOutlined fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        </>
+      }
+    />
   );
 };

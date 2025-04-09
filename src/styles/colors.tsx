@@ -6,6 +6,8 @@ export const Colors = {
   black: "#000000",
   red: "#d32f2f",
   darkRed: "#b71c1c",
+  primary: "rgba(75, 192, 192, 0.2)",
+  primaryBorder: "rgba(75, 192, 192, 1)",
   lightBlue: "rgba(54, 162, 235, 0.2)",
   blueBorder: "rgba(54, 162, 235, 1)",
   yellow: "rgba(255, 206, 86, 0.2)",

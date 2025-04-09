@@ -7,6 +7,8 @@ import type { Profile } from "../models/profile";
 import { Spinner } from "@blueprintjs/core";
 import { calculateTotalEuroBonusPoints, getEarliestDate, getLatestDate } from "../utils/calculations";
 import { useSummarizedPoints } from "../hooks/useSummarizedPoints";
+import { Tooltip, IconButton } from "@mui/material";
+import InfoOutlined from "@mui/icons-material/InfoOutlined";
 
 export const EurobonusDashboard = () => {
   const { data, loading } = useFetchTransactions();
@@ -31,15 +33,24 @@ export const EurobonusDashboard = () => {
   }
 
   return (
-    <>
-      <h2>Eurobonus </h2>
-      {sum > 0 && (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <p>{`You've earned a total of ${sum.toLocaleString()} eurobonus points since ${earliestdate}`}</p>
-          <p>{`Last transaction date: ${latestDate}`}</p>
-        </div>
-      )}
-      <EurobonusCharts transactions={transactions} profiles={profiles} />
-    </>
+    <EurobonusCharts
+      transactions={transactions}
+      profiles={profiles}
+      headerLeft={
+        <>
+          <strong>Points Earned:</strong> {sum.toLocaleString()}
+          <Tooltip title={`Total points earned since ${earliestdate}`} arrow>
+            <IconButton size="small" style={{ marginLeft: 4 }}>
+              <InfoOutlined fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        </>
+      }
+      headerRight={
+        <>
+          <strong>Last Transaction:</strong> {latestDate}
+        </>
+      }
+    />
   );
 };

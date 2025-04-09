@@ -31,17 +31,19 @@ export const ViatrumfDashboard = () => {
   }
 
   return (
-    <>
-      <h2>Viatrumf </h2>
-      {sum > 0 && (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <p>{`You've earned a total of kr ${sum.toLocaleString(undefined, {
-            maximumFractionDigits: 0,
-          })} since ${earliestdate}`}</p>
-          <p>{`Last transaction date: ${latestDate}`}</p>
-        </div>
-      )}
-      <ViatrumfCharts transactions={transactions} profiles={profiles} />
-    </>
+    <ViatrumfCharts
+      transactions={transactions}
+      profiles={profiles}
+      headerLeft={
+        <>
+          <strong>Points Earned:</strong> {sum.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+        </>
+      }
+      headerRight={
+        <>
+          <strong>Last Transaction:</strong> {latestDate}
+        </>
+      }
+    />
   );
 };

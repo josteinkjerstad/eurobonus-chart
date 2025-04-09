@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import EurobonusChartsLogo from "../images/logo.svg";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import { Colors } from "../styles/colors";
-const { cookies, request } = Astro;
+const { cookies, request, url } = Astro;
 
 const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.env.SUPABASE_KEY, {
   cookies: {
@@ -18,6 +18,8 @@ const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.en
 });
 
 const { data } = await supabase.auth.getSession();
+
+const currentPath = new URL(url).pathname;
 
 const navLinks = [
   { href: "/dashboard", label: "My Points", hidden: !data.session },
@@ -49,7 +51,7 @@ const navLinks = [
         {
           navLinks.map(link => (
             <li class="nav-item" hidden={link.hidden}>
-              <a href={link.href} class="nav-link">
+              <a href={link.href} class={`nav-link ${currentPath === link.href ? "active" : ""}`}>
                 {link.label}
               </a>
             </li>
@@ -140,6 +142,10 @@ const navLinks = [
     font-size: 1rem;
     transition: color 0.3s ease;
     position: relative;
+  }
+
+  .nav-link.active {
+    color: #41aaaa;
   }
 
   .nav-link:hover {

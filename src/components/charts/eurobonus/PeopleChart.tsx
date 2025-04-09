@@ -30,7 +30,7 @@ export const PeopleChart = ({ transactions, profiles }: PeopleChartProps) => {
   const options = {
     plugins: {
       legend: {
-        display: true,
+        display: false,
       },
     },
     scales: {

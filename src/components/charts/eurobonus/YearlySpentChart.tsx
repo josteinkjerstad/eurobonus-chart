@@ -43,6 +43,7 @@ export const YearlySpentChart = ({ yearlyPoints }: YearlySpentChartProps) => {
     plugins: {
       legend: {
         display: true,
+        position: "bottom" as const,
       },
     },
     scales: {
