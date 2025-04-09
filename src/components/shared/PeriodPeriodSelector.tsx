@@ -28,7 +28,9 @@ export const PeriodSelector = ({ profile }: PeriodSelectorProps) => {
       <SelectDropdown
         options={periodOptions}
         selectedOption={periodOptions.find(x => x.value == selectedPeriod) ?? periodOptions[0]}
-        onChange={option => setSelectedPeriod(option?.value ?? 0)}
+        onChange={option => {
+          changePeriod(option?.value);
+        }}
         optionLabel={x => x!.label}
       />
     </div>

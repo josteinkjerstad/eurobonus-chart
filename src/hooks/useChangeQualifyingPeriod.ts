@@ -2,8 +2,7 @@ import { useCallback } from "react";
 
 export const useChangeQualifyingPeriod = (profileId: string, setQualifyingPeriod: (period: number) => void) => {
   return useCallback(
-    async (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const newPeriod = parseInt(event.target.value);
+    async (newPeriod: number) => {
       setQualifyingPeriod(newPeriod);
       const response = await fetch("/api/profile/change-qualification-period", {
         method: "POST",

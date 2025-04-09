@@ -7,7 +7,6 @@ import type { QualifyingTransaction } from "../../../models/transaction";
 import styles from "./QualifyingPeriodsChart.module.scss";
 import { getAllValidQualifyingPeriods } from "../../../models/qualifying-periods";
 import { SelectDropdown } from "../../shared/SelectDropdown";
-import { Colors } from "../../../styles/colors";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -31,23 +30,14 @@ export const QualifyingPeriodsChart = ({ transactions, profiles }: QualifyingPer
     setSelectedProfile(selectedProfile);
   };
 
-  const profileOptions = useMemo(
-    () =>
-      [profiles.find(p => p.user_id), ...profiles.filter(p => p.parent_id)].map(profile => ({
-        value: profile!,
-        label: profile!.display_name,
-      })),
-    [profiles]
-  );
-
   const data = useMemo(
     () => ({
       labels: profileTransactions.map(t => t.period),
       datasets: [
         {
           data: profileTransactions.map(t => t.value),
-          backgroundColor: Colors.yellow,
-          borderColor: Colors.yellowBorder,
+          backgroundColor: "rgba(255, 206, 86, 0.2)", // New color
+          borderColor: "rgba(255, 206, 86, 1)", // New color
           borderWidth: 1,
           maxBarThickness: 100,
         },
