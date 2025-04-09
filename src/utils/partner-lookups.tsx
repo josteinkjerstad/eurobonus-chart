@@ -12,6 +12,17 @@ import type { Transaction } from "../models/transaction";
 import type { Vendor } from "../models/vendor";
 import "../utils/extensions";
 
+const sasPnrRelatedActivities = [
+  "E389452733",
+  "PNR KNJ6LH",
+  "EMD 117",
+  "Added missing points from pnr",
+  "WTU85U | Points Earned",
+  "Corrected pts to original flight",
+];
+
+const sasXmasCalendar = ["Chr calender", "chr caleneder", "chr calender"];
+
 const sasBioFuel = [
   "biofuel points",
   "SASBIOFUEL",
@@ -59,15 +70,8 @@ const sasActivities = [
   "SAS  | Points Earned",
   "RES ID",
   "Double points campaign",
-  "EMD 117",
-  "Added missing points from pnr",
-  "WTU85U | Points Earned",
-  "Corrected pts to original flight",
-  "E389452733",
-  "PNR KNJ6LH",
-  "Chr calender",
-  "chr caleneder",
-  "chr calender",
+  ...sasXmasCalendar,
+  ...sasPnrRelatedActivities,
   ...sasBioFuel,
 ];
 
@@ -87,7 +91,7 @@ export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {
       return ScandinavianAirlinesPartner.BioFuel;
     case activity.includes("EuroBonus intro"):
       return ScandinavianAirlinesPartner.Intro;
-    case activity.includesAny(["Chr calender", "chr caleneder", "chr calender"]):
+    case activity.includesAny(sasXmasCalendar):
       return ScandinavianAirlinesPartner.ChristmasCalendar;
     default:
       return ScandinavianAirlinesPartner.Flights;
