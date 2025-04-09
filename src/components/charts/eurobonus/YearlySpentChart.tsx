@@ -3,6 +3,8 @@ import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import type { YearlyTransaction } from "../../../models/transaction";
 import styles from "./YearlySpentChart.module.scss";
+import { CalculateCurrentYearEstimatedPoints } from "../../../utils/calculations";
+import { Colors } from "../../../styles/colors";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -12,6 +14,10 @@ type YearlySpentChartProps = {
 
 export const YearlySpentChart = ({ yearlyPoints }: YearlySpentChartProps) => {
   const hasSpentData = yearlyPoints.some(point => point.spent > 0);
+
+  const estimatedPointsForYear = CalculateCurrentYearEstimatedPoints(yearlyPoints);
+
+  // Add the estimated points as a separate bar for the last year
 
   const data = {
     labels: yearlyPoints.map(point => point.year.toString()),
@@ -38,6 +44,18 @@ export const YearlySpentChart = ({ yearlyPoints }: YearlySpentChartProps) => {
         : []),
     ],
   };
+
+  const lastYear = yearlyPoints[yearlyPoints.length - 1]?.year;
+  if (lastYear) {
+    data.datasets.push({
+      label: "Estimated Points Earned",
+      data: yearlyPoints.map(point => (point.year === lastYear ? estimatedPointsForYear : 0)),
+      backgroundColor: Colors.yellow,
+      borderColor: Colors.yellowBorder,
+      borderWidth: 1,
+      maxBarThickness: 100,
+    });
+  }
 
   const options = {
     plugins: {

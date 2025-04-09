@@ -128,6 +128,17 @@ export const calculateYearlyPoints = (transactions: Transaction[]): YearlyTransa
   }));
 };
 
+export const CalculateCurrentYearEstimatedPoints = (yearlyPoints: YearlyTransaction[]): number => {
+  const currentYear = new Date().getFullYear();
+  const startOfYear = new Date(currentYear, 0, 1);
+  const endOfYear = new Date(currentYear, 11, 31);
+  const daysElapsed = Math.floor((new Date().getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24));
+  const totalDaysInYear = Math.floor((endOfYear.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+  const pointsThisYear = yearlyPoints.find(x => x.year === currentYear)?.earned || 0;
+  return Math.round((pointsThisYear / daysElapsed) * totalDaysInYear);
+};
+
 export const calculateQualifyingTransactions = (transactions: Transaction[], profiles: Profile[]): QualifyingTransaction[] => {
   return profiles
     .flatMap(profile => {

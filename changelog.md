@@ -1,5 +1,11 @@
 ## Changelog
 
+### 09.04.2025
+
+- Redesigned tabs in charts
+- Deployed to new domain ebcharts.com
+- Added current year estimate in years graph
+
 ### 08.04.2025
 
 - Created separate viatrumf page

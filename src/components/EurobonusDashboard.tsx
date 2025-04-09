@@ -13,7 +13,6 @@ import InfoOutlined from "@mui/icons-material/InfoOutlined";
 export const EurobonusDashboard = () => {
   const { data, loading } = useFetchTransactions();
   const { data: profilesData, loading: profileLoading } = useFetchProfiles();
-  const { data: summarizedPoints, loading: loadingSummarized } = useSummarizedPoints();
 
   const transactions: Transaction[] = useMemo(() => (data ? data : []), [data]);
   const profiles: Profile[] = useMemo(() => (profilesData ? profilesData : []), [profilesData]);
@@ -21,7 +20,7 @@ export const EurobonusDashboard = () => {
   const earliestdate = useMemo(() => getEarliestDate(transactions), [transactions]);
   const latestDate = useMemo(() => getLatestDate(transactions), [transactions]);
 
-  if (loading || profileLoading || loadingSummarized) {
+  if (loading || profileLoading) {
     return <Spinner />;
   }
   if (transactions.length === 0) {

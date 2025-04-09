@@ -1,5 +1,6 @@
 export const prerender = false;
 import {
+  CalculateCurrentYearEstimatedPoints,
   calculateQualifyingTransactions,
   calculateTotalEuroBonusPointsByProfile,
   calculateVendorTransactions,
