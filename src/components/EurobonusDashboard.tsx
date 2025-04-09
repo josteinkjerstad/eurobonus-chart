@@ -48,6 +48,7 @@ export const EurobonusDashboard = () => {
               </>
             }
             arrow
+            disableInteractive
           >
             <IconButton size="small" style={{ marginLeft: 4 }}>
               <InfoOutlined fontSize="small" />
