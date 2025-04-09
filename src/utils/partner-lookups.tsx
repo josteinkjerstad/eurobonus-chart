@@ -1,3 +1,4 @@
+import { act } from "react";
 import {
   AirlinePartner,
   CreditCardPartner,
@@ -117,6 +118,7 @@ const isPartnerFlight = (activity: string): boolean => activity.includesAny(Obje
 const isCartel = (activity: string): boolean => activity.includesAny(["Salsa", "cartel"]);
 const isMPH = (activity: string): boolean => activity.includesAny(["Miles Per Hour", "milesperhour"]);
 const isScandic = (activity: string): boolean => activity.includesAny(["Scandic", "SCANDIC"]);
+const isSmartHotel = (activity: string): boolean => activity.includesAny(["Smart Hotel", "SmartHotel"]);
 export const isRefund = (activity: string): boolean =>
   activity.includesAny(["Refund", "Scandinavian Airlines Spec Actv | Points Corrections", "SAS EuroBonus | Points Corrections"]);
 

@@ -41,7 +41,7 @@ export enum HotelPartner {
   EuroBonusHotels = "EuroBonus-Hotel stay | Points Earned",
   Radisson = "Radisson Hotels",
   Scandic = "Scandic Hotels | Points Earned",
-  SmartHotel = "SmartHotel",
+  SmartHotel = "Smarthotel",
   FrognerHouse = "Frogner House",
   BankenHotel = "Banken Hotel",
   SanktJorgen = "Sankt Jörgen",
@@ -200,6 +200,7 @@ export enum RestaurantPartnerNorway {
   Kullt = "Kullt",
   RentMel = "Rent Mel",
   JarmannGastropub = "Jarmann Gastropub",
+  FolkFe = "Folk & Fe",
 }
 
 export enum AirlinePartner {
