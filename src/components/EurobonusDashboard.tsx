@@ -38,7 +38,7 @@ export const EurobonusDashboard = () => {
       profiles={profiles}
       headerLeft={
         <>
-          <strong>Points Earned:</strong> {sum.toLocaleString()}
+          <strong>Points Earned:&nbsp;</strong> {sum.toLocaleString()}
           <Tooltip
             title={
               <>
