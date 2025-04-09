@@ -48,11 +48,19 @@ export const EurobonusCharts = ({ transactions, profiles, hideTable, headerLeft,
 
   return (
     <Card style={{ marginRight: 5, marginTop: 5, alignSelf: "center", alignContent: "center", padding: 16 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <div>{headerLeft}</div>
-        <div>{headerRight}</div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap", // Ensure proper alignment on smaller screens
+          gap: 8, // Add spacing between elements
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center" }}>{headerLeft}</div>
+        <div style={{ display: "flex", alignItems: "center" }}>{headerRight}</div>
       </div>
-      <Tabs style={{ marginTop: -10, paddingBottom: 10 }} value={activeTab} onChange={handleTabChange} centered scrollButtons="auto">
+      <Tabs style={{ marginTop: -10, paddingBottom: 10 }} value={activeTab} onChange={handleTabChange} centered allowScrollButtonsMobile>
         <Tab label="Points" value={TabsEnum.Points} />
         <Tab label="Years" value={TabsEnum.Years} />
         {profiles.length > 1 && <Tab label="Members" value={TabsEnum.Members} />}
