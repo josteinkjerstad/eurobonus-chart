@@ -59,9 +59,9 @@ export const EurobonusCharts = ({ transactions, profiles, hideTable, headerLeft 
         >
           <Tab label="Points" value={TabsEnum.Points} />
           <Tab label="Years" value={TabsEnum.Years} />
-          <Tab label="Members" value={TabsEnum.Members} hidden={hidePeople} />
-          <Tab label="Level Points" value={TabsEnum.LevelPoints} hidden={hideQualifying} />
-          <Tab hidden={!hideTable} label="Transactions" value={TabsEnum.Transactions} />
+          {!hidePeople && <Tab label="Members" value={TabsEnum.Members} />}
+          {!hideQualifying && <Tab label="Level Points" value={TabsEnum.LevelPoints} />}
+          {!hideTable && <Tab label="Transactions" value={TabsEnum.Transactions} />}
         </Tabs>
       </Box>
       {activeTab === TabsEnum.Points && <VendorChart transactions={vendorPoints} profiles={profiles} />}
