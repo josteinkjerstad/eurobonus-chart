@@ -11,6 +11,7 @@ import "normalize.css";
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import Analytics from "@vercel/analytics/astro";
 
 const title = Astro.props.title || "Eurobonus Charts";
 ---
@@ -27,6 +28,7 @@ const title = Astro.props.title || "Eurobonus Charts";
     <div class="page-container">
       <div class="content-wrapper">
         <SpeedInsights />
+        <Analytics />
         <Navbar title={title} />
         <main>
           <slot />
