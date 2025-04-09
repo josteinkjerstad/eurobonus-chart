@@ -8,6 +8,7 @@ import { calculateAveragePoints, calculateTotalEuroBonusPoints } from "../utils/
 import { useSummarizedPoints } from "../hooks/useSummarizedPoints";
 import { IconButton, Tooltip } from "@mui/material";
 import InfoOutlined from "@mui/icons-material/InfoOutlined";
+import { TotalCharts } from "./charts/eurobonus/TotalChart.tsx";
 
 export const TotalDashboard = () => {
   const { data, loading } = useFetchTotalTransactions();
@@ -32,10 +33,10 @@ export const TotalDashboard = () => {
   const average = calculateAveragePoints(summarizedPoints);
 
   return (
-    <EurobonusCharts
+    <TotalCharts
       transactions={transactions}
       profiles={[profile]}
-      hideTable
+      summedTransactions={summarizedPoints}
       headerLeft={
         <>
           <strong>Points Earned:&nbsp;</strong>

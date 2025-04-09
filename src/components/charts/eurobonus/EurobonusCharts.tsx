@@ -5,6 +5,7 @@ import {
   calculateTotalEuroBonusPointsByProfile,
   calculateVendorTransactions,
   calculateYearlyPoints,
+  groupPointsByRange,
 } from "../../../utils/calculations";
 import type { Transaction } from "../../../models/transaction";
 import { Tabs, Tab, Card, Box } from "@mui/material";
@@ -20,6 +21,7 @@ type EurobonusChartsProps = {
   transactions: Transaction[];
   profiles: Profile[];
   hideTable?: boolean;
+  hideSum?: boolean;
   headerLeft?: ReactNode;
 };
 
@@ -36,7 +38,6 @@ export const EurobonusCharts = ({ transactions, profiles, hideTable, headerLeft 
   const yearlyPoints = calculateYearlyPoints(transactions);
   const peoplePoints = calculateTotalEuroBonusPointsByProfile(transactions);
   const qualifyingPoints = calculateQualifyingTransactions(transactions, profiles);
-
   const [activeTab, setActiveTab] = React.useState<TabsEnum>(TabsEnum.Points);
 
   const hideQualifying = qualifyingPoints.length === 0 || profiles.some(x => !x.periode_start_month === null);

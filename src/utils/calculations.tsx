@@ -173,3 +173,43 @@ export const calculateAveragePoints = (points: number[]) => {
   const total = points.reduce((sum, point) => sum + point, 0);
   return Math.round(total / points.length);
 };
+
+export enum PointBuckets {
+  Low = "0 - 99.999",
+  Medium = "100.000 - 499.999",
+  High = "500.0000 - 999.999",
+  VeryHigh = "1.000.000 - 1.999.999",
+  UltraHigh = "2.000.000 - 4.999.999",
+  Elite = "5.000.000+",
+}
+
+export const PointBucketRanges: Record<PointBuckets, [number, number | null]> = {
+  [PointBuckets.Low]: [0, 99999],
+  [PointBuckets.Medium]: [100000, 499999],
+  [PointBuckets.High]: [500000, 999999],
+  [PointBuckets.VeryHigh]: [1000000, 1999999],
+  [PointBuckets.UltraHigh]: [2000000, 4999999],
+  [PointBuckets.Elite]: [5000000, null],
+};
+
+export const groupPointsByRange = (points: number[]): Record<PointBuckets, number> => {
+  const buckets: Record<PointBuckets, number> = {
+    [PointBuckets.Low]: 0,
+    [PointBuckets.Medium]: 0,
+    [PointBuckets.High]: 0,
+    [PointBuckets.VeryHigh]: 0,
+    [PointBuckets.UltraHigh]: 0,
+    [PointBuckets.Elite]: 0,
+  };
+
+  points.forEach(point => {
+    for (const [bucket, [min, max]] of Object.entries(PointBucketRanges)) {
+      if (point >= min && (max === null || point <= max)) {
+        buckets[bucket as PointBuckets]++;
+        break;
+      }
+    }
+  });
+
+  return buckets;
+};

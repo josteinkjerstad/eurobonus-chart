@@ -139,7 +139,7 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, // Prevent chart shaking by maintaining aspect ratio
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
@@ -157,7 +157,7 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
         },
       },
     },
-    onClick: (_: unknown, elements: Array<{ index: number }>) => handleBarClick(elements), // Add click handler
+    onClick: (_: unknown, elements: Array<{ index: number }>) => handleBarClick(elements),
   };
 
   return (
