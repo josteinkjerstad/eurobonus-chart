@@ -44,7 +44,7 @@ export const TotalDashboard = () => {
           <Tooltip
             title={
               <div style={{ textAlign: "left", lineHeight: "1.5" }}>
-                Total points users have earned
+                Total points for {transactions.length} users
                 <br />
                 <br />
                 <strong>Average:</strong> {average.toLocaleString()} <br />
