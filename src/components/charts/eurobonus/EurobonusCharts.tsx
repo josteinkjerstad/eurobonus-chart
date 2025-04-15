@@ -14,7 +14,7 @@ import { QualifyingPeriodsChart } from "./QualifyingPeriodsChart";
 import { VendorChart } from "./VendorChart";
 import { YearlySpentChart } from "./YearlySpentChart";
 import { TransactionsTable } from "./TransactionsTable";
-import React, { type ReactNode } from "react";
+import { useState, type ReactNode, type SyntheticEvent } from "react";
 
 type EurobonusChartsProps = {
   transactions: Transaction[];
@@ -37,12 +37,12 @@ export const EurobonusCharts = ({ transactions, profiles, hideTable, headerLeft 
   const yearlyPoints = calculateYearlyPoints(transactions);
   const peoplePoints = calculateTotalEuroBonusPointsByProfile(transactions);
   const qualifyingPoints = calculateQualifyingTransactions(transactions, profiles);
-  const [activeTab, setActiveTab] = React.useState<TabsEnum>(TabsEnum.Points);
+  const [activeTab, setActiveTab] = useState<TabsEnum>(TabsEnum.Points);
 
   const hideQualifying = qualifyingPoints.length === 0 || profiles.some(x => !x.periode_start_month === null);
   const hidePeople = peoplePoints.length <= 1;
 
-  const handleTabChange = (_event: React.SyntheticEvent, newValue: TabsEnum) => {
+  const handleTabChange = (_event: SyntheticEvent, newValue: TabsEnum) => {
     setActiveTab(newValue);
   };
 

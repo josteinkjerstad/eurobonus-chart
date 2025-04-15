@@ -20,6 +20,33 @@
   margin-bottom: 20px;
 }
 
+.filterButton {
+  display: none;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.filterIcon {
+  font-size: 18px;
+  display: none !important;
+  width: 36px;
+  height: 36px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
 .chart canvas {
   width: 100% !important;
   height: 100% !important;
@@ -27,7 +54,28 @@
 
 /* Responsive styles */
 @media (max-width: 768px) {
+  .filterButton {
+    display: flex;
+  }
+
   .controls {
     flex-direction: column;
+    display: none;
+  }
+
+  .controls.show {
+    display: block;
+  }
+
+  .controls.hide {
+    display: none;
+  }
+
+  .controls > * {
+    margin-bottom: 5px; /* Add explicit spacing between dropdowns */
+  }
+
+  .filterIcon {
+    display: flex !important; /* Show only on mobile devices */
   }
 }

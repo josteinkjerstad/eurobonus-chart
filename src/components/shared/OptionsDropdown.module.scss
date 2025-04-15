@@ -35,9 +35,6 @@
   border-radius: 5px;
   background-color: #fff;
   z-index: 1;
-}
-
-.optionsList {
   max-height: 420px;
   overflow-y: auto;
 }
@@ -102,4 +99,14 @@
   border: solid white;
   border-width: 0 2px 2px 0;
   transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.searchInput {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
 }

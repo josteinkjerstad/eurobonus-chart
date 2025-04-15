@@ -8,6 +8,8 @@ import { OptionsDropdown } from "../../shared/OptionsDropdown";
 import type { Profile } from "../../../models/profile";
 import { Partner } from "../../../models/partners";
 import { Colors } from "../../../styles/colors";
+import { FaFilter } from "react-icons/fa"; // Import filter icon
+import IconButton from "@mui/material/IconButton";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -160,9 +162,14 @@ export const VendorChart = ({ transactions, profiles }: VendorChartProps) => {
     onClick: (_: unknown, elements: Array<{ index: number }>) => handleBarClick(elements),
   };
 
+  const [showFilters, setShowFilters] = useState(false);
+
   return (
     <div className={styles.chartContainer}>
-      <div className={styles.controls}>
+      <IconButton className={styles.filterIcon} onClick={() => setShowFilters(!showFilters)}>
+        <FaFilter />
+      </IconButton>
+      <div className={`${styles.controls} ${showFilters ? styles.show : styles.hide}`}>
         <OptionsDropdown
           options={vendorOptions}
           selectedOptions={selectedVendors}

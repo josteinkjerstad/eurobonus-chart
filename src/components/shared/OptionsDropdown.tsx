@@ -21,7 +21,10 @@ export const OptionsDropdown = <T extends unknown>({
   onSelectAll,
 }: OptionsDropdownProps<T>) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(""); // New state for search
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const filteredOptions = options.filter(option => optionLabel(option).toLowerCase().includes(searchTerm.toLowerCase())); // Filter options based on search term
 
   const handleOptionFilterChange = (option: T) => {
     const newSet = new Set(selectedOptions);
@@ -68,23 +71,28 @@ export const OptionsDropdown = <T extends unknown>({
           <span className={styles.dropdownArrow}></span>
         </div>
         {isDropdownOpen && (
-          <div className={styles.dropdownContent} onMouseDown={e => e.preventDefault()}>
-            <div className={styles.optionsList}>
-              <button onClick={handleClearAll} className={styles.clearButton}>
-                Clear/Select All
-              </button>
-              {options.map(option => (
-                <div key={option as string} className={styles.optionContainer}>
-                  <label key={optionLabel(option)} className={styles.optionLabel}>
-                    <input type="checkbox" checked={selectedOptions.has(option)} onChange={() => handleOptionFilterChange(option)} />
-                    {optionLabel(option)}
-                  </label>
-                  <button onClick={() => handleSelectOnly(option)} className={styles.selectOnlyButton}>
-                    Only
-                  </button>
-                </div>
-              ))}
-            </div>
+          <div className={styles.dropdownContent}>
+            <input
+              type="text"
+              className={styles.searchInput}
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+            />
+            <button onClick={handleClearAll} className={styles.clearButton}>
+              Clear/Select All
+            </button>
+            {filteredOptions.map(option => (
+              <div key={option as string} className={styles.optionContainer}>
+                <label key={optionLabel(option)} className={styles.optionLabel}>
+                  <input type="checkbox" checked={selectedOptions.has(option)} onChange={() => handleOptionFilterChange(option)} />
+                  {optionLabel(option)}
+                </label>
+                <button onClick={() => handleSelectOnly(option)} className={styles.selectOnlyButton}>
+                  Only
+                </button>
+              </div>
+            ))}
           </div>
         )}
       </div>
