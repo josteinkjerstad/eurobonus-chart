@@ -22,3 +22,5 @@ export const validatePassword = (password: string) => {
   }
   return "";
 };
+
+export const isValidGuid = (guid: string) => /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(guid);

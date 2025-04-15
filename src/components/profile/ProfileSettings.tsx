@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Label, InputGroup, Switch, Card, H5 } from "@blueprintjs/core";
+import { Label, InputGroup, Card, H5 } from "@blueprintjs/core";
 import type { Profile } from "../../models/profile";
 import styles from "./ProfileSettings.module.scss";
 import { useChangeDisplayName } from "../../hooks/useChangeDisplayName";
 import { useChangeIsPublic } from "../../hooks/useChangeIsPublic";
 import { PeriodSelector } from "../shared/PeriodPeriodSelector";
-import { ViatrumfUpload } from "./ViatrumfUpload";
+import { IconButton, Switch } from "@mui/material";
+import ContentCopy from "@mui/icons-material/ContentCopy";
 
 type ProfileSettingsProps = {
   profile: Profile;
@@ -22,6 +23,11 @@ export const ProfileSettings = ({ profile, onUpdateDisplayName }: ProfileSetting
     onUpdateDisplayName(profile.id, newName);
   });
 
+  const copyProfileUrl = () => {
+    const profileUrl = `${window.location.origin}/user?id=${profile.user_id}`;
+    navigator.clipboard.writeText(profileUrl);
+  };
+
   return (
     <Card>
       <div className={styles.container}>
@@ -34,7 +40,17 @@ export const ProfileSettings = ({ profile, onUpdateDisplayName }: ProfileSetting
           Qualifying Period
           <PeriodSelector profile={profile} />
         </Label>
-        <Switch label="Public profile" checked={isPublic} onChange={changeIsPublic} />
+        <Label>
+          Public Profile
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Switch size="small" title="Public profile" checked={isPublic} onChange={changeIsPublic} />
+            {isPublic && (
+              <IconButton size="small" onClick={copyProfileUrl} title="Copy URL">
+                <ContentCopy fontSize="small" />
+              </IconButton>
+            )}
+          </div>
+        </Label>
       </div>
     </Card>
   );
