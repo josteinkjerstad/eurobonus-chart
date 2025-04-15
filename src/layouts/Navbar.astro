@@ -3,7 +3,6 @@ export const prerender = false;
 import { Image } from "astro:assets";
 import EurobonusChartsLogo from "../images/logo.svg";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
-import { Colors } from "../styles/colors";
 const { cookies, request, url } = Astro;
 
 const supabase = createServerClient(import.meta.env.SUPABASE_URL, import.meta.env.SUPABASE_KEY, {
@@ -140,16 +139,17 @@ const navLinks = [
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease; /* Add transform transition */
     position: relative;
   }
 
   .nav-link.active {
-    color: #41aaaa;
+    color: #41aaaa; /* Replace placeholder with actual color */
   }
 
   .nav-link:hover {
-    color: {Colors.primaryBlue};
+    color: #41aaaa; /* Replace placeholder with actual color */
+    transform: scale(1.1); /* Add scale effect on hover */
   }
 
   .nav-link::after {
@@ -159,7 +159,7 @@ const navLinks = [
     height: 2px;
     bottom: -4px;
     left: 0;
-    background-color: {Colors.primaryBlue};
+    background-color: #41aaaa; /* Replace placeholder with actual color */
     transition: width 0.3s ease;
   }
 
