@@ -1,5 +1,9 @@
 ## Changelog
 
+### 15.04.2025
+
+- Public profile feature added
+
 ### 09.04.2025
 
 - Redesigned tabs in charts
