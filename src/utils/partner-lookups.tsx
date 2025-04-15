@@ -71,6 +71,7 @@ const sasActivities = [
   "SAS  | Points Earned",
   "RES ID",
   "Double points campaign",
+  "plusgrade saver",
   ...sasXmasCalendar,
   ...sasPnrRelatedActivities,
   ...sasBioFuel,
