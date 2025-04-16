@@ -34,17 +34,12 @@ export const PublicDashboard = ({ userId }: PublicDashboardProps) => {
 
   return (
     <>
-      {parent && (
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
-          <h3 style={{ fontSize: "1.5rem", fontWeight: "lighter", margin: 0 }}>{parent.display_name}'s Points</h3>
-        </div>
-      )}
       <EurobonusCharts
         transactions={transactions}
         profiles={profiles}
         headerLeft={
           <>
-            <strong>Points Earned:&nbsp;</strong> {sum.toLocaleString()}
+            <strong>Points Earned by {parent?.display_name}:&nbsp;</strong> {sum.toLocaleString()}
             <Tooltip
               title={
                 <>
