@@ -22,6 +22,7 @@ export const PublicDashboard = ({ userId }: PublicDashboardProps) => {
   const sum = useMemo(() => calculateTotalEuroBonusPoints(transactions), [transactions]);
   const earliestdate = useMemo(() => getEarliestDate(transactions), [transactions]);
   const latestDate = useMemo(() => getLatestDate(transactions), [transactions]);
+  const parent = useMemo(() => profiles.find(x => !x.parent_id), [profiles, userId]);
 
   if (loading || profileLoading) {
     return <Spinner />;
@@ -32,28 +33,35 @@ export const PublicDashboard = ({ userId }: PublicDashboardProps) => {
   }
 
   return (
-    <EurobonusCharts
-      transactions={transactions}
-      profiles={profiles}
-      headerLeft={
-        <>
-          <strong>Points Earned:&nbsp;</strong> {sum.toLocaleString()}
-          <Tooltip
-            title={
-              <>
-                {`Total points earned since ${earliestdate}`}
-                <br />
-                Last Transaction: {latestDate}
-              </>
-            }
-            arrow
-          >
-            <IconButton size="small" style={{ marginLeft: 4 }}>
-              <InfoOutlined fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        </>
-      }
-    />
+    <>
+      {parent && (
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
+          <h3 style={{ fontSize: "1.5rem", fontWeight: "lighter", margin: 0 }}>{parent.display_name}'s Points</h3>
+        </div>
+      )}
+      <EurobonusCharts
+        transactions={transactions}
+        profiles={profiles}
+        headerLeft={
+          <>
+            <strong>Points Earned:&nbsp;</strong> {sum.toLocaleString()}
+            <Tooltip
+              title={
+                <>
+                  {`Total points earned since ${earliestdate}`}
+                  <br />
+                  Last Transaction: {latestDate}
+                </>
+              }
+              arrow
+            >
+              <IconButton size="small" style={{ marginLeft: 4 }}>
+                <InfoOutlined fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </>
+        }
+      />
+    </>
   );
 };
