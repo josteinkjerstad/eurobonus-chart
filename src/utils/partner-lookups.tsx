@@ -16,6 +16,7 @@ import "../utils/extensions";
 const sasPnrRelatedActivities = [
   "E389452733",
   "EMD 117",
+  "PNR",
   "Added missing points from pnr",
   "WTU85U | Points Earned",
   "Corrected pts to original flight",
@@ -71,7 +72,6 @@ const sasActivities = [
   "RES ID",
   "Double points campaign",
   "plusgrade saver",
-  "PNR",
   ...sasXmasCalendar,
   ...sasPnrRelatedActivities,
   ...sasBioFuel,
