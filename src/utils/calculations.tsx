@@ -185,14 +185,10 @@ export const calculateAverages = (points: number[]) => {
 };
 
 export const groupPointsByRange = (points: number[]): Record<PointBuckets, number> => {
-  const buckets: Record<PointBuckets, number> = {
-    [PointBuckets.Low]: 0,
-    [PointBuckets.Medium]: 0,
-    [PointBuckets.High]: 0,
-    [PointBuckets.VeryHigh]: 0,
-    [PointBuckets.UltraHigh]: 0,
-    [PointBuckets.Elite]: 0,
-  };
+  const buckets: Record<PointBuckets, number> = Object.keys(PointBucketRanges).reduce((acc, bucket) => {
+    acc[bucket as PointBuckets] = 0;
+    return acc;
+  }, {} as Record<PointBuckets, number>);
 
   points.forEach(point => {
     for (const [bucket, [min, max]] of Object.entries(PointBucketRanges)) {
