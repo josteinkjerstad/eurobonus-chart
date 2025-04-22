@@ -20,6 +20,7 @@ const sasPnrRelatedActivities = [
   "Added missing points from pnr",
   "WTU85U | Points Earned",
   "Corrected pts to original flight",
+  "OTGJMU | Points Earned",
 ];
 
 const sasXmasCalendar = ["Chr calender", "chr caleneder", "chr calender"];
@@ -33,10 +34,10 @@ const sasBioFuel = [
   "Campaign Bio ticket",
   "BIO Ticket campaign",
   "MISSING BIO fuel",
-  "OTGJMU | Points Earned",
   "BIOFUEL CAMP",
   "BIO FUEL CAMPAIGN",
   "missing biofuel campaign",
+  "Consious traveler rewards",
 ];
 const aviancaIataCodes = [
   "AV", // Avianca
