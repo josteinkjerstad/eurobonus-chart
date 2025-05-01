@@ -88,6 +88,7 @@ export const ViatrumfTransactionsTable = ({ transactions }: TransactionsTablePro
       }}
       rows={transactions}
       columns={columns}
+      showToolbar
       getRowId={row => row.id!}
       processRowUpdate={row => {
         handleCommentUpdate(row.id, row.comment);

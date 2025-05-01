@@ -4,6 +4,7 @@ import styles from "./TransactionsTable.module.scss";
 import type { Transaction } from "../../../models/transaction";
 import type { Profile } from "../../../models/profile";
 import { useState } from "react";
+import { Box } from "@mui/material";
 
 type TransactionsTableProps = {
   transactions: Transaction[];
@@ -77,6 +78,8 @@ export const TransactionsTable = ({ transactions, profiles }: TransactionsTableP
       paginationModel={paginationModel}
       onPaginationModelChange={setPaginationModel}
       pageSizeOptions={[5, 10, 20, 50]}
+      showToolbar
+      filterMode="server"
       initialState={{
         sorting: {
           sortModel: [{ field: "date", sort: "desc" }],

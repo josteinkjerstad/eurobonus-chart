@@ -150,6 +150,8 @@ export const findVendor = (transaction: Transaction): Vendor => {
       return RestaurantPartnerNorway.Cartels;
     case isScandic(transaction.activity!):
       return HotelPartner.Scandic;
+    case isSmartHotel(transaction.activity!):
+      return HotelPartner.SmartHotel;
     default:
       console.log(`Unknown transaction: ${transaction.activity} ${transaction.bonus_points} ${transaction.date}`);
       return Partner.Unknown;
