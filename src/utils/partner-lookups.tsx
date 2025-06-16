@@ -21,6 +21,7 @@ const sasPnrRelatedActivities = [
   "WTU85U | Points Earned",
   "Corrected pts to original flight",
   "OTGJMU | Points Earned",
+  "Accrual for upgr",
 ];
 
 const sasXmasCalendar = ["Chr calender", "chr caleneder", "chr calender"];
