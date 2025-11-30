@@ -68,11 +68,14 @@ const sasActivities = [
   "| SK ",
   "SASUPGRADE incentive",
   "| undefined",
+  "| Basic Points",
   "PTS DIFF",
   "TP old",
   "SAS  | Points Earned",
   "RES ID",
   "Double points campaign",
+  "Double Points Campaign",
+  "OnD",
   "plusgrade saver",
   ...sasXmasCalendar,
   ...sasPnrRelatedActivities,
@@ -122,6 +125,7 @@ const isCartel = (activity: string): boolean => activity.includesAny(["Salsa", "
 const isMPH = (activity: string): boolean => activity.includesAny(["Miles Per Hour", "milesperhour"]);
 const isScandic = (activity: string): boolean => activity.includesAny(["Scandic", "SCANDIC"]);
 const isSmartHotel = (activity: string): boolean => activity.includesAny(["Smarthotel", "SmartHotel"]);
+const isDnb = (activity: string): boolean => activity.includesAny(["DNB Rewards"]);
 export const isRefund = (activity: string): boolean =>
   activity.includesAny(["Refund", "Scandinavian Airlines Spec Actv | Points Corrections", "SAS EuroBonus | Points Corrections"]);
 
@@ -153,6 +157,8 @@ export const findVendor = (transaction: Transaction): Vendor => {
       return HotelPartner.Scandic;
     case isSmartHotel(transaction.activity!):
       return HotelPartner.SmartHotel;
+    case isDnb(transaction.activity!):
+      return CreditCardPartner.Dnb;
     default:
       console.log(`Unknown transaction: ${transaction.activity} ${transaction.bonus_points} ${transaction.date}`);
       return Partner.Unknown;
