@@ -130,7 +130,12 @@ const isSmartHotel = (activity: string): boolean => activity.includesAny(["Smart
 const isDnb = (activity: string): boolean => activity.includesAny(["DNB Rewards"]);
 const isSasMc = (activity: string): boolean => activity.includesAny(["MasterCard Reward Norway"]);
 export const isRefund = (activity: string): boolean =>
-  activity.includesAny(["Refund", "Scandinavian Airlines Spec Actv | Points Corrections", "SAS EuroBonus | Points Corrections"]);
+  activity.includesAny([
+    "Refund",
+    "Scandinavian Airlines Spec Actv | Points Corrections",
+    "SAS EuroBonus | Points Corrections",
+    "Scandinavian Airlines System | Extra Points",
+  ]);
 
 export const findVendor = (transaction: Transaction): Vendor => {
   switch (true) {
