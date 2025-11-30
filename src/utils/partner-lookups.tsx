@@ -21,6 +21,8 @@ const sasPnrRelatedActivities = [
   "WTU85U | Points Earned",
   "Corrected pts to original flight",
   "OTGJMU | Points Earned",
+  "P3CIWD | Extra Points",
+  "Basic points added",
   "Accrual for upgr",
 ];
 
