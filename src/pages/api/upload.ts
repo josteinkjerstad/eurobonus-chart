@@ -41,50 +41,23 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     return new Response("User not authenticated", { status: 401 });
   }
 
-  const { data: latestTransaction, error: latestError } = await supabase
-    .from("transactions")
-    .select("date")
-    .eq("user_id", userId)
-    .eq("profile_id", profileId)
-    .order("date", { ascending: false })
-    .limit(1)
-    .single();
+  // Delete all existing transactions for this profile
+  const { error: deleteError } = await supabase.from("transactions").delete().eq("user_id", userId).eq("profile_id", profileId);
 
-  if (latestError && latestError.code !== "PGRST116") {
-    // Ignore "no rows" error
-    return new Response(`Error fetching latest transaction: ${latestError.message}`, {
+  if (deleteError) {
+    return new Response(`Error deleting transactions: ${deleteError.message}`, {
       status: 500,
     });
   }
 
-  const latestDate = latestTransaction?.date || null;
-
-  if (latestDate) {
-    const { error: deleteError } = await supabase
-      .from("transactions")
-      .delete()
-      .eq("user_id", userId)
-      .eq("profile_id", profileId)
-      .gte("date", latestDate);
-
-    if (deleteError) {
-      return new Response(`Error deleting transactions: ${deleteError.message}`, {
-        status: 500,
-      });
-    }
-  }
-
-  const transactions: Transaction[] = jsonData
-    .slice(1)
-    .map((row: any) => ({
-      user_id: userId,
-      date: new Date(row[0]).toISOString(),
-      activity: row[1] || null,
-      bonus_points: parseInt(row[2], 10) || 0,
-      level_points: parseInt(row[3], 10) || 0,
-      profile_id: profileId,
-    }))
-    .filter(t => !latestDate || new Date(t.date) >= new Date(latestDate));
+  const transactions: Transaction[] = jsonData.slice(1).map((row: any) => ({
+    user_id: userId,
+    date: new Date(row[0]).toISOString(),
+    activity: row[1] || null,
+    bonus_points: parseInt(row[2], 10) || 0,
+    level_points: parseInt(row[3], 10) || 0,
+    profile_id: profileId,
+  }));
 
   if (transactions.length > 0) {
     const { error } = await supabase.from("transactions").insert(transactions);
