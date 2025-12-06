@@ -41,7 +41,6 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     return new Response("User not authenticated", { status: 401 });
   }
 
-  // Delete all existing transactions for this profile
   const { error: deleteError } = await supabase.from("transactions").delete().eq("user_id", userId).eq("profile_id", profileId);
 
   if (deleteError) {
