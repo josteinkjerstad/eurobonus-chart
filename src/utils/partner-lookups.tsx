@@ -3,6 +3,7 @@ import {
   AirlinePartner,
   CreditCardPartner,
   EuroBonusShopPartner,
+  HomePartner,
   HotelPartner,
   Partner,
   RentalCarPartner,
@@ -41,6 +42,7 @@ const sasBioFuel = [
   "BIO FUEL CAMPAIGN",
   "missing biofuel campaign",
   "Consious traveler rewards",
+  "Goodwill BIOFUEL",
 ];
 const aviancaIataCodes = [
   "AV", // Avianca
@@ -129,6 +131,10 @@ const isScandic = (activity: string): boolean => activity.includesAny(["Scandic"
 const isSmartHotel = (activity: string): boolean => activity.includesAny(["Smarthotel", "SmartHotel"]);
 const isDnb = (activity: string): boolean => activity.includesAny(["DNB Rewards"]);
 const isSasMc = (activity: string): boolean => activity.includesAny(["MasterCard Reward Norway"]);
+const isLunar = (activity: string): boolean => activity.includesAny(["Lunar NO"]);
+const isDn = (activity: string): boolean => activity.includesAny(["Dagens Näringsliv"]);
+const isFjordkraft = (activity: string): boolean => activity.includesAny(["Fjordkraft"]);
+const isTravelWallet = (activity: string): boolean => activity.includesAny(["Travel Wallet"]);
 export const isRefund = (activity: string): boolean =>
   activity.includesAny([
     "Refund",
@@ -169,6 +175,14 @@ export const findVendor = (transaction: Transaction): Vendor => {
       return CreditCardPartner.Dnb;
     case isSasMc(transaction.activity!):
       return CreditCardPartner.SasMC;
+    case isLunar(transaction.activity!):
+      return CreditCardPartner.Lunar;
+    case isDn(transaction.activity!):
+      return HomePartner.DagensNæringsliv;
+    case isFjordkraft(transaction.activity!):
+      return HomePartner.Fjordkraft;
+    case isTravelWallet(transaction.activity!):
+      return CreditCardPartner.TravelWallet;
     default:
       console.log(`Unknown transaction: ${transaction.activity} ${transaction.bonus_points} ${transaction.date}`);
       return Partner.Unknown;
