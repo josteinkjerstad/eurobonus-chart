@@ -9,6 +9,7 @@ import {
   RentalCarPartner,
   RestaurantPartnerNorway,
   ScandinavianAirlinesPartner,
+  TravelPartner,
 } from "../models/partners";
 import type { Transaction } from "../models/transaction";
 import type { Vendor } from "../models/vendor";
@@ -43,6 +44,7 @@ const sasBioFuel = [
   "missing biofuel campaign",
   "Consious traveler rewards",
   "Goodwill BIOFUEL",
+  "Good will BIOFUEL",
 ];
 const aviancaIataCodes = [
   "AV", // Avianca
@@ -135,6 +137,7 @@ const isLunar = (activity: string): boolean => activity.includesAny(["Lunar NO"]
 const isDn = (activity: string): boolean => activity.includesAny(["Dagens Näringsliv"]);
 const isFjordkraft = (activity: string): boolean => activity.includesAny(["Fjordkraft"]);
 const isTravelWallet = (activity: string): boolean => activity.includesAny(["Travel Wallet"]);
+const isFlytoget = (activity: string): boolean => activity.includesAny(["Flytoget"]);
 export const isRefund = (activity: string): boolean =>
   activity.includesAny([
     "Refund",
@@ -183,6 +186,8 @@ export const findVendor = (transaction: Transaction): Vendor => {
       return HomePartner.Fjordkraft;
     case isTravelWallet(transaction.activity!):
       return CreditCardPartner.TravelWallet;
+    case isFlytoget(transaction.activity!):
+      return TravelPartner.Flytoget;
     default:
       console.log(`Unknown transaction: ${transaction.activity} ${transaction.bonus_points} ${transaction.date}`);
       return Partner.Unknown;
