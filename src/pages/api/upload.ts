@@ -5,6 +5,13 @@ import * as XLSX from "xlsx";
 import { getUnknownTransactions } from "../../utils/calculations";
 import type { Transaction } from "../../models/transaction";
 
+function getActivity(activity: string): string {
+  if (activity === "Scandinavian Airlines System | Extra Points") {
+    return "Scandinavian Airlines System | Redemption Refund";
+  }
+  return activity;
+}
+
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
   const file = formData.get("file") as File;
@@ -52,7 +59,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const transactions: Transaction[] = jsonData.slice(1).map((row: any) => ({
     user_id: userId,
     date: new Date(row[0]).toISOString(),
-    activity: row[1] || null,
+    activity: getActivity(row[1]),
     bonus_points: parseInt(row[2], 10) || 0,
     level_points: parseInt(row[3], 10) || 0,
     profile_id: profileId,

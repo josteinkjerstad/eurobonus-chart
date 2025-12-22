@@ -139,12 +139,7 @@ const isFjordkraft = (activity: string): boolean => activity.includesAny(["Fjord
 const isTravelWallet = (activity: string): boolean => activity.includesAny(["Travel Wallet"]);
 const isFlytoget = (activity: string): boolean => activity.includesAny(["Flytoget"]);
 export const isRefund = (activity: string): boolean =>
-  activity.includesAny([
-    "Refund",
-    "Scandinavian Airlines Spec Actv | Points Corrections",
-    "SAS EuroBonus | Points Corrections",
-    "Scandinavian Airlines System | Extra Points",
-  ]);
+  activity.includesAny(["Refund", "Scandinavian Airlines Spec Actv | Points Corrections", "SAS EuroBonus | Points Corrections"]);
 
 export const findVendor = (transaction: Transaction): Vendor => {
   switch (true) {
