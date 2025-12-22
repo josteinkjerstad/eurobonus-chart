@@ -1,4 +1,5 @@
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from "chart.js";
+import annotationPlugin from "chartjs-plugin-annotation";
 import { useMemo, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import type { Profile } from "../../../models/profile";
@@ -7,7 +8,7 @@ import styles from "./QualifyingPeriodsChart.module.scss";
 import { getAllValidQualifyingPeriods } from "../../../models/qualifying-periods";
 import { SelectDropdown } from "../../shared/SelectDropdown";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, annotationPlugin);
 
 type QualifyingPeriodsChartProps = {
   transactions: QualifyingTransaction[];
@@ -49,6 +50,34 @@ export const QualifyingPeriodsChart = ({ transactions, profiles }: QualifyingPer
     plugins: {
       legend: {
         display: false,
+      },
+      annotation: {
+        annotations: {
+          line1: {
+            type: "line" as const,
+            yMin: 20000,
+            yMax: 20000,
+            borderColor: "rgba(150, 145, 134, 0.8)",
+            borderWidth: 2,
+            borderDash: [5, 5],
+          },
+          line2: {
+            type: "line" as const,
+            yMin: 45000,
+            yMax: 45000,
+            borderColor: "rgba(214, 148, 6, 0.87)",
+            borderWidth: 2,
+            borderDash: [5, 5],
+          },
+          line3: {
+            type: "line" as const,
+            yMin: 90000,
+            yMax: 90000,
+            borderColor: "rgba(0, 0, 0, 0.8)",
+            borderWidth: 2,
+            borderDash: [5, 5],
+          },
+        },
       },
     },
     scales: {
