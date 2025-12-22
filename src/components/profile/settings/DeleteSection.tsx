@@ -10,7 +10,7 @@ export const DeleteSection = () => {
   const { deleteViatrumfTransactions } = useDeleteViatrumfTransactions();
 
   return (
-    <>
+    <Grid width={"75%"} alignSelf={"center"} container direction="column" spacing={1}>
       <DeleteButton
         label="Delete SAS Transactions"
         dialogLabel="Are you sure you want to delete all your SAS transactions? This action cannot be undone."
@@ -26,6 +26,6 @@ export const DeleteSection = () => {
         dialogLabel="Are you sure you want to delete your account? This action cannot be undone."
         onDelete={deleteAccount}
       />
-    </>
+    </Grid>
   );
 };

@@ -21,6 +21,19 @@ export const ProfileSection = () => {
   const profile = useMemo(() => data?.find(x => !x.parent_id) as Profile, [data]);
   useEffect(() => setMembers(data?.filter(x => x.parent_id) ?? []), [data]);
 
+  // Read tab from URL query params on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get("tab");
+
+    if (tabParam) {
+      const tabValue = tabParam.charAt(0).toUpperCase() + tabParam.slice(1).toLowerCase();
+      if (Object.values(TabsEnum).includes(tabValue as TabsEnum)) {
+        setActiveTab(tabValue as TabsEnum);
+      }
+    }
+  }, []);
+
   const profiles = useMemo(() => [profile, ...members], [profile, members]);
 
   const updateProfileDisplayName = (id: string, newDisplayName: string) => {
@@ -32,6 +45,10 @@ export const ProfileSection = () => {
 
   const handleTabChange = (_event: SyntheticEvent, newValue: TabsEnum) => {
     setActiveTab(newValue);
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("tab", newValue.toLowerCase());
+    window.history.pushState({}, "", url);
   };
 
   if (loading) {

@@ -42,10 +42,10 @@ export const UploadSection = ({ profiles }: UploadSectionProps) => {
 
   return (
     <Grid justifySelf={"center"} width={400} container direction="column" spacing={2}>
-      <Button variant="outlined" startIcon={<UploadFileIcon />} onClick={() => setIsSasDialogOpen(true)}>
+      <Button fullWidth variant="outlined" startIcon={<UploadFileIcon />} onClick={() => setIsSasDialogOpen(true)}>
         Upload SAS Transactions
       </Button>
-      <Button variant="outlined" startIcon={<UploadFileIcon />} onClick={() => setIsViatrumfDialogOpen(true)}>
+      <Button fullWidth variant="outlined" startIcon={<UploadFileIcon />} onClick={() => setIsViatrumfDialogOpen(true)}>
         Upload Viatrumf Transactions
       </Button>
 

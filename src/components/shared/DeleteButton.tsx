@@ -17,7 +17,14 @@ export const DeleteButton = ({ label, dialogLabel, onDelete }: DeleteButtonProps
   };
   return (
     <Grid>
-      <Button color="error" variant="outlined" startIcon={<DeleteIcon />} onClick={() => setIsDialogOpen(true)} sx={{ justifyContent: "flex-start" }}>
+      <Button
+        fullWidth
+        color="error"
+        variant="outlined"
+        startIcon={<DeleteIcon />}
+        onClick={() => setIsDialogOpen(true)}
+        sx={{ justifyContent: "flex-start" }}
+      >
         {label}
       </Button>
       <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>

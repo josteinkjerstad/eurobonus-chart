@@ -29,17 +29,12 @@ export const ProfileSettings = ({ profile, onUpdateDisplayName }: ProfileSetting
   };
 
   return (
-    <Grid alignItems={"flex-start"} alignContent={"center"} margin={2} container direction="column" spacing={2}>
-      <Grid>
+    <Grid sx={{ width: 500 }} justifySelf="center" container direction="column" spacing={2}>
+      <Grid sx={{ width: "100%" }}>
         <InputLabel>{"Display Name"}</InputLabel>
-        <TextField
-          sx={{ minWidth: 300 }}
-          onChange={e => setDisplayName(e.target.value)}
-          value={displayName}
-          onBlur={e => changeDisplayName(e.target.value)}
-        />
+        <TextField fullWidth onChange={e => setDisplayName(e.target.value)} value={displayName} onBlur={e => changeDisplayName(e.target.value)} />
       </Grid>
-      <Grid>
+      <Grid sx={{ width: "100%" }}>
         <InputLabel>{"Qualifying Period"}</InputLabel>
         <PeriodSelector profile={profile} />
       </Grid>

@@ -43,8 +43,8 @@ export const ChangePasswordForm = () => {
   };
 
   return (
-    <Grid>
-      <Button variant="outlined" startIcon={<LockIcon />} onClick={() => setIsDialogOpen(true)} sx={{ justifyContent: "flex-start" }}>
+    <Grid alignSelf={"center"} sx={{ width: "75%" }}>
+      <Button fullWidth variant="outlined" startIcon={<LockIcon />} onClick={() => setIsDialogOpen(true)}>
         Change Password
       </Button>
       <Dialog open={isDialogOpen} onClose={handleClose} maxWidth="sm" fullWidth>

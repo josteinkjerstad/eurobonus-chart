@@ -28,7 +28,7 @@ export const PeriodSelector = ({ profile }: PeriodSelectorProps) => {
   };
 
   return (
-    <Select sx={{ minWidth: 300 }} value={selectedPeriod} onChange={handleChange}>
+    <Select fullWidth value={selectedPeriod} onChange={handleChange}>
       {periodOptions.map(option => (
         <MenuItem key={option.value} value={option.value}>
           {option.label}

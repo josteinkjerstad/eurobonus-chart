@@ -1,6 +1,6 @@
 import { Member } from "./Member";
 import type { Profile } from "../../../models/profile";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
 type MemberSectionProps = {
@@ -35,14 +35,14 @@ export const MemberSection = ({ members, onChange }: MemberSectionProps) => {
   };
 
   return (
-    <>
+    <Grid justifySelf={"center"} container width={"85%"}>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell>Qualifying Period</TableCell>
-              <TableCell align="right" sx={{ width: 200 }} />
+              <TableCell align="right" />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -55,6 +55,6 @@ export const MemberSection = ({ members, onChange }: MemberSectionProps) => {
       <Button variant="outlined" startIcon={<AddIcon />} onClick={addMember} sx={{ mt: 2 }}>
         Add Member
       </Button>
-    </>
+    </Grid>
   );
 };

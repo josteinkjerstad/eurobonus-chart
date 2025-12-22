@@ -23,7 +23,7 @@ export const EurobonusDashboard = () => {
   if (transactions.length === 0) {
     return (
       <p>
-        Oops, no data found - <a href="/profile">upload your data here</a>
+        Oops, no data found - <a href="/profile/?tab=upload">upload your data here</a>
       </p>
     );
   }
