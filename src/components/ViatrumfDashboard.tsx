@@ -1,13 +1,12 @@
 import { useMemo } from "react";
 import useFetchProfiles from "../hooks/useFetchProfiles";
 import type { Profile } from "../models/profile";
-import { Spinner } from "@blueprintjs/core";
 import { calculateTotalViatrumfPoints } from "../utils/calculations";
 import useFetchViatrumfTransactions from "../hooks/useFetchViatrumfTransactions";
 import type { ViatrumfTransaction } from "../models/viatrumf_transaction";
 import { ViatrumfCharts } from "./charts/viatrumf/ViatrumfCharts";
 import { getEarliestViatrumfDate, getLatestViatrumfDate } from "../utils/viatrumf-calculations";
-import { IconButton, Tooltip } from "@mui/material";
+import { CircularProgress, IconButton, Tooltip } from "@mui/material";
 import InfoOutlined from "@mui/icons-material/InfoOutlined";
 
 export const ViatrumfDashboard = () => {
@@ -22,7 +21,7 @@ export const ViatrumfDashboard = () => {
   const latestDate = useMemo(() => getLatestViatrumfDate(transactions), [transactions]);
 
   if (loading || profileLoading) {
-    return <Spinner />;
+    return <CircularProgress />;
   }
   if (transactions.length === 0) {
     return (

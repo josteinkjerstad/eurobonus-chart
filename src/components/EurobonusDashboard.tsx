@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import useFetchProfiles from "../hooks/useFetchProfiles";
 import useFetchTransactions from "../hooks/useFetchTransactions";
 import { EurobonusCharts } from "./charts/eurobonus/EurobonusCharts";
-import { Spinner } from "@blueprintjs/core";
+import { CircularProgress } from "@mui/material";
 import { calculateTotalEuroBonusPoints, getEarliestDate, getLatestDate } from "../utils/calculations";
 import { Tooltip, IconButton } from "@mui/material";
 import InfoOutlined from "@mui/icons-material/InfoOutlined";
@@ -18,7 +18,7 @@ export const EurobonusDashboard = () => {
   const latestDate = useMemo(() => getLatestDate(transactions), [transactions]);
 
   if (loading || profileLoading) {
-    return <Spinner />;
+    return <CircularProgress />;
   }
   if (transactions.length === 0) {
     return (

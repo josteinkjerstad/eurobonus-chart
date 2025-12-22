@@ -1,4 +1,3 @@
-import { HTMLSelect } from "@blueprintjs/core";
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from "chart.js";
 import { useMemo, useState } from "react";
 import { Bar } from "react-chartjs-2";

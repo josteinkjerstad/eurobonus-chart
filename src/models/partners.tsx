@@ -35,6 +35,7 @@ export enum ScandinavianAirlinesPartner {
   MillionaireCampaign = "Millionaire Campaign",
   TravelCash = "Travel Cash",
   ChristmasCalendar = "Christmas Calendar",
+  Hotels = "SAS EuroBonus Hotels",
 }
 
 export enum HotelPartner {

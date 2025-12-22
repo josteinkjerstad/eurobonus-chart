@@ -18,8 +18,6 @@ export const useUploadViatrumfTransactions = () => {
 
       if (!response.ok) {
         alert("Failed to upload Viatrumf transactions");
-      } else {
-        alert("Viatrumf transactions uploaded successfully");
       }
     } catch (error) {
       alert("An error occurred while uploading");

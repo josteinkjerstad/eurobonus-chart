@@ -1,12 +1,10 @@
 import { useMemo } from "react";
-import { EurobonusCharts } from "./charts/eurobonus/EurobonusCharts";
 import type { Transaction } from "../models/transaction";
 import type { Profile } from "../models/profile";
-import { Spinner } from "@blueprintjs/core";
 import useFetchTotalTransactions from "../hooks/useFetchTotalTransactions";
 import { calculateAverages, calculateTotalEuroBonusPoints } from "../utils/calculations";
 import { useSummarizedPoints } from "../hooks/useSummarizedPoints";
-import { IconButton, Tooltip } from "@mui/material";
+import { CircularProgress, IconButton, Tooltip } from "@mui/material";
 import InfoOutlined from "@mui/icons-material/InfoOutlined";
 import { TotalCharts } from "./charts/eurobonus/TotalChart.tsx";
 
@@ -23,7 +21,7 @@ export const TotalDashboard = () => {
   const sum = useMemo(() => calculateTotalEuroBonusPoints(transactions), [transactions]);
 
   if (loading) {
-    return <Spinner />;
+    return <CircularProgress />;
   }
 
   if (error) {

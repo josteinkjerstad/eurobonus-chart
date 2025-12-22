@@ -26,14 +26,17 @@ const sasPnrRelatedActivities = [
   "P3CIWD | Extra Points",
   "Basic points added",
   "Accrual for upgr",
+  "Double Up Summer Campaign",
 ];
 
 const sasXmasCalendar = ["Chr calender", "chr caleneder", "chr calender"];
+const sasEurobonusHotel = ["EuroBonus-Hotel", "Hotels,"];
 
 const sasBioFuel = [
   "biofuel points",
   "SASBIOFUEL",
   "Biofuel",
+  "biofuel",
   "bio ticket campaign",
   "BIO ticket campaign",
   "Campaign Bio ticket",
@@ -86,6 +89,7 @@ const sasActivities = [
   ...sasXmasCalendar,
   ...sasPnrRelatedActivities,
   ...sasBioFuel,
+  ...sasEurobonusHotel,
 ];
 
 const skPointsEarned = /.*SK\d{4} \| Points Earned/;
@@ -106,6 +110,8 @@ export const getSasKey = (activity: string): ScandinavianAirlinesPartner => {
       return ScandinavianAirlinesPartner.Intro;
     case activity.includesAny(sasXmasCalendar):
       return ScandinavianAirlinesPartner.ChristmasCalendar;
+    case activity.includesAny(sasEurobonusHotel):
+      return ScandinavianAirlinesPartner.Hotels;
     default:
       return ScandinavianAirlinesPartner.Flights;
   }
@@ -117,7 +123,7 @@ export const getPartnerFlightKey = (activity: string): Vendor => {
   return key ? AirlinePartner[key as keyof typeof AirlinePartner] : Partner.Unknown;
 };
 
-const isSas = (activity: string): boolean => activity.includesAny(sasActivities) || skPointsEarned.test(activity);
+const isSas = (activity: string): boolean => activity.includesAny(sasActivities) || skPointsEarned.test(activity) || activity == " | ";
 const isAmex = (activity: string): boolean => activity.includes("Amex");
 const isAvianca = (activity: string): boolean => activity.includesAny(aviancaIataCodes.map(x => `| ${x}`));
 const isWideroe = (activity: string): boolean => activity.includes("Missing BP for WF");

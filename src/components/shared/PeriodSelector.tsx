@@ -1,9 +1,8 @@
-import { HTMLSelect } from "@blueprintjs/core";
 import { useMemo, useState } from "react";
 import { getAllValidQualifyingPeriods } from "../../models/qualifying-periods";
 import { useChangeQualifyingPeriod } from "../../hooks/useChangeQualifyingPeriod";
 import type { Profile } from "../../models/profile";
-import { SelectDropdown } from "./SelectDropdown";
+import { Select, MenuItem, FormControl, InputLabel, type SelectChangeEvent, Grid } from "@mui/material";
 
 type PeriodSelectorProps = {
   profile: Profile;
@@ -23,16 +22,18 @@ export const PeriodSelector = ({ profile }: PeriodSelectorProps) => {
     [qualifyingPeriods]
   );
 
+  const handleChange = (event: SelectChangeEvent<number>) => {
+    const value = event.target.value as number;
+    changePeriod(value);
+  };
+
   return (
-    <div style={{ width: 300 }}>
-      <SelectDropdown
-        options={periodOptions}
-        selectedOption={periodOptions.find(x => x.value == selectedPeriod) ?? periodOptions[0]}
-        onChange={option => {
-          changePeriod(option?.value);
-        }}
-        optionLabel={x => x!.label}
-      />
-    </div>
+    <Select sx={{ minWidth: 300 }} value={selectedPeriod} onChange={handleChange}>
+      {periodOptions.map(option => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </Select>
   );
 };

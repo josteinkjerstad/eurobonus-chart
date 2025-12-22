@@ -2,10 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import { EurobonusCharts } from "./charts/eurobonus/EurobonusCharts";
 import type { Transaction } from "../models/transaction";
 import type { Profile } from "../models/profile";
-import { Spinner } from "@blueprintjs/core";
 import { calculateTotalEuroBonusPoints, getEarliestDate, getLatestDate } from "../utils/calculations";
 import InfoOutlined from "@mui/icons-material/InfoOutlined";
-import { IconButton, Tooltip } from "@mui/material";
+import { CircularProgress, IconButton, Tooltip } from "@mui/material";
 import useFetchPublicProfiles from "../hooks/useFetchPublicProfiles";
 import useFetchPublicTransactions from "../hooks/useFetchPublicTransactions";
 
@@ -25,7 +24,7 @@ export const PublicDashboard = ({ userId }: PublicDashboardProps) => {
   const parent = useMemo(() => profiles.find(x => !x.parent_id), [profiles, userId]);
 
   if (loading || profileLoading) {
-    return <Spinner />;
+    return <CircularProgress />;
   }
 
   if (transactions.length === 0 || profiles.length === 0) {

@@ -1,5 +1,5 @@
-import { Button, Classes, Dialog, Intent } from "@blueprintjs/core";
-import styles from "./DeleteButton.module.scss";
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Grid } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 
 type DeleteButtonProps = {
@@ -16,21 +16,20 @@ export const DeleteButton = ({ label, dialogLabel, onDelete }: DeleteButtonProps
     setIsDialogOpen(false);
   };
   return (
-    <div className={styles.deleteButton}>
-      <Button intent={Intent.DANGER} variant="minimal" onClick={() => setIsDialogOpen(true)}>
+    <Grid>
+      <Button color="error" variant="outlined" startIcon={<DeleteIcon />} onClick={() => setIsDialogOpen(true)} sx={{ justifyContent: "flex-start" }}>
         {label}
       </Button>
-      <Dialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} title="Confirm Deletion">
-        <div className={Classes.DIALOG_BODY}>{dialogLabel}</div>
-        <div className={Classes.DIALOG_FOOTER}>
-          <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-            <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
-            <Button intent={Intent.DANGER} onClick={handleDelete}>
-              Delete
-            </Button>
-          </div>
-        </div>
+      <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>{dialogLabel}</DialogContent>
+        <DialogActions>
+          <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
+          <Button color="error" onClick={handleDelete}>
+            Delete
+          </Button>
+        </DialogActions>
       </Dialog>
-    </div>
+    </Grid>
   );
 };

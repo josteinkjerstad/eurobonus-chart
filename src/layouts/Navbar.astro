@@ -24,7 +24,6 @@ const navLinks = [
   { href: "/dashboard", label: "My Points", hidden: !data.session },
   { href: "/viatrumf", label: "Viatrumf", hidden: !data.session },
   { href: "/showcase", label: "Showcase", hidden: !!data.session },
-  // { href: "/try-me", label: "Try it out", hidden: !!data.session },
   { href: "/total", label: "Overall Stats", hidden: !data.session },
   { href: "/profile", label: "Profile Settings", hidden: !data.session },
   { href: "/about", label: "FAQ", hidden: false },
@@ -116,9 +115,10 @@ const navLinks = [
     padding: 0 1.5rem;
     background-color: #fcfcfc;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 80px;
+    gap: 2rem;
   }
 
   .nav-list {

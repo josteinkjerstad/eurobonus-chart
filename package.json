@@ -10,10 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^4.2.7",
-    "@astrojs/vercel": "^8.1.4",
-    "@blueprintjs/core": "^5.17.5",
-    "@blueprintjs/select": "^5.3.17",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/vercel": "^9.0.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.1",
@@ -25,7 +23,7 @@
     "@types/react-dom": "^18.3.5",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
-    "astro": "^5.7.10",
+    "astro": "^5.16.6",
     "chart.js": "^4.4.8",
     "chartjs-plugin-datalabels": "^2.2.0",
     "react": "^18.2.0",
