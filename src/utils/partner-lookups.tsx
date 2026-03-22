@@ -131,7 +131,8 @@ const isAvis = (activity: string): boolean =>
   activity.toLowerCase().startsWith("ra ") || activity.includesAny(["Rental agreement number", "Avis", "AVIS"]);
 const isNorgesgruppen = (activity: string): boolean => activity.includesAny(["NorgesGruppen", "Norgesgruppen"]);
 const isRadisson = (activity: string): boolean => activity.includesAny(["Radisson", "Rezidor SAS"]);
-const isEuroBonusEarnShop = (activity: string): boolean => activity.includesAny(["EuroBonus Earn Shop", "EuroBonus Shop (NOK)", "Onlineshopping"]);
+const isEuroBonusEarnShop = (activity: string): boolean =>
+  activity.includesAny(["EuroBonus Earn Shop", "EuroBonus Shop (NOK)", "Onlineshopping", "EuroBonus Checkout"]);
 const isPartnerFlight = (activity: string): boolean => activity.includesAny(Object.keys(AirlinePartner).map(key => `| ${key}`));
 const isCartel = (activity: string): boolean => activity.includesAny(["Salsa", "cartel"]);
 const isMPH = (activity: string): boolean => activity.includesAny(["Miles Per Hour", "milesperhour"]);
