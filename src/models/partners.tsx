@@ -127,6 +127,8 @@ export enum EuroBonusShopPartner {
   LoyalSolutions = "Loyal Solutions",
   HanskeHallen = "Hanske-Hallén",
   Simplifiers = "Simplifiers",
+  Boozt = "Boozt",
+  Hastens = "Hästens",
 }
 
 export enum RestaurantPartnerSweden {
